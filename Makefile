@@ -1,3 +1,6 @@
+init:
+	npm ci
+
 lint:
 	npx eslint .
 

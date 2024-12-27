@@ -1,27 +1,41 @@
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default {
-  entry: './src/js/main.js',
+  entry: './src/index.js',
   output: {
-    filename: 'main.js',
-    path: path.resolve(dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: 'babel-loader' }
-      }
-    ]
+        use: { loader: 'babel-loader' },
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   devServer: {
-    static: path.resolve(dirname, 'dist'),
+    static: path.resolve(__dirname, 'dist'),
     port: 8080,
-    hot: true
-  }
+    hot: true,
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+    }),
+  ],
 };

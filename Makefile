@@ -10,6 +10,9 @@ fix:
 start:
 	npm start
 
+build:
+	npm run build
+
 babel:
 	npm build:babel
 

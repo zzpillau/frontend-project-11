@@ -1,13 +1,14 @@
-import _ from 'lodash';
+// import _ from 'lodash';
+import { PageBuilder } from './PageBuilder.js';
 
 // принято решение на 1 шаге хранить конфигурацию элементов для
-// начальной отрисовки элементов непосредственно в функции initialRender,
+// начальной отрисовки элементов непосредственно в модуле initialRender,
 // где она используется
 
-export const initialRender = () => {
-  // // конфигурация для начальной отрисовки элементов
-  const initConfig = {
-    main: {
+// конфигурация для начальной отрисовки элементов
+const initConfig = {
+  mainConfig: {
+    root: {
       tag: 'main',
       classes: ['flex-grow-1'],
       children: {
@@ -126,12 +127,13 @@ export const initialRender = () => {
         },
       },
     },
-
-    footer: {
+  },
+  footerConfig: {
+    root: {
       tag: 'footer',
       classes: ['footer', 'border-top', 'py-3', 'mt-5', 'bg-light'],
       children: {
-        'div': {
+        div: {
           tag: 'div',
           classes: ['container-xl'],
           children: {
@@ -154,40 +156,14 @@ export const initialRender = () => {
         },
       },
     },
-  };
+  },
+};
 
+export const initialRender = () => {
+  const rootContainer = document.body;
+  rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');
 
-
-  const runner = (element, parent) => {
-
-    console.log(element)
-    const {
-      tag,
-      classes = [],
-      attributes = {},
-      textContent = '',
-      children = {},
-    } = element;
-
-    const node = document.createElement(tag);
-    node.classList.add(...classes);
-    Object.entries(attributes).forEach(([attrName, attrValue]) => node.setAttribute(attrName, attrValue));
-    node.textContent = textContent;
-
-    parent.append(node);
-
-    if(!_.isEmpty(children)) {
-      Object.values(children).forEach((child) => runner(child, node))
-    }
-
-  
-  }
-
-  const keys = Object.keys(initConfig);
-
-  keys.forEach((key) => runner(initConfig[key], document.body))
-
-  document.body.classList.add('d-flex', 'flex-column', 'min-vh-100')
-
-
+  Object.keys(initConfig).forEach((config) => {
+    new PageBuilder(initConfig[config]).render(rootContainer);
+  });
 };

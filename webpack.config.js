@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 export default {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
   },
   module: {
@@ -29,7 +29,7 @@ export default {
     ],
   },
   devServer: {
-    static: path.resolve(__dirname, 'dist'),
+    static: path.resolve(__dirname, 'public'),
     port: 8080,
     hot: true,
   },

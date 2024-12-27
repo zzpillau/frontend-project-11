@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "build:babel": "babel src -d dist",
+    "build": "webpack --mode production --output public",
+    "build:babel": "babel src -d public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

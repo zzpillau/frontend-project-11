@@ -1,8 +1,8 @@
 import { initialRender } from './initialRender.js';
-import { createI18nInstance } from '../i18n/i18nConfig.js';
+import { getInstanceI18n } from '../i18n/i18nConfig.js';
 
 export const initApp = () => {
-  createI18nInstance()
+  getInstanceI18n()
     .then((i18n) => {
       const rootContainer = document.body;
       rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');

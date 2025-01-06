@@ -57,12 +57,6 @@ export class PageBuilder {
     }
   }
 
-  #appendElement(parentElement, childElement) {
-    if (this.elements[parentElement] && this.elements[childElement]) {
-      parentElement.append(childElement);
-    }
-  }
-
   render(container) {
     const { root } = this.elementsConfig;
 
@@ -75,6 +69,8 @@ export class PageBuilder {
     } = root;
 
     this.#addElement('root', tag, classes, attributes, textContent, children);
+    //TO-DO
+    // пусть элемент разбирается в this.#addElement
 
     if (this.elements.root) {
       container.append(this.elements.root);

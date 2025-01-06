@@ -1,8 +1,8 @@
 import './scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { initialRender } from './js/initialRenderPage.js';
+import { initApp } from './js/init/init.js';
 
 // document.activeElement('DOMContentLoaded', () => {
-initialRender();
+  initApp()
 // })

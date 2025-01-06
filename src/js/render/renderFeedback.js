@@ -4,6 +4,9 @@ export const renderFeedback = (validationState) => {
   const { status, error } = validationState;
 
   const feedbackOutput = document.querySelector('.feedback');
+  const urlInput = document.querySelector('#url-input');
+
+  const form = document.querySelector('.rss-form');
   
   createI18nInstance()
     .then((i18n) => {
@@ -12,9 +15,10 @@ export const renderFeedback = (validationState) => {
           feedbackOutput.textContent = i18n.t('feedback.success');
           feedbackOutput.classList.remove('text-danger');
           feedbackOutput.classList.add('text-success');
+          form.reset();
+          urlInput.focus();
           break;
         case 'invalid':
-          const urlInput = document.querySelector('#url-input');
           urlInput.classList.add('is-invalid');
           feedbackOutput.textContent = i18n.t(`feedback.${error}`);
           feedbackOutput.classList.remove('text-success');

@@ -5,11 +5,11 @@ import { renderFeedback } from './render/renderFeedback.js';
 
 export const watchState = (initState) => {
   const watchedState = onChange(initState, (path, value, prevValue) => {
-    switch(path) {
+    switch (path) {
       case 'validationState.status':
-        renderFeedback(validationState);
+        renderFeedback(initState.validationState);
     }
   });
-    
+
   return watchedState;
-}
+};

@@ -7,19 +7,21 @@ export const resources = {
       feedback: {
         invalidUrl: '',
         invalidRss: '',
-        success: ''
+        success: '',
       },
       rssAggregatorTitle: 'RSS агрегатор',
-      rssAggregatorDescription: 'Начните читать RSS сегодня! Это легко, это красиво.',
+      rssAggregatorDescription:
+        'Начните читать RSS сегодня! Это легко, это красиво.',
       rssLinkPlaceholder: 'Ссылка RSS',
       rssLinkLabel: 'Ссылка RSS',
       exampleLink: 'Пример: https://ru.hexlet.io/lessons.rss',
-    }
+      hexletLink: 'https://ru.hexlet.io/professions/frontend/projects/11',
+    },
   },
   en: {
     translation: {
       createdBy: 'created by',
       hexlet: 'Hexlet',
-    }
-  }
-}
+    },
+  },
+};

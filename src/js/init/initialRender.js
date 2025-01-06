@@ -4,8 +4,8 @@ import { PageBuilder } from '../builder/PageBuilder.js';
 // начальной отрисовки элементов непосредственно в initialRender,
 // где она используется, для применения i18n
 
-export const initialRender = (rootContainer, state, i18n) => {
-// конфигурация для начальной отрисовки элементов
+export const initialRender = (rootContainer, i18n) => {
+  // конфигурация для начальной отрисовки элементов
   const initConfig = {
     mainConfig: {
       root: {
@@ -39,9 +39,9 @@ export const initialRender = (rootContainer, state, i18n) => {
                       form: {
                         tag: 'form',
                         classes: ['rss-form', 'text-body'],
-                        attributes: {
-                          action: 'action',
-                        },
+                        // attributes: {
+                          // action: 'action',
+                        // },
                         children: {
                           'div-6': {
                             tag: 'div',
@@ -64,7 +64,8 @@ export const initialRender = (rootContainer, state, i18n) => {
                                           required: 'required',
                                           name: 'url',
                                           'aria-label': 'url',
-                                          placeholder: i18n.t('rssLinkPlaceholder'),
+                                          placeholder:
+                                            i18n.t('rssLinkPlaceholder'),
                                           autocomplete: 'off',
                                         },
                                       },
@@ -108,11 +109,16 @@ export const initialRender = (rootContainer, state, i18n) => {
                       'p-2': {
                         tag: 'p',
                         classes: ['mt-2', 'mb-0', 'text-muted'],
-                        textContent: 'Пример: https://lorem-rss.hexlet.app/feed',
+                        textContent: i18n.t('exampleLink'),
                       },
                       'p-3': {
                         tag: 'p',
-                        classes: ['feedback', 'm-0', 'position-absolute', 'small'], // text-danger || text-success 
+                        classes: [
+                          'feedback',
+                          'm-0',
+                          'position-absolute',
+                          'small',
+                        ], // text-danger || text-success
                       },
                     },
                   },
@@ -144,7 +150,7 @@ export const initialRender = (rootContainer, state, i18n) => {
                   a: {
                     tag: 'a',
                     attributes: {
-                      href: 'https://ru.hexlet.io/professions/frontend/projects/11',
+                      href: i18n.t('hexletLink'),
                       target: '_blank',
                     },
                     textContent: i18n.t('hexlet'),
@@ -158,9 +164,7 @@ export const initialRender = (rootContainer, state, i18n) => {
     },
   };
 
-  if(state.rssProcess.state === 'initial') {
-    Object.keys(initConfig).forEach((config) => {
-      new PageBuilder(initConfig[config]).render(rootContainer);
-    });
-  }
+  Object.keys(initConfig).forEach((config) => {
+    new PageBuilder(initConfig[config]).render(rootContainer);
+  });
 };

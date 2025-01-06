@@ -5,46 +5,36 @@ const validationSchema = yup.object({
     .string()
     .url('Ссылка должна быть валидным URL')
     .required()
-    .matches(/\.(rss|xml)$/, 'Ресурс не содержит валидный RSS')
-  }
-)
+    .matches(/\.(rss|xml)$/, 'Ресурс не содержит валидный RSS'),
+});
 
 // const rssUrl = 'https://rutube.ru/video.xml'
 // const invUrl = 'https://rutube.ru/video'
 // const notUrl = 'rutube'
 
-
 export const validateUrl = (input) => {
   const validationState = {
-    // result: {},
-    validationErrors: [],
+    error: [],
     status: 'invalid',
-  }
-  
-  return validationSchema.validate({url: input})
+  };
+
+  return validationSchema
+    .validate({ url: input })
     .then(() => {
-      // console.log(result, 'result');
-      // validationState.result = result;
       validationState.status = 'valid';
       return validationState;
-  })
+    })
     .catch((e) => {
       validationState.status = 'invalid';
 
-      validationState.validationErrors.push(...e.errors);
+      validationState.error.push(...e.errors);
       console.log('VALIDATION ERROR!!! pushed in state', e.errors);
 
       return validationState;
-      });
-
-
-
-}
-
+    });
+};
 
 // validateRssLink(notUrl).then((validationState) => {
 //   if(validationState.validationErrors)
-//     console.log(validationState.validationErrors); 
+//     console.log(validationState.validationErrors);
 // })
-
-  

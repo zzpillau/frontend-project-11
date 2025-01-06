@@ -7,7 +7,6 @@ export const initState = {
   },
   validationState: {
     status: '', // valid, invalid
-    error: [],
-    success: '',
+    error: '',
   },
 };

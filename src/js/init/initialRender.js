@@ -39,9 +39,9 @@ export const initialRender = (rootContainer, i18n) => {
                       form: {
                         tag: 'form',
                         classes: ['rss-form', 'text-body'],
-                        // attributes: {
-                          // action: 'action',
-                        // },
+                        attributes: {
+                          action: 'action',
+                        },
                         children: {
                           'div-6': {
                             tag: 'div',

@@ -27,7 +27,6 @@ export const runApp = () => {
 
     validateUrl(watchedState.rssProcess.input, watchedState.rssProcess.feedList)
       .then((validationState) => {
-        console.log(validationState, 'validationState app')
         if (validationState.status === 'valid'){
           fetchRssFeed(watchedState.rssProcess.input)
             .then((data) => parseRss(data))

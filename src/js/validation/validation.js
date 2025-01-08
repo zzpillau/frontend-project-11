@@ -35,7 +35,6 @@ export const validateUrl = (input, feedList) => {
         validationState.status = 'invalid';
         validationState.error = 'DUPLICATE_ERROR';
       }
-      console.log(validationState, 'validateUrl then')
       return validationState;
       })
   .catch((e) => {
@@ -47,8 +46,6 @@ export const validateUrl = (input, feedList) => {
     } else {
       validationState.error = 'GENERAL_ERROR';
     }
-
-    console.log(validationState, 'validateUrl catch')
 
     return validationState;
   });

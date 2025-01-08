@@ -1,4 +1,4 @@
-import { PageBuilder } from '../builder/PageBuilder.js';
+import { PageBuilder } from '../components/PageBuilder.js';
 
 // продолжаем хранить конфигурацию элементов для
 // начальной отрисовки элементов непосредственно в initialRender,

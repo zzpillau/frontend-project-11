@@ -4,11 +4,17 @@ export const resources = {
       buttons: {
         add: 'Добавить',
       },
+      rssError: {
+          SERVER_RESPONSE_ERROR: "Ошибка ответа сервера. Пожалуйста, попробуйте снова позже.",
+          REQUEST_ERROR: "Ошибка запроса. Пожалуйста, проверьте ваше подключение к интернету и повторите попытку.",
+          REQUEST_SETUP_ERROR: "Произошла ошибка. Пожалуйста, свяжитесь с техподдержкой.",
+      },
       feedback: {
-        invalidUrl: 'Ссылка должна быть валидным URL',
-        invalidRss: 'Ресурс не содержит валидный RSS',
-        duplicateError: 'RSS уже существует',
-        success: 'RSS успешно загружен',
+        INVALID_URL: 'Ссылка должна быть валидным URL',
+        INVALID_RSS: 'Ресурс не содержит валидный RSS',
+        DUPLICATE_ERROR: 'RSS уже существует',
+        GENERAL_ERROR: 'Что-то пошло не так',
+        SUCCESS: 'RSS успешно загружен',
       },
       rssAggregatorTitle: 'RSS агрегатор',
       rssAggregatorDescription:

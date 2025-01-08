@@ -1,21 +1,23 @@
-import { getInstanceI18n } from "../i18n/i18nConfig.js";
+import { getInstanceI18n } from '../i18n/i18nConfig.js';
 
-export const renderFeedback = (validationState) => {
-  const { status, error } = validationState;
+export const renderFeedback = (state) => {
+  console.log('renderFeedback start')
+  const { status, error } = state;
+  console.log(status, error, 'status, error')
+
+
+  const form = document.querySelector('.rss-form');
+  const urlInput = document.querySelector('#url-input');
 
   const feedbackOutput = document.querySelector('.feedback');
   feedbackOutput.textContent = '';
-  const urlInput = document.querySelector('#url-input');
 
-  const form = document.querySelector('.rss-form');
-  
-let i18nPromise = getInstanceI18n()
+  getInstanceI18n().then((i18n) => {
+    feedbackOutput.textContent = i18n.t(`feedback.${error}`);
 
-i18nPromise
-    .then((i18n) => {
       switch(status) {
         case 'valid':
-          feedbackOutput.textContent = i18n.t('feedback.success');
+
           feedbackOutput.classList.remove('text-danger');
           urlInput.classList.remove('is-invalid');
           feedbackOutput.classList.add('text-success');
@@ -23,8 +25,9 @@ i18nPromise
           urlInput.focus();
           break;
         case 'invalid':
+          // feedbackOutput.textContent = i18n.t(`feedback.${error}`);
+
           urlInput.classList.add('is-invalid');
-          feedbackOutput.textContent = error;
           feedbackOutput.classList.remove('text-success');
           feedbackOutput.classList.add('text-danger');
           urlInput.select();
@@ -32,6 +35,5 @@ i18nPromise
         default:
           throw new Error('renderFeedback: Status Error');
       }
-    })
-    .catch((e) => console.log('renderFeedback error', e));
+    });
 };

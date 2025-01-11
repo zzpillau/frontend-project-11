@@ -1,6 +1,6 @@
 import onChange from 'on-change';
 import { renderFeedback } from './renderFeedback.js';
-import { renderFeed } from './renderFeed.js';
+import { renderRss } from './renderRss.js';
 
 // all renders
 
@@ -18,7 +18,7 @@ export const watchState = (initState) => {
           });
         }
         if (value === 'success') {
-          renderFeed(initState.rssProcess);
+          renderRss(initState.rssProcess);
         }
         break;
     }

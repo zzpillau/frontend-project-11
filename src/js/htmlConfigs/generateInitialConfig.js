@@ -126,6 +126,10 @@ export const generateInitialConfig = (i18n) => ({
               tag: 'div',
               classes: ['row'],
               children: {
+                'div-11': {
+                  tag: 'div',
+                  classes: ['col-md-10', 'col-lg-8', 'order-1', 'mx-auto', 'posts'],
+                },
                 'div-8': {
                   tag: 'div',
                   classes: [

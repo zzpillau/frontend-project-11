@@ -1,8 +1,8 @@
 export class Feed {
-  constructor(feedId, feedTitle, feedDescription, feedUrl) {
-    this.feedId = feedId;
-    this.feedTitle = feedTitle;
-    this.feedDescription = feedDescription;
-    this.feedUrl = feedUrl;
+  constructor(id, title, description, url) {
+    this.id = id;
+    this.title = title;
+    this.description = description;
+    this.url = url;
   }
 }

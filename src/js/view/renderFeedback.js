@@ -12,7 +12,7 @@ export const renderFeedback = (state) => {
   feedbackOutput.textContent = '';
 
   getInstanceI18n().then((i18n) => {
-    feedbackOutput.textContent = i18n.t(`feedback.${error}`);
+    feedbackOutput.textContent = i18n.t(`errors.${error}`); 
 
     switch (status) {
       case 'valid':

@@ -26,7 +26,7 @@ export const validateUrl = (input, feedList) => {
     .validate({ url: input })
     .then(() => {
       // проверка на дубликаты фидов
-      if (!checkForDuplicateFeeds(feedList, { feedUrl: input })) {
+      if (!checkForDuplicateFeeds(feedList, { url: input })) {
         validationState.status = 'valid';
         validationState.error = 'SUCCESS';
       } else {

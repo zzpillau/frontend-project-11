@@ -18,13 +18,12 @@ export const generateFeedContainerConfig = (i18n) => ({
       ul: {
         tag: 'ul',
         classes: ['feed-list', 'list-group', 'border-0', 'rounded-0'],
-        children: {},
       },
     },
   },
 });
 
-export const generateFeedConfig = (feedTitle, feedDesc) => ({
+export const generateFeedConfig = (title, description) => ({
   root: {
     tag: 'li',
     classes: ['list-group-item', 'border-0', 'border-end-0'],
@@ -32,12 +31,12 @@ export const generateFeedConfig = (feedTitle, feedDesc) => ({
       h3: {
         tag: 'h3',
         classes: ['h6', 'm-0'],
-        textContent: feedTitle,
+        textContent: title,
       },
       p: {
         tag: 'p',
         classes: ['m-0', 'small', 'text-black-50'],
-        textContent: feedDesc,
+        textContent: description,
       },
     },
   },

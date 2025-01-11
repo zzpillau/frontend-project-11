@@ -1,8 +1,9 @@
 export class Post {
-  constructor(postId, postTitle, postDescription, feedId) {
+  constructor(postId, feedId, postTitle, postDescription, postUrl) {
     this.postId = postId;
+    this.feedId = feedId;
     this.postTitle = postTitle;
     this.postDescription = postDescription;
-    this.feedId = feedId;
+    this.postUrl = postUrl;
   }
 }

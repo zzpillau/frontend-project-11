@@ -4,6 +4,7 @@ export const initState = {
     error: '', // код ошибки который потом обрабатывается i18n
     input: '', // string to validate
     feedList: [], // storage
+    postsList: [],
   },
   validationState: {
     status: '', // valid, invalid

@@ -1,4 +1,4 @@
-import { initialRender } from './initialRender.js';
+import { initialRender } from '../view/initialRender.js';
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
 
 export const initApp = () => {

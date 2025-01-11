@@ -4,7 +4,7 @@ import { resources } from './texts/index.js';
 let i18nPromise = null;
 
 export const getInstanceI18n = () => {
-  if(!i18nPromise) {
+  if (!i18nPromise) {
     i18nPromise = new Promise((resolve, reject) => {
       const i18nInstance = i18next.createInstance();
       i18nInstance.init(
@@ -16,7 +16,7 @@ export const getInstanceI18n = () => {
         },
         (err) => {
           if (err) {
-            reject(err);
+            reject(err); // проверить catch там где используется инстанс
           } else {
             resolve(i18nInstance);
           }

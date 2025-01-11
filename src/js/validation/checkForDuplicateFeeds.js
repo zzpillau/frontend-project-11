@@ -1,3 +1,3 @@
 export const checkForDuplicateFeeds = (feeds, newFeed) => {
-  return feeds.some((feed) => feed.url === newFeed.url);
+  return feeds.some((feed) => feed.feedUrl === newFeed.feedUrl);
 };

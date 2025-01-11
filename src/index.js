@@ -10,8 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   runApp();
 });
 
-
-
 // const axios = require('axios');
 // const yup = require('yup');
 
@@ -24,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 //       return axios.get(value)
 //         .then(response => {
 //           // Проверяем, что статус ответа 200 и тип контента application/rss+xml или application/xml
-//           return response.status === 200 && 
-//                  (response.headers['content-type'].includes('application/rss+xml') || 
+//           return response.status === 200 &&
+//                  (response.headers['content-type'].includes('application/rss+xml') ||
 //                   response.headers['content-type'].includes('application/xml'));
 //         })
 //         .catch(() => false);
@@ -51,4 +49,3 @@ document.addEventListener('DOMContentLoaded', () => {
 //       return validationState;
 //     });
 // };
-

@@ -20,6 +20,7 @@ export const resources = {
         INVALID_RSS: 'Ресурс не содержит валидный RSS',
         DUPLICATE_ERROR: 'RSS уже существует',
         GENERAL_ERROR: 'Ошибка. Что-то пошло не так',
+        UPDATE_FAILED: 'Ошибка обновления потока',
         SUCCESS: 'RSS успешно загружен',
       },
       rssAggregatorTitle: 'RSS агрегатор',

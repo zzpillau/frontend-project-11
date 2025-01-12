@@ -57,7 +57,7 @@ export class PageBuilder {
     }
   }
 
-  render(container) {
+  render(container, { option = 'append' } = {}) {
     const { root } = this.elementsConfig;
 
     const {
@@ -73,7 +73,12 @@ export class PageBuilder {
     // пусть элемент разбирается в this.#addElement
 
     if (this.elements.root) {
-      container.append(this.elements.root);
+      if (option === 'append') {
+        container.append(this.elements.root);
+      }
+      if (option === 'prepend') {
+        container.prepend(this.elements.root);
+      }
     }
   }
 }

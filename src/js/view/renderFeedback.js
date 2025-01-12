@@ -1,9 +1,9 @@
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
 
 export const renderFeedback = (state) => {
-  console.log('renderFeedback start');
+  // console.log('renderFeedback start');
   const { status, error } = state;
-  console.log(status, error, 'status, error');
+  // console.log(status, error, 'status, error');
 
   const form = document.querySelector('.rss-form');
   const urlInput = document.querySelector('#url-input');
@@ -12,7 +12,7 @@ export const renderFeedback = (state) => {
   feedbackOutput.textContent = '';
 
   getInstanceI18n().then((i18n) => {
-    feedbackOutput.textContent = i18n.t(`errors.${error}`); 
+    feedbackOutput.textContent = i18n.t(`errors.${error}`);
 
     switch (status) {
       case 'valid':

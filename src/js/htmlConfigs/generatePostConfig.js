@@ -11,21 +11,28 @@ export const generatePostsContainerConfig = (i18n) => ({
             tag: 'h2',
             classes: ['card-title', 'h4'],
             textContent: i18n.t('headers.posts'),
-          }
+          },
         },
       },
       ul: {
         tag: 'ul',
         classes: ['posts-list', 'list-group', 'border-0', 'rounded-0'],
-      }     
-    }
-  }
-})
+      },
+    },
+  },
+});
 
 export const generatePostConfig = (id, title, url, i18n) => ({
   root: {
     tag: 'li',
-    classes: ['list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0'],
+    classes: [
+      'list-group-item',
+      'd-flex',
+      'justify-content-between',
+      'align-items-start',
+      'border-0',
+      'border-end-0',
+    ],
     children: {
       'post-link': {
         tag: 'a',
@@ -34,7 +41,7 @@ export const generatePostConfig = (id, title, url, i18n) => ({
           href: url,
           'data-id': id,
           target: '_blank',
-          rel: 'noopener noreferrer'
+          rel: 'noopener noreferrer',
         },
         textContent: title,
       },
@@ -45,10 +52,10 @@ export const generatePostConfig = (id, title, url, i18n) => ({
           type: 'button',
           'data-id': id,
           'data-bs-toggle': 'modal',
-          'data-bs-target': "#modal"
+          'data-bs-target': '#modal',
         },
         textContent: i18n.t('buttons.view'),
-      }
-    }
-  }
-})
+      },
+    },
+  },
+});

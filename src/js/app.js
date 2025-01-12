@@ -1,24 +1,22 @@
-import { initState } from './init/initState.js';
-import { watchState } from './view/view.js';
+import { watchedState } from './init/initState.js';
 import { validateUrl } from './validation/validation.js';
 import { handleRssValidation } from './validation/validationRss.js';
 import { fetchRssFeed } from './fetchRssFeed.js';
 import { parseRss } from './parser.js';
 import { proccessData } from './proccessData.js';
+import { checkForNewPosts } from './checkForNewPosts.js';
 
 export const runApp = () => {
   const form = document.querySelector('.rss-form');
   const inputField = form.querySelector('#url-input');
-  const watchedState = watchState(initState);
 
   const preValidationState = {
     error: '',
     status: '',
   };
 
-
   form.addEventListener('submit', (event) => {
-    console.log('addEventListener start');
+    // console.log('addEventListener start');
     event.preventDefault();
 
     watchedState.validationState = { ...preValidationState };
@@ -58,11 +56,12 @@ export const runApp = () => {
                   ...processedData.newPosts,
                 );
                 watchedState.rssProcess.state = 'success';
+
+                checkForNewPosts(watchedState.rssProcess.updateTimeout);
               } else {
                 watchedState.rssProcess.error = rssValidation.error;
                 watchedState.rssProcess.state = 'error';
               }
-
             })
             .catch((errorCode) => {
               console.log(errorCode, 'errorCode');
@@ -83,4 +82,3 @@ export const runApp = () => {
       });
   });
 };
-

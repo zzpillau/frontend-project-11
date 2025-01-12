@@ -2,10 +2,9 @@ import axios from 'axios';
 import { API_URL } from './config.js';
 
 export const fetchRssFeed = (url) => {
-  console.log('fetchRssFeed start');
+  // console.log('fetchRssFeed start');
   return axios
-    .get(`${API_URL}${encodeURIComponent(url)}`,
-      {timeout: 5000})
+    .get(`${API_URL}${encodeURIComponent(url)}`, { timeout: 5000 })
     .then((response) => {
       console.log(response.status);
       if (response.status === 200) {

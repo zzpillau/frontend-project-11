@@ -1,6 +1,7 @@
 import onChange from 'on-change';
 import { renderFeedback } from './renderFeedback.js';
 import { renderRss } from './renderRss.js';
+import { renderNewPosts } from './renderNewPosts.js';
 
 // all renders
 
@@ -19,6 +20,12 @@ export const watchState = (initState) => {
         }
         if (value === 'success') {
           renderRss(initState.rssProcess);
+        }
+        break;
+      case 'rssProcess.updateState':
+        console.log('Render triggered for updateState:', value);
+        if (value === 'updateSuccess') {
+          renderNewPosts(initState);
         }
         break;
     }

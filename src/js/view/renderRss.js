@@ -8,7 +8,7 @@ import {
 } from '../htmlConfigs/generatePostConfig.js';
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
 import { PageBuilder } from '../components/PageBuilder.js';
-import { handlePostClick } from '../eventHandlers.js'
+import { handlePostClick } from '../eventHandlers.js';
 import { forEachRight } from 'lodash';
 
 const renderContainer = (rootContainer, generateConfig) => {
@@ -46,8 +46,12 @@ export const renderContentPack = (contentPack) => {
         if (needsI18n) {
           getInstanceI18n()
             .then((i18n) => {
-              const newElConfig = configElementFunc(...params, i18n, eventhandler);
-              console.log('newElConfig with handler', newElConfig)
+              const newElConfig = configElementFunc(
+                ...params,
+                i18n,
+                eventhandler,
+              );
+              console.log('newElConfig with handler', newElConfig);
               return new PageBuilder(newElConfig).render(root);
             })
             .catch((error) => {
@@ -55,9 +59,8 @@ export const renderContentPack = (contentPack) => {
             });
         } else {
           const newElConfig = configElementFunc(...params);
-          console.log('newElConfig', newElConfig)
+          console.log('newElConfig', newElConfig);
           return new PageBuilder(newElConfig).render(root);
-          
         }
       });
     })
@@ -87,10 +90,9 @@ export const renderRss = (state) => {
     configElementFunc: generatePostConfig,
     paramsToRender: ['id', 'title', 'url'],
     needsI18n: true,
-    eventhandler: {event: 'click', handler: handlePostClick},
+    eventhandler: { event: 'click', handler: handlePostClick },
   };
 
   renderContentPack(feedPack);
   renderContentPack(postPack);
-
 };

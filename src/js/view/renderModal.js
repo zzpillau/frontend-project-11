@@ -14,12 +14,8 @@ export const renderModal = (watchedState) => {
         },
       } = watchedState;
 
-
-
       const rootContainer = document.querySelector('.modal-dialog');
       rootContainer.innerHTML = '';
-
-      
 
       const modalConfig = generateModalConfig(title, description, url, i18n);
 
@@ -27,9 +23,7 @@ export const renderModal = (watchedState) => {
 
       const modal = document.querySelector('#modal');
       const modalInstande = new Modal(modal);
-      modalInstande.show()
-
-
+      modalInstande.show();
 
       watchedState.modal.content = null;
       watchedState.modal.state = 'idle';

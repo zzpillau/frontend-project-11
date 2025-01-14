@@ -1,7 +1,7 @@
 import { generatePostConfig } from '../htmlConfigs/generatePostConfig.js';
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
 import { PageBuilder } from '../components/PageBuilder.js';
-import {handlePostClick} from '../eventHandlers.js'
+import { handlePostClick } from '../eventHandlers.js';
 
 export const renderNewPosts = (watchedState) => {
   console.log('i will render!!!!!!!!!!!!!!!!!!!!!!!!!!!', watchedState);
@@ -20,9 +20,9 @@ export const renderNewPosts = (watchedState) => {
         {
           event: 'click',
           handler: handlePostClick,
-        }
+        },
       );
-      console.log('postConfig with handler', postConfig)
+      console.log('postConfig with handler', postConfig);
       return new PageBuilder(postConfig).render(rootContainer, {
         option: 'prepend',
       });

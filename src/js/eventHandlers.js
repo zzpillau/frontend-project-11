@@ -5,25 +5,24 @@ export const handlePostClick = (e) => {
 
   const target = e.target;
 
-    const postLink = e.target.previousSibling;
+  const postLink = e.target.previousSibling;
 
-    postLink.classList.remove('fw-bold');
-    postLink.classList.add('fw-normal', 'link-secondary');
+  postLink.classList.remove('fw-bold');
+  postLink.classList.add('fw-normal', 'link-secondary');
 
-    const id = target.getAttribute('data-id');
+  const id = target.getAttribute('data-id');
 
-    const [post] = watchedState.rssProcess.postsList.filter(
-      (post) => post.id === Number(id),
-    );
+  const [post] = watchedState.rssProcess.postsList.filter(
+    (post) => post.id === Number(id),
+  );
 
-    const { title, description, url } = post;
+  const { title, description, url } = post;
 
-    watchedState.modal.state = 'open';
-    watchedState.modal.content = {
-      id,
-      title,
-      description,
-      url,
-    };
-
+  watchedState.modal.state = 'open';
+  watchedState.modal.content = {
+    id,
+    title,
+    description,
+    url,
+  };
 };

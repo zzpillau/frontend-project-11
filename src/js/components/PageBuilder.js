@@ -33,12 +33,12 @@ export class PageBuilder {
       children,
     );
     const parentElement = this.elements[key];
-    console.log(parentElement)
-    console.log('eventhandler', eventhandler)
+    console.log(parentElement);
+    console.log('eventhandler', eventhandler);
 
     if (eventhandler && eventhandler.event && eventhandler.handler) {
       console.log(`Adding event listener: ${eventhandler.event}`);
-      parentElement.addEventListener(eventhandler.event, eventhandler.handler)
+      parentElement.addEventListener(eventhandler.event, eventhandler.handler);
     }
 
     if (!_.isEmpty(children)) {
@@ -49,7 +49,7 @@ export class PageBuilder {
           attributes = {},
           textContent = '',
           children = {},
-          eventhandler = {}
+          eventhandler = {},
         } = childValue;
 
         this.#addElement(
@@ -79,7 +79,15 @@ export class PageBuilder {
       eventhandler = {},
     } = root;
 
-    this.#addElement('root', tag, classes, attributes, textContent, children, eventhandler);
+    this.#addElement(
+      'root',
+      tag,
+      classes,
+      attributes,
+      textContent,
+      children,
+      eventhandler,
+    );
     //TO-DO
     // пусть элемент разбирается в this.#addElement
 

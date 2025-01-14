@@ -5,11 +5,11 @@ import { generateModalContainerConfig } from '../htmlConfigs/generateModalConfig
 export const initialRender = (rootContainer, i18n) => {
   // конфигурация для начальной отрисовки элементов
   const initConfig = generateInitialConfig(i18n);
-  const modalConfig = generateModalContainerConfig(i18n)
+  const modalConfig = generateModalContainerConfig(i18n);
 
   Object.keys(initConfig).forEach((config) => {
     new PageBuilder(initConfig[config]).render(rootContainer);
   });
 
-  new PageBuilder(modalConfig).render(rootContainer, { option: 'prepend' })
+  new PageBuilder(modalConfig).render(rootContainer, { option: 'prepend' });
 };

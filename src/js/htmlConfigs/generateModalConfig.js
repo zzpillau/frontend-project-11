@@ -76,14 +76,14 @@ export const generateModalContainerConfig = (i18n) => ({
               },
             },
           },
-        }
+        },
       },
     },
   },
 });
 
 export const generateModalConfig = (title, description, url, i18n) => ({
-  'root': {
+  root: {
     tag: 'div',
     classes: ['modal-content'],
     children: {

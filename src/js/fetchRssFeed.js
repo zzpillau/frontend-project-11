@@ -21,9 +21,7 @@ export const fetchRssFeed = (url) => {
 
       if (error.response) {
         errorCode.error = 'SERVER_RESPONSE_ERROR';
-        // добавить код response.status?
-        // если да, например так:
-        // errorCode.statusCode = error.response.status;
+
       } else if (error.request) {
         errorCode.error = 'REQUEST_ERROR';
       } else {

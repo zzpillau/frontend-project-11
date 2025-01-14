@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export class PageBuilder {
+export class HTMLBuilder {
   constructor(elementsConfig) {
     this.elements = {};
     this.elementsConfig = elementsConfig;
@@ -33,11 +33,8 @@ export class PageBuilder {
       children,
     );
     const parentElement = this.elements[key];
-    console.log(parentElement);
-    console.log('eventhandler', eventhandler);
 
     if (eventhandler && eventhandler.event && eventhandler.handler) {
-      console.log(`Adding event listener: ${eventhandler.event}`);
       parentElement.addEventListener(eventhandler.event, eventhandler.handler);
     }
 
@@ -88,8 +85,6 @@ export class PageBuilder {
       children,
       eventhandler,
     );
-    //TO-DO
-    // пусть элемент разбирается в this.#addElement
 
     if (this.elements.root) {
       if (option === 'append') {

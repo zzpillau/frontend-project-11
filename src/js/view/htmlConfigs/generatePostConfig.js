@@ -51,8 +51,6 @@ export const generatePostConfig = (id, title, url, i18n, eventhandler) => ({
         attributes: {
           type: 'button',
           'data-id': id,
-          // 'data-bs-toggle': 'modal',
-          // 'data-bs-target': '#modal',
         },
         textContent: i18n.t('buttons.view'),
         eventhandler,

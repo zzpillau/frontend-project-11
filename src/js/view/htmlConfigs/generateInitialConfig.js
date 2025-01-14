@@ -97,7 +97,6 @@ export const generateInitialConfig = (i18n) => ({
                         },
                       },
                     },
-                    // WARNING: p-2 p-3 не видны в начальной отрисовке
                     'p-2': {
                       tag: 'p',
                       classes: ['mt-2', 'mb-0', 'text-muted'],
@@ -110,7 +109,7 @@ export const generateInitialConfig = (i18n) => ({
                         'm-0',
                         'position-absolute',
                         'small',
-                      ], // text-danger || text-success
+                      ],
                     },
                   },
                 },

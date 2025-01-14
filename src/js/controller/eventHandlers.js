@@ -1,14 +1,9 @@
-import { watchedState } from './init/initState.js';
+import { watchedState } from '../init/initState.js';
 
 export const handlePostClick = (e) => {
-  console.log('Post clicked');
-
   const target = e.target;
 
   const postLink = e.target.previousSibling;
-
-  postLink.classList.remove('fw-bold');
-  postLink.classList.add('fw-normal', 'link-secondary');
 
   const id = target.getAttribute('data-id');
 
@@ -16,13 +11,15 @@ export const handlePostClick = (e) => {
     (post) => post.id === Number(id),
   );
 
-  const { title, description, url } = post;
+  const { title, description, url} = post;
+  post.isRead = true;
 
   watchedState.modal.state = 'open';
   watchedState.modal.content = {
     id,
     title,
     description,
-    url,
+    url,  
   };
+  watchedState.modal.currentPostLink = postLink;
 };

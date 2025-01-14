@@ -1,7 +1,7 @@
 import { fetchRssFeed } from './fetchRssFeed.js';
 import { parseRss } from './parser.js';
-import { Post } from './components/Post.js';
-import { watchedState } from './init/initState.js';
+import { Post } from '../components/Post.js';
+import { watchedState } from '../init/initState.js';
 
 export const checkForNewPosts = (timeout) => {
   const updatedFeedsPromises = watchedState.rssProcess.feedList.map((feed) => {
@@ -49,8 +49,6 @@ export const checkForNewPosts = (timeout) => {
       if (result.some((feedResult) => feedResult.error)) {
         console.error('One or more feeds failed to update.');
       } else {
-        //логика сравнения
-
         watchedState.rssProcess.updateState = 'idle';
 
         const onlyNewPosts = result
@@ -63,11 +61,7 @@ export const checkForNewPosts = (timeout) => {
               ),
           );
 
-        console.log('onlyNewPosts', onlyNewPosts.length);
-
         if (onlyNewPosts.length > 0) {
-          console.log('HERE IS A POST!', onlyNewPosts);
-
           watchedState.rssProcess.newPosts = [...onlyNewPosts];
           watchedState.rssProcess.updateState = 'updateSuccess';
           watchedState.rssProcess.postsList = [

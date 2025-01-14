@@ -1,10 +1,10 @@
 import { watchedState } from './init/initState.js';
-import { validateUrl } from './validation/validation.js';
-import { handleRssValidation } from './validation/validationRss.js';
-import { fetchRssFeed } from './fetchRssFeed.js';
-import { parseRss } from './parser.js';
-import { proccessData } from './proccessData.js';
-import { checkForNewPosts } from './checkForNewPosts.js';
+import { validateUrl } from './model/validation/validation.js';
+import { handleRssValidation } from './model/validation/validationRss.js';
+import { fetchRssFeed } from './model/fetchRssFeed.js';
+import { parseRss } from './model/parser.js';
+import { proccessData } from './model/proccessData.js';
+import { checkForNewPosts } from './model/checkForNewPosts.js';
 
 export const runApp = () => {
   const form = document.querySelector('.rss-form');
@@ -16,7 +16,6 @@ export const runApp = () => {
   };
 
   form.addEventListener('submit', (event) => {
-    // console.log('addEventListener start');
     event.preventDefault();
 
     watchedState.validationState = { ...preValidationState };
@@ -49,7 +48,7 @@ export const runApp = () => {
                   feeds,
                   posts,
                   url,
-                ); // FEED
+                );
 
                 watchedState.rssProcess.feedList.push(processedData.newFeed);
                 watchedState.rssProcess.postsList.push(
@@ -64,7 +63,6 @@ export const runApp = () => {
               }
             })
             .catch((errorCode) => {
-              console.log(errorCode, 'errorCode');
               const { error } = errorCode;
               watchedState.rssProcess.error = error;
               watchedState.rssProcess.state = 'error';
@@ -75,7 +73,7 @@ export const runApp = () => {
         }
       })
       .catch((error) => {
-        console.log(error, 'error.error || GENERAL_ERROR');
+        console.error(error, 'error.error || GENERAL_ERROR');
 
         watchedState.validationState.error = error.error || 'GENERAL_ERROR';
         watchedState.validationState.status = 'invalid';

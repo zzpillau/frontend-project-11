@@ -1,9 +1,7 @@
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
 
 export const renderFeedback = (state) => {
-  // console.log('renderFeedback start');
   const { status, error } = state;
-  // console.log(status, error, 'status, error');
 
   const form = document.querySelector('.rss-form');
   const urlInput = document.querySelector('#url-input');
@@ -31,7 +29,8 @@ export const renderFeedback = (state) => {
       default:
         throw new Error('renderFeedback: Status Error');
     }
+  })
+  .catch((e) => {
+    console.error('renderFeedback error:', e);
   });
-
-  // catch?
 };

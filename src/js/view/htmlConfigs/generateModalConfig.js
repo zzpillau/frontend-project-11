@@ -29,14 +29,12 @@ export const generateModalContainerConfig = (i18n) => ({
                   'modal-title': {
                     tag: 'h5',
                     classes: ['modal-title'],
-                    // textContent: title,
                   },
                   'btn-close-modal': {
                     tag: 'button',
                     classes: ['btn-close', 'close'],
                     attributes: {
                       type: 'button',
-                      // 'data-bs-dismiss': 'modal',
                       'aria-label': 'Close',
                     },
                   },
@@ -46,7 +44,6 @@ export const generateModalContainerConfig = (i18n) => ({
                 tag: 'div',
                 classes: ['modal-body'],
                 attributes: {},
-                // textContent: description,
               },
               'modal-footer': {
                 tag: 'div',
@@ -68,7 +65,6 @@ export const generateModalContainerConfig = (i18n) => ({
                     classes: ['btn', 'btn-secondary'],
                     attributes: {
                       type: 'button',
-                      // 'data-bs-dismiss': 'modal',
                     },
                     textContent: i18n.t('buttons.close'),
                   },

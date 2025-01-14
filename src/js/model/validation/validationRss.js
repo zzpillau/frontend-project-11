@@ -10,7 +10,6 @@ const isValidRss = (doc) => {
   }
 };
 
-// validation/validationRss.js
 export const handleRssValidation = (parsedData) => {
   if (isValidRss(parsedData)) {
     return { status: 'valid', error: 'SUCCESS', data: parsedData };

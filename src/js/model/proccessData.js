@@ -1,5 +1,5 @@
-import { Post } from './components/Post.js';
-import { Feed } from './components/Feed.js';
+import { Post } from '../components/Post.js';
+import { Feed } from '../components/Feed.js';
 
 export const proccessData = (data, feeds, posts, feedUrl) => {
   const channel = data.querySelector('channel');

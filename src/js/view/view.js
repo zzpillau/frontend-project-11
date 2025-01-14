@@ -1,10 +1,8 @@
 import onChange from 'on-change';
-import { renderFeedback } from './renderFeedback.js';
-import { renderRss } from './renderRss.js';
-import { renderNewPosts } from './renderNewPosts.js';
-import { renderModal } from './renderModal.js';
-
-// all renders
+import { renderFeedback } from './renders/renderFeedback.js';
+import { renderRss } from './renders/renderRss.js';
+import { renderNewPosts } from './renders/renderNewPosts.js';
+import { renderModal } from './renders/renderModal.js';
 
 export const watchState = (initState) => {
   const watchedState = onChange(initState, (path, value) => {

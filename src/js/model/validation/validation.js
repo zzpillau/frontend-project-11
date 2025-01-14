@@ -13,7 +13,6 @@ const initializeValidationSchema = () => {
   });
 };
 
-// валидация урл
 export const validateUrl = (input, feedList) => {
   const validationState = {
     error: '',
@@ -25,7 +24,6 @@ export const validateUrl = (input, feedList) => {
   return schema
     .validate({ url: input })
     .then(() => {
-      // проверка на дубликаты фидов
       if (!checkForDuplicateFeeds(feedList, { url: input })) {
         validationState.status = 'valid';
         validationState.error = 'SUCCESS';

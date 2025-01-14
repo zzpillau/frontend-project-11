@@ -1,12 +1,10 @@
 import axios from 'axios';
-import { API_URL } from './config.js';
+import { API_URL } from '../config.js';
 
 export const fetchRssFeed = (url) => {
-  // console.log('fetchRssFeed start');
   return axios
     .get(`${API_URL}${encodeURIComponent(url)}`, { timeout: 5000 })
     .then((response) => {
-      console.log(response.status);
       if (response.status === 200) {
         const data = response.data.contents;
         return { status: 'success', data };
@@ -16,7 +14,7 @@ export const fetchRssFeed = (url) => {
       }
     })
     .catch((error) => {
-      console.log('ERROR occurred', error);
+      console.error('ERROR occurred', error);
       const errorCode = { status: 'error' };
 
       if (error.response) {

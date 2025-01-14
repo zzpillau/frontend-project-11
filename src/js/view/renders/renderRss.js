@@ -7,8 +7,8 @@ import {
   generatePostConfig,
 } from '../htmlConfigs/generatePostConfig.js';
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
-import { PageBuilder } from '../components/PageBuilder.js';
-import { handlePostClick } from '../eventHandlers.js';
+import { HTMLBuilder } from '../../builders/HTMLBuilder.js';
+import { handlePostClick } from '../../controller/eventHandlers.js';
 import { forEachRight } from 'lodash';
 
 const renderContainer = (rootContainer, generateConfig) => {
@@ -17,12 +17,12 @@ const renderContainer = (rootContainer, generateConfig) => {
     .then((i18n) => {
       const feedContainerConfig = generateConfig(i18n);
       return new Promise((resolve) => {
-        new PageBuilder(feedContainerConfig).render(rootContainer);
+        new HTMLBuilder(feedContainerConfig).render(rootContainer);
         resolve();
       });
     })
     .catch((err) => {
-      console.error('Error in renderFeedContainer:', err);
+      console.error('Error in renderContainer:', err);
     });
 };
 
@@ -51,21 +51,19 @@ export const renderContentPack = (contentPack) => {
                 i18n,
                 eventhandler,
               );
-              console.log('newElConfig with handler', newElConfig);
-              return new PageBuilder(newElConfig).render(root);
+              return new HTMLBuilder(newElConfig).render(root);
             })
             .catch((error) => {
-              console.error(`renderContainer Error: ${error}`);
+              console.error('renderContainer Error', error);
             });
         } else {
           const newElConfig = configElementFunc(...params);
-          console.log('newElConfig', newElConfig);
-          return new PageBuilder(newElConfig).render(root);
+          return new HTMLBuilder(newElConfig).render(root);
         }
       });
     })
     .catch((error) => {
-      console.error(`renderType Error: ${error}`);
+      console.error('renderType Error', error);
     });
 };
 

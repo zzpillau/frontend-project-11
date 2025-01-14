@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import { resources } from './texts/index.js';
+import { resources } from './locales.js';
 
 let i18nPromise = null;
 
@@ -16,7 +16,7 @@ export const getInstanceI18n = () => {
         },
         (err) => {
           if (err) {
-            reject(err); // проверить catch там где используется инстанс
+            reject(err);
           } else {
             resolve(i18nInstance);
           }

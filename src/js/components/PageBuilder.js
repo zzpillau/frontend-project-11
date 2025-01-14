@@ -23,6 +23,7 @@ export class PageBuilder {
     attributes = {},
     textContent = '',
     children = {},
+    eventhandler = {},
   ) {
     this.elements[key] = this.#createElement(
       tag,
@@ -32,6 +33,13 @@ export class PageBuilder {
       children,
     );
     const parentElement = this.elements[key];
+    console.log(parentElement)
+    console.log('eventhandler', eventhandler)
+
+    if (eventhandler && eventhandler.event && eventhandler.handler) {
+      console.log(`Adding event listener: ${eventhandler.event}`);
+      parentElement.addEventListener(eventhandler.event, eventhandler.handler)
+    }
 
     if (!_.isEmpty(children)) {
       Object.entries(children).forEach(([childName, childValue]) => {
@@ -41,6 +49,7 @@ export class PageBuilder {
           attributes = {},
           textContent = '',
           children = {},
+          eventhandler = {}
         } = childValue;
 
         this.#addElement(
@@ -50,6 +59,7 @@ export class PageBuilder {
           attributes,
           textContent,
           children,
+          eventhandler,
         );
 
         parentElement.append(this.elements[childName]);
@@ -66,9 +76,10 @@ export class PageBuilder {
       attributes = {},
       textContent = '',
       children = {},
+      eventhandler = {},
     } = root;
 
-    this.#addElement('root', tag, classes, attributes, textContent, children);
+    this.#addElement('root', tag, classes, attributes, textContent, children, eventhandler);
     //TO-DO
     // пусть элемент разбирается в this.#addElement
 
@@ -79,6 +90,8 @@ export class PageBuilder {
       if (option === 'prepend') {
         container.prepend(this.elements.root);
       }
+
+      return this.elements[root];
     }
   }
 }

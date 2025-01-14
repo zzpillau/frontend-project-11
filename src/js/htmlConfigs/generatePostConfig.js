@@ -22,7 +22,7 @@ export const generatePostsContainerConfig = (i18n) => ({
   },
 });
 
-export const generatePostConfig = (id, title, url, i18n) => ({
+export const generatePostConfig = (id, title, url, i18n, eventhandler) => ({
   root: {
     tag: 'li',
     classes: [
@@ -51,10 +51,11 @@ export const generatePostConfig = (id, title, url, i18n) => ({
         attributes: {
           type: 'button',
           'data-id': id,
-          'data-bs-toggle': 'modal',
-          'data-bs-target': '#modal',
+          // 'data-bs-toggle': 'modal',
+          // 'data-bs-target': '#modal',
         },
         textContent: i18n.t('buttons.view'),
+        eventhandler,
       },
     },
   },

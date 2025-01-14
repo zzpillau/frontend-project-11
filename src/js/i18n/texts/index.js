@@ -4,6 +4,8 @@ export const resources = {
       buttons: {
         add: 'Добавить',
         view: 'Просмотр',
+        close: 'Закрыть',
+        read: 'Читать полностью',
       },
       headers: {
         feeds: 'Фиды',

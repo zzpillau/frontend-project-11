@@ -12,6 +12,10 @@ const initState = {
     updateError: '', // код ошибки обновления, обрабатывается i18n
     updateTimeout: 5000,
   },
+  modal: {
+    state: 'idle',
+    content: null,
+  },
   validationState: {
     status: '', // valid, invalid
     error: '', // код ошибки, обрабатывается i18n

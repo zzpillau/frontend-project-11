@@ -2,6 +2,7 @@ import onChange from 'on-change';
 import { renderFeedback } from './renderFeedback.js';
 import { renderRss } from './renderRss.js';
 import { renderNewPosts } from './renderNewPosts.js';
+import { renderModal } from './renderModal.js';
 
 // all renders
 
@@ -23,11 +24,15 @@ export const watchState = (initState) => {
         }
         break;
       case 'rssProcess.updateState':
-        console.log('Render triggered for updateState:', value);
         if (value === 'updateSuccess') {
           renderNewPosts(initState);
         }
         break;
+
+      case 'modal.state':
+        if (value === 'open') {
+          renderModal(initState);
+        }
     }
   });
 

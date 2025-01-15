@@ -32,7 +32,9 @@ export default {
     static: path.resolve(__dirname, 'public'),
     port: 8080,
     hot: true,
-    overlay: false,
+    client: {
+      overlay: false,
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({

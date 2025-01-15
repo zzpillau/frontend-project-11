@@ -7,23 +7,24 @@ export const renderNewPosts = (watchedState) => {
   const rootContainer = document.querySelector('.posts-list');
 
   watchedState.rssProcess.newPosts.forEach((post) => {
-    getInstanceI18n().then((i18n) => {
-      const postConfig = generatePostConfig(
-        post.id,
-        post.title,
-        post.url,
-        i18n,
-        {
-          event: 'click',
-          handler: handlePostClick,
-        },
-      );
-      return new HTMLBuilder(postConfig).render(rootContainer, {
-        option: 'prepend',
+    getInstanceI18n()
+      .then((i18n) => {
+        const postConfig = generatePostConfig(
+          post.id,
+          post.title,
+          post.url,
+          i18n,
+          {
+            event: 'click',
+            handler: handlePostClick,
+          },
+        );
+        return new HTMLBuilder(postConfig).render(rootContainer, {
+          option: 'prepend',
+        });
+      })
+      .catch((e) => {
+        console.error('Error initializing i18n:', e);
       });
-    })
-    .catch((e) => {
-      console.error('Error initializing i18n:', e);
-    });
   });
 };

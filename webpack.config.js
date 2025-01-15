@@ -34,7 +34,7 @@ export default {
     hot: true,
     client: {
       overlay: false,
-    }
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({

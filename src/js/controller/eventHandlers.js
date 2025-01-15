@@ -11,7 +11,7 @@ export const handlePostClick = (e) => {
     (post) => post.id === Number(id),
   );
 
-  const { title, description, url} = post;
+  const { title, description, url } = post;
   post.isRead = true;
 
   watchedState.modal.state = 'open';
@@ -19,7 +19,7 @@ export const handlePostClick = (e) => {
     id,
     title,
     description,
-    url,  
+    url,
   };
   watchedState.modal.currentPostLink = postLink;
 };

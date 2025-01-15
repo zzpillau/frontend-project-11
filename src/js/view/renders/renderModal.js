@@ -8,7 +8,7 @@ export const renderModal = (watchedState) => {
     .then((i18n) => {
       const {
         modal: {
-          content: { title, description, url},
+          content: { title, description, url },
           currentPostLink,
         },
       } = watchedState;

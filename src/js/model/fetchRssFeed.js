@@ -15,17 +15,10 @@ export const fetchRssFeed = (url) => {
     })
     .catch((error) => {
       console.error('ERROR occurred', error);
-      const errorCode = { status: 'error' };
-
-      if (error.response) {
-        errorCode.error = 'SERVER_RESPONSE_ERROR';
-
-      } else if (error.request) {
-        errorCode.error = 'REQUEST_ERROR';
-      } else {
-        errorCode.error = 'REQUEST_SETUP_ERROR';
-      }
-
+      const errorCode = {
+        status: 'error',
+        error: 'NETWORK_ERROR',
+      };
       return errorCode;
     });
 };

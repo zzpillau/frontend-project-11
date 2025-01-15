@@ -10,8 +10,11 @@ export const checkForNewPosts = (timeout) => {
         if (result.status === 'success') {
           const doc = parseRss(result.data);
           return doc;
+        } else if (result.error === 'NETWORK_ERROR') {
+          console.error('Network error while fetching feed:', feed.title);
+          throw new Error('NETWORK_ERROR');
         } else {
-          throw new Error('Ошибка получения RSS фида');
+          throw new Error('GENERAL_ERROR');
         }
       })
       .then((doc) => {
@@ -35,19 +38,28 @@ export const checkForNewPosts = (timeout) => {
         return updatedPostsList;
       })
       .catch((error) => {
-        console.error('Error updating feed:', feed.title, error);
-
-        return {
-          error: 'UPDATE_FAILED',
-          feedTitle: feed.title,
-        };
+        if (error.message === 'NETWORK_ERROR') {
+          return { error: 'NETWORK_ERROR', feedTitle: feed.title };
+        } else {
+          return { error: 'GENERAL_ERROR', feedTitle: feed.title };
+        }
       });
   });
 
   Promise.all(updatedFeedsPromises)
     .then((result) => {
       if (result.some((feedResult) => feedResult.error)) {
-        console.error('One or more feeds failed to update.');
+        result.forEach((feedResult) => {
+          if (feedResult.error === 'NETWORK_ERROR') {
+            console.error(
+              `Network error updating feed: ${feedResult.feedTitle}`,
+            );
+          } else if (feedResult.error === 'GENERAL_ERROR') {
+            console.error(
+              `General error updating feed: ${feedResult.feedTitle}`,
+            );
+          }
+        });
       } else {
         watchedState.rssProcess.updateState = 'idle';
 

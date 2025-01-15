@@ -1,4 +1,4 @@
-import watchedState from './view/view.js';
+import watchedState from './controller/stateController.js';
 import validateUrl from './model/validation/validation.js';
 import handleRssValidation from './model/validation/validationRss.js';
 import fetchRssFeed from './model/fetchRssFeed.js';

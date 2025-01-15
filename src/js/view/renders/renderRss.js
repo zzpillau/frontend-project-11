@@ -67,7 +67,7 @@ const renderContentPack = (contentPack) => {
 };
 
 const renderRss = (state, eventHandler) => {
-  const { feedList, postsList } = state;
+  const { feedList, postsList } = state.rssProcess;
 
   const feedPack = {
     contentType: feedList,

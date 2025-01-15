@@ -1,5 +1,5 @@
 import Post from '../components/Post.js';
-import watchedState from '../view/view.js';
+import watchedState from '../controller/stateController.js';
 import fetchRssFeed from './fetchRssFeed.js';
 import parseRss from './parser.js';
 

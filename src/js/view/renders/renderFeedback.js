@@ -1,7 +1,7 @@
 import getInstanceI18n from '../i18n/i18nConfig.js';
 
 const renderFeedback = (state) => {
-  const {status, error} = state;
+  const { status, error } = state;
 
   const form = document.querySelector('.rss-form');
   const urlInput = document.querySelector('#url-input');

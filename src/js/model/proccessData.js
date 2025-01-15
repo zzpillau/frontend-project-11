@@ -22,7 +22,7 @@ const proccessData = (data, feeds, posts, feedUrl) => {
 
   return {
     newFeed,
-    newPosts
+    newPosts,
   };
 };
 

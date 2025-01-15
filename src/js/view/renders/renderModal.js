@@ -1,5 +1,5 @@
-import {Modal} from 'bootstrap';
-import {generateModalConfig} from '../htmlConfigs/generateModalConfig.js';
+import { Modal } from 'bootstrap';
+import { generateModalConfig } from '../htmlConfigs/generateModalConfig.js';
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
@@ -8,9 +8,9 @@ const renderModal = (state) => {
     .then((i18n) => {
       const {
         modal: {
-          content: {title, description, url},
-          currentPostLink
-        }
+          content: { title, description, url },
+          currentPostLink,
+        },
       } = state;
 
       currentPostLink.classList.remove('fw-bold');

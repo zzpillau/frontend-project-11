@@ -1,4 +1,4 @@
-import {isEmpty} from 'lodash';
+import { isEmpty } from 'lodash';
 
 class HTMLBuilder {
   constructor(elementsConfig) {
@@ -11,7 +11,7 @@ class HTMLBuilder {
       tag,
       classes = [],
       attributes = {},
-      textContent = ''
+      textContent = '',
     } = config;
     const container = document.createElement(tag);
     container.classList.add(...classes);
@@ -27,13 +27,13 @@ class HTMLBuilder {
     this.elements[key] = HTMLBuilder.createNewElement(config);
     const parentElement = this.elements[key];
 
-    const {eventhandler = {}} = config;
+    const { eventhandler = {} } = config;
 
     if (eventhandler && eventhandler.event && eventhandler.handler) {
       parentElement.addEventListener(eventhandler.event, eventhandler.handler);
     }
 
-    const {children = {}} = config;
+    const { children = {} } = config;
 
     if (!isEmpty(children)) {
       Object.entries(children).forEach(([childKey, childConfig]) => {
@@ -43,8 +43,8 @@ class HTMLBuilder {
     }
   }
 
-  render(container, {option = 'append'} = {}) {
-    const {root} = this.elementsConfig;
+  render(container, { option = 'append' } = {}) {
+    const { root } = this.elementsConfig;
 
     this.#addElement('root', root);
 

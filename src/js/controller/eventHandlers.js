@@ -1,5 +1,5 @@
 const handlePostClick = (state) => (e) => {
-  const {target} = e;
+  const { target } = e;
 
   const postLink = e.target.previousSibling;
 
@@ -8,7 +8,7 @@ const handlePostClick = (state) => (e) => {
   const [post] = state.rssProcess.postsList
     .filter((postEl) => postEl.id === Number(id));
 
-  const {title, description, url} = post;
+  const { title, description, url } = post;
   post.isRead = true;
 
   state.modal.state = 'open';
@@ -16,7 +16,7 @@ const handlePostClick = (state) => (e) => {
     id,
     title,
     description,
-    url
+    url,
   };
   state.modal.currentPostLink = postLink;
 };

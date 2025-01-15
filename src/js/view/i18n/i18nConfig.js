@@ -12,7 +12,7 @@ const getInstanceI18n = () => {
           lng: 'ru',
           fallbackLng: 'en',
           debug: true,
-          resources
+          resources,
         },
         (err) => {
           if (err) {
@@ -20,7 +20,7 @@ const getInstanceI18n = () => {
           } else {
             resolve(i18nInstance);
           }
-        }
+        },
       );
     });
   }

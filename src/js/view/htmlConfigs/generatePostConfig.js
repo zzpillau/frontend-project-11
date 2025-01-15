@@ -10,16 +10,16 @@ export const generatePostsContainerConfig = (i18n) => ({
           'posts-header': {
             tag: 'h2',
             classes: ['card-title', 'h4'],
-            textContent: i18n.t('headers.posts')
-          }
-        }
+            textContent: i18n.t('headers.posts'),
+          },
+        },
       },
       ul: {
         tag: 'ul',
-        classes: ['posts-list', 'list-group', 'border-0', 'rounded-0']
-      }
-    }
-  }
+        classes: ['posts-list', 'list-group', 'border-0', 'rounded-0'],
+      },
+    },
+  },
 });
 
 export const generatePostConfig = (id, title, url, i18n, eventhandler) => ({
@@ -31,7 +31,7 @@ export const generatePostConfig = (id, title, url, i18n, eventhandler) => ({
       'justify-content-between',
       'align-items-start',
       'border-0',
-      'border-end-0'
+      'border-end-0',
     ],
     children: {
       'post-link': {
@@ -41,20 +41,20 @@ export const generatePostConfig = (id, title, url, i18n, eventhandler) => ({
           href: url,
           'data-id': id,
           target: '_blank',
-          rel: 'noopener noreferrer'
+          rel: 'noopener noreferrer',
         },
-        textContent: title
+        textContent: title,
       },
       button: {
         tag: 'button',
         classes: ['btn', 'btn-outline-primary', 'btn-sm'],
         attributes: {
           type: 'button',
-          'data-id': id
+          'data-id': id,
         },
         textContent: i18n.t('buttons.view'),
-        eventhandler
-      }
-    }
-  }
+        eventhandler,
+      },
+    },
+  },
 });

@@ -5,26 +5,26 @@ import checkForDuplicateFeeds from './checkForDuplicateFeeds.js';
 const initializeValidationSchema = () => {
   yup.setLocale({
     string: {
-      url: 'INVALID_URL'
-    }
+      url: 'INVALID_URL',
+    },
   });
   return yup.object({
-    url: yup.string().url().required()
+    url: yup.string().url().required(),
   });
 };
 
 const validateUrl = (input, feedList) => {
   const validationState = {
     error: '',
-    status: ''
+    status: '',
   };
 
   const schema = initializeValidationSchema();
 
   return schema
-    .validate({url: input})
+    .validate({ url: input })
     .then(() => {
-      if (!checkForDuplicateFeeds(feedList, {url: input})) {
+      if (!checkForDuplicateFeeds(feedList, { url: input })) {
         validationState.status = 'valid';
         validationState.error = 'SUCCESS';
       } else {
@@ -38,7 +38,7 @@ const validateUrl = (input, feedList) => {
 
       if (e.errors) {
         const {
-          errors: [error]
+          errors: [error],
         } = e;
         validationState.error = error;
       } else {

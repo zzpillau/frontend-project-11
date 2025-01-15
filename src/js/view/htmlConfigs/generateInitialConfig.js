@@ -20,19 +20,19 @@ const generateInitialConfig = (i18n) => ({
                       tag: 'h1',
                       classes: ['display-3', 'mb-0'],
                       attributes: {},
-                      textContent: i18n.t('rssAggregatorTitle')
+                      textContent: i18n.t('rssAggregatorTitle'),
                     },
                     'p-1': {
                       tag: 'p',
                       classes: ['lead'],
                       attributes: {},
-                      textContent: i18n.t('rssAggregatorDescription')
+                      textContent: i18n.t('rssAggregatorDescription'),
                     },
                     form: {
                       tag: 'form',
                       classes: ['rss-form', 'text-body'],
                       attributes: {
-                        action: 'action'
+                        action: 'action',
                       },
                       children: {
                         'div-6': {
@@ -58,19 +58,19 @@ const generateInitialConfig = (i18n) => ({
                                         'aria-label': 'url',
                                         placeholder:
                                           i18n.t('rssLinkPlaceholder'),
-                                        autocomplete: 'off'
-                                      }
+                                        autocomplete: 'off',
+                                      },
                                     },
                                     label: {
                                       tag: 'label',
                                       attributes: {
-                                        for: 'url-input'
+                                        for: 'url-input',
                                       },
-                                      textContent: i18n.t('rssLinkLabel')
-                                    }
-                                  }
-                                }
-                              }
+                                      textContent: i18n.t('rssLinkLabel'),
+                                    },
+                                  },
+                                },
+                              },
                             },
                             'div-5': {
                               tag: 'div',
@@ -83,24 +83,24 @@ const generateInitialConfig = (i18n) => ({
                                     'btn',
                                     'btn-lg',
                                     'btn-primary',
-                                    'px-sm-5'
+                                    'px-sm-5',
                                   ],
                                   attributes: {
                                     type: 'submit',
-                                    'aria-label': 'add'
+                                    'aria-label': 'add',
                                   },
-                                  textContent: i18n.t('buttons.add')
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
+                                  textContent: i18n.t('buttons.add'),
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
                     },
                     'p-2': {
                       tag: 'p',
                       classes: ['mt-2', 'mb-0', 'text-muted'],
-                      textContent: i18n.t('exampleLink')
+                      textContent: i18n.t('exampleLink'),
                     },
                     'p-3': {
                       tag: 'p',
@@ -108,14 +108,14 @@ const generateInitialConfig = (i18n) => ({
                         'feedback',
                         'm-0',
                         'position-absolute',
-                        'small'
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          }
+                        'small',
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
         'section-2': {
           tag: 'section',
@@ -132,8 +132,8 @@ const generateInitialConfig = (i18n) => ({
                     'col-lg-8',
                     'order-1',
                     'mx-auto',
-                    'posts'
-                  ]
+                    'posts',
+                  ],
                 },
                 'div-8': {
                   tag: 'div',
@@ -143,15 +143,15 @@ const generateInitialConfig = (i18n) => ({
                     'mx-auto',
                     'order-0',
                     'order-lg-1',
-                    'feeds'
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+                    'feeds',
+                  ],
+                },
+              },
+            },
+          },
+        },
+      },
+    },
   },
   footerConfig: {
     root: {
@@ -171,17 +171,17 @@ const generateInitialConfig = (i18n) => ({
                   tag: 'a',
                   attributes: {
                     href: i18n.t('hexletLink'),
-                    target: '_blank'
+                    target: '_blank',
                   },
-                  textContent: i18n.t('hexlet')
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+                  textContent: i18n.t('hexlet'),
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 });
 
 export default generateInitialConfig;

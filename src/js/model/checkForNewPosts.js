@@ -6,8 +6,8 @@ import parseRss from './parser.js';
 const pickNewPosts = (fetchedPosts, state) => fetchedPosts
   .flat()
   .filter((newP) => !state.rssProcess.postsList
-    .some((oldP) => oldP.title === newP.title &&
-    oldP.url === newP.url));
+    .some((oldP) => oldP.title === newP.title
+    && oldP.url === newP.url));
 
 const checkForNewPosts = (timeout) => {
   const updatedFeedsPromises = watchedState.rssProcess.feedList
@@ -37,7 +37,7 @@ const checkForNewPosts = (timeout) => {
             FEED_ID,
             postTitle,
             postDesc,
-            postUrl
+            postUrl,
           );
         });
 
@@ -45,9 +45,9 @@ const checkForNewPosts = (timeout) => {
       })
       .catch((error) => {
         if (error.message === 'NETWORK_ERROR') {
-          return {error: 'NETWORK_ERROR', feedTitle: feed.title};
+          return { error: 'NETWORK_ERROR', feedTitle: feed.title };
         }
-        return {error: 'GENERAL_ERROR', feedTitle: feed.title};
+        return { error: 'GENERAL_ERROR', feedTitle: feed.title };
       }));
 
   Promise.all(updatedFeedsPromises)
@@ -70,7 +70,7 @@ const checkForNewPosts = (timeout) => {
           watchedState.rssProcess.updateState = 'updateSuccess';
           watchedState.rssProcess.postsList = [
             ...watchedState.rssProcess.postsList,
-            ...onlyNewPosts
+            ...onlyNewPosts,
           ];
         } else {
           watchedState.rssProcess.newPosts = [];

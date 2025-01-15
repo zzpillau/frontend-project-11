@@ -1,5 +1,5 @@
 import path from 'path';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -9,36 +9,36 @@ export default {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {loader: 'babel-loader'}
+        use: { loader: 'babel-loader' },
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
   devServer: {
     static: path.resolve(__dirname, 'public'),
     port: 8080,
     hot: true,
     client: {
-      overlay: false
-    }
+      overlay: false,
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html'
-    })
-  ]
+      template: './index.html',
+    }),
+  ],
 };

@@ -18,7 +18,7 @@ const watchState = (initState) => {
       if (value === 'error') {
         renderFeedback({
           status: 'invalid',
-          error: initState.rssProcess.error
+          error: initState.rssProcess.error,
         });
       }
       if (value === 'success') {

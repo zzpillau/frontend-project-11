@@ -7,28 +7,28 @@ import importPlugin from 'eslint-plugin-import';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    ignores: ['public/*']
+    ignores: ['public/*'],
   },
-  {languageOptions: {globals: globals.browser}},
+  { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   prettier,
   {
     plugins: {
       prettier: prettierPlugin,
-      import: importPlugin
+      import: importPlugin,
     },
     rules: {
       // 'prettier/prettier': 'error',
       'import/prefer-default-export': 'error',
       'no-else-return': 'error',
       'implicit-arrow-linebreak': 'error',
-      'function-paren-newline': 'error',
+      'function-paren-newline': ["error", "multiline"],
       'no-shadow': 'error',
       'consistent-return': 'error',
-      'operator-linebreak': 'error',
+      'operator-linebreak': ["error", "before"],
       'import/no-cycle': 'error',
-      'prefer-destructuring': 'error',
-      'arrow-body-style': 'error',
+      'prefer-destructuring': ["error", { "object": true, "array": true }],
+      'arrow-body-style': ["error", "as-needed"],
       'prefer-promise-reject-errors': 'error',
       'prefer-template': 'error',
       'import/order': 'error',
@@ -36,16 +36,16 @@ export default [
       'default-case': 'error',
       'class-methods-use-this': 'error',
       'no-trailing-spaces': 'error',
-      'comma-dangle': 'error',
-      'semi': 'error',
-      'max-len': 'error',
+      'comma-dangle': ["error", "always-multiline"],
+      'semi': ["error", "always"],
+      'max-len': ["error", { "code": 80 }],
       'padded-blocks': ['error', 'never'],
-      'object-curly-spacing': 'error',
-      'array-bracket-spacing': 'error',
+      'object-curly-spacing': ['error', 'always'],
+      'array-bracket-spacing': ["error", "never"],
       'indent': ['error', 2],
-      'eol-last': 'error',
+      'eol-last': ["error", "always"],
       'no-useless-return': 'error',
-      'no-multiple-empty-lines': 'error'
-    }
-  }
+      'no-multiple-empty-lines': ["error", { "max": 1, "maxEOF": 1 }],
+    },
+  },
 ];

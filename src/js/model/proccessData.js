@@ -1,7 +1,7 @@
-import { Post } from '../components/Post.js';
-import { Feed } from '../components/Feed.js';
+import Post from '../components/Post.js';
+import Feed from '../components/Feed.js';
 
-export const proccessData = (data, feeds, posts, feedUrl) => {
+const proccessData = (data, feeds, posts, feedUrl) => {
   const channel = data.querySelector('channel');
 
   const feedTitle = channel.querySelector('title').textContent;
@@ -25,3 +25,5 @@ export const proccessData = (data, feeds, posts, feedUrl) => {
     newPosts,
   };
 };
+
+export default proccessData;

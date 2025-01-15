@@ -1,5 +1,3 @@
-import { watchState } from '../view/view.js';
-
 const initState = {
   rssProcess: {
     state: 'initial', // sending, success, error
@@ -23,4 +21,4 @@ const initState = {
   },
 };
 
-export const watchedState = watchState(initState);
+export default initState;

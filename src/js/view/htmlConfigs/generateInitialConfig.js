@@ -1,4 +1,4 @@
-export const generateInitialConfig = (i18n) => ({
+const generateInitialConfig = (i18n) => ({
   mainConfig: {
     root: {
       tag: 'main',
@@ -165,7 +165,7 @@ export const generateInitialConfig = (i18n) => ({
             div: {
               tag: 'div',
               classes: ['text-center'],
-              textContent: i18n.t('createdBy') + ' ',
+              textContent: `${i18n.t('createdBy')} `,
               children: {
                 a: {
                   tag: 'a',
@@ -183,3 +183,5 @@ export const generateInitialConfig = (i18n) => ({
     },
   },
 });
+
+export default generateInitialConfig;

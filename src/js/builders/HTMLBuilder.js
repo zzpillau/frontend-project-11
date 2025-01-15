@@ -1,17 +1,15 @@
 import _ from 'lodash';
 
-export class HTMLBuilder {
+class HTMLBuilder {
   constructor(elementsConfig) {
     this.elements = {};
     this.elementsConfig = elementsConfig;
   }
 
-  #createElement(tag, classes = [], attributes = {}, textContent = '') {
+  createNewElement(tag, classes = [], attributes = {}, textContent = '') {
     const container = document.createElement(tag);
     container.classList.add(...classes);
-    Object.entries(attributes).forEach(([attrName, attrValue]) =>
-      container.setAttribute(attrName, attrValue),
-    );
+    Object.entries(attributes).forEach(([attrName, attrValue]) => container.setAttribute(attrName, attrValue),);
     container.textContent = textContent;
     return container;
   }
@@ -25,7 +23,7 @@ export class HTMLBuilder {
     children = {},
     eventhandler = {},
   ) {
-    this.elements[key] = this.#createElement(
+    this.elements[key] = this.createNewElement(
       tag,
       classes,
       attributes,
@@ -94,7 +92,10 @@ export class HTMLBuilder {
         container.prepend(this.elements.root);
       }
 
-      return this.elements[root];
     }
+    return this.elements[root];
+
   }
 }
+
+export default HTMLBuilder;

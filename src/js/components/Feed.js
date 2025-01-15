@@ -1,4 +1,4 @@
-export class Feed {
+class Feed {
   constructor(id, title, description, url) {
     this.id = id;
     this.title = title;
@@ -6,3 +6,5 @@ export class Feed {
     this.url = url;
   }
 }
+
+export default Feed;

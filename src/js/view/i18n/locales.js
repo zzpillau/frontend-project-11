@@ -1,4 +1,4 @@
-export const resources = {
+const resources = {
   ru: {
     translation: {
       buttons: {
@@ -36,3 +36,5 @@ export const resources = {
     },
   },
 };
+
+export default resources;

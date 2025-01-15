@@ -1,6 +1,4 @@
-// import { Modal } from 'bootstrap';
-
-export const hideModal = () => {
+const hideModal = () => {
   try {
     const modalElement = document.getElementById('modal');
     if (modalElement) {
@@ -13,3 +11,5 @@ export const hideModal = () => {
     console.error('hideModal error:', error);
   }
 };
+
+export default hideModal;

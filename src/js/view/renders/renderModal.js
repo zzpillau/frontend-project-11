@@ -1,9 +1,9 @@
-import { generateModalConfig } from '../htmlConfigs/generateModalConfig.js';
-import { getInstanceI18n } from '../i18n/i18nConfig.js';
-import { HTMLBuilder } from '../../builders/HTMLBuilder.js';
 import { Modal } from 'bootstrap';
+import { generateModalConfig } from '../htmlConfigs/generateModalConfig.js';
+import getInstanceI18n from '../i18n/i18nConfig.js';
+import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
-export const renderModal = (watchedState) => {
+const renderModal = (state) => {
   getInstanceI18n()
     .then((i18n) => {
       const {
@@ -11,7 +11,7 @@ export const renderModal = (watchedState) => {
           content: { title, description, url },
           currentPostLink,
         },
-      } = watchedState;
+      } = state;
 
       currentPostLink.classList.remove('fw-bold');
       currentPostLink.classList.add('fw-normal', 'link-secondary');
@@ -26,10 +26,12 @@ export const renderModal = (watchedState) => {
       const modalInstande = new Modal(modal);
       modalInstande.show();
 
-      watchedState.modal.content = null;
-      watchedState.modal.state = 'idle';
+      state.modal.content = null;
+      state.modal.state = 'idle';
     })
     .catch((err) => {
       console.error('Error getting i18n instance:', err);
     });
 };
+
+export default renderModal;

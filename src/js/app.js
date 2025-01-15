@@ -1,12 +1,12 @@
-import { watchedState } from './init/initState.js';
-import { validateUrl } from './model/validation/validation.js';
-import { handleRssValidation } from './model/validation/validationRss.js';
-import { fetchRssFeed } from './model/fetchRssFeed.js';
-import { parseRss } from './model/parser.js';
-import { proccessData } from './model/proccessData.js';
-import { checkForNewPosts } from './model/checkForNewPosts.js';
+import watchedState from './view/view.js';
+import validateUrl from './model/validation/validation.js';
+import handleRssValidation from './model/validation/validationRss.js';
+import fetchRssFeed from './model/fetchRssFeed.js';
+import parseRss from './model/parser.js';
+import proccessData from './model/proccessData.js';
+import checkForNewPosts from './model/checkForNewPosts.js';
 
-export const runApp = () => {
+const runApp = () => {
   const form = document.querySelector('.rss-form');
   const inputField = form.querySelector('#url-input');
 
@@ -30,9 +30,8 @@ export const runApp = () => {
             .then((result) => {
               if (result.status === 'success') {
                 return parseRss(result.data);
-              } else {
-                return Promise.reject(result);
               }
+              return Promise.reject(result);
             })
             .then((doc) => {
               const rssValidation = handleRssValidation(doc);
@@ -51,9 +50,7 @@ export const runApp = () => {
                 );
 
                 watchedState.rssProcess.feedList.push(processedData.newFeed);
-                watchedState.rssProcess.postsList.push(
-                  ...processedData.newPosts,
-                );
+                watchedState.rssProcess.postsList.push(...processedData.newPosts);
                 watchedState.rssProcess.state = 'success';
 
                 checkForNewPosts(watchedState.rssProcess.updateTimeout);
@@ -80,3 +77,5 @@ export const runApp = () => {
       });
   });
 };
+
+export default runApp;

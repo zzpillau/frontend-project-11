@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { checkForDuplicateFeeds } from './checkForDuplicateFeeds.js';
+import checkForDuplicateFeeds from './checkForDuplicateFeeds.js';
 
 // инициализация схемы yup
 const initializeValidationSchema = () => {
@@ -13,7 +13,7 @@ const initializeValidationSchema = () => {
   });
 };
 
-export const validateUrl = (input, feedList) => {
+const validateUrl = (input, feedList) => {
   const validationState = {
     error: '',
     status: '',
@@ -48,3 +48,5 @@ export const validateUrl = (input, feedList) => {
       return validationState;
     });
 };
+
+export default validateUrl;

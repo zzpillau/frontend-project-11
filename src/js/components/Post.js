@@ -1,4 +1,4 @@
-export class Post {
+class Post {
   constructor(id, feedId, title, description, url, isRead = false) {
     this.id = id;
     this.feedId = feedId;
@@ -8,3 +8,5 @@ export class Post {
     this.isRead = isRead;
   }
 }
+
+export default Post;

@@ -1,11 +1,10 @@
-import { fetchRssFeed } from './fetchRssFeed.js';
-import { parseRss } from './parser.js';
-import { Post } from '../components/Post.js';
-import { watchedState } from '../init/initState.js';
+import Post from '../components/Post.js';
+import watchedState from '../view/view.js';
+import fetchRssFeed from './fetchRssFeed.js';
+import parseRss from './parser.js';
 
-export const checkForNewPosts = (timeout) => {
-  const updatedFeedsPromises = watchedState.rssProcess.feedList.map((feed) => {
-    return fetchRssFeed(feed.url)
+const checkForNewPosts = (timeout) => {
+  const updatedFeedsPromises = watchedState.rssProcess.feedList.map((feed) => fetchRssFeed(feed.url)
       .then((result) => {
         if (result.status === 'success') {
           const doc = parseRss(result.data);
@@ -40,24 +39,18 @@ export const checkForNewPosts = (timeout) => {
       .catch((error) => {
         if (error.message === 'NETWORK_ERROR') {
           return { error: 'NETWORK_ERROR', feedTitle: feed.title };
-        } else {
-          return { error: 'GENERAL_ERROR', feedTitle: feed.title };
         }
-      });
-  });
+        return { error: 'GENERAL_ERROR', feedTitle: feed.title };
+      }),);
 
   Promise.all(updatedFeedsPromises)
     .then((result) => {
       if (result.some((feedResult) => feedResult.error)) {
         result.forEach((feedResult) => {
           if (feedResult.error === 'NETWORK_ERROR') {
-            console.error(
-              `Network error updating feed: ${feedResult.feedTitle}`,
-            );
+            console.error(`Network error updating feed: ${feedResult.feedTitle}`,);
           } else if (feedResult.error === 'GENERAL_ERROR') {
-            console.error(
-              `General error updating feed: ${feedResult.feedTitle}`,
-            );
+            console.error(`General error updating feed: ${feedResult.feedTitle}`,);
           }
         });
       } else {
@@ -65,13 +58,7 @@ export const checkForNewPosts = (timeout) => {
 
         const onlyNewPosts = result
           .flat()
-          .filter(
-            (post) =>
-              !watchedState.rssProcess.postsList.some(
-                (oldPost) =>
-                  oldPost.title === post.title && oldPost.url === post.url,
-              ),
-          );
+          .filter((post) => !watchedState.rssProcess.postsList.some((oldPost) => oldPost.title === post.title && oldPost.url === post.url,),);
 
         if (onlyNewPosts.length > 0) {
           watchedState.rssProcess.newPosts = [...onlyNewPosts];
@@ -92,3 +79,5 @@ export const checkForNewPosts = (timeout) => {
       setTimeout(() => checkForNewPosts(timeout), timeout);
     });
 };
+
+export default checkForNewPosts;

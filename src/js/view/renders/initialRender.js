@@ -1,8 +1,8 @@
-import { HTMLBuilder } from '../../builders/HTMLBuilder.js';
-import { generateInitialConfig } from '../htmlConfigs/generateInitialConfig.js';
+import HTMLBuilder from '../../builders/HTMLBuilder.js';
+import generateInitialConfig from '../htmlConfigs/generateInitialConfig.js';
 import { generateModalContainerConfig } from '../htmlConfigs/generateModalConfig.js';
 
-export const initialRender = (rootContainer, i18n) => {
+const initialRender = (rootContainer, i18n) => {
   try {
     // конфигурации для начальной отрисовки элементов
     const initConfig = generateInitialConfig(i18n);
@@ -17,3 +17,5 @@ export const initialRender = (rootContainer, i18n) => {
     console.error('initialRender error:', error);
   }
 };
+
+export default initialRender;

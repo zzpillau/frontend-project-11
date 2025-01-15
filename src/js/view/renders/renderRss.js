@@ -6,9 +6,9 @@ import {
   generatePostsContainerConfig,
   generatePostConfig,
 } from '../htmlConfigs/generatePostConfig.js';
-import { getInstanceI18n } from '../i18n/i18nConfig.js';
-import { HTMLBuilder } from '../../builders/HTMLBuilder.js';
-import { handlePostClick } from '../../controller/eventHandlers.js';
+import getInstanceI18n from '../i18n/i18nConfig.js';
+import HTMLBuilder from '../../builders/HTMLBuilder.js';
+import handlePostClick from '../../controller/eventHandlers.js';
 
 const renderContainer = (rootContainer, generateConfig) => {
   rootContainer.innerHTML = '';
@@ -25,7 +25,7 @@ const renderContainer = (rootContainer, generateConfig) => {
     });
 };
 
-export const renderContentPack = (contentPack) => {
+const renderContentPack = (contentPack) => {
   const {
     contentType,
     rootContainer,
@@ -50,23 +50,24 @@ export const renderContentPack = (contentPack) => {
                 i18n,
                 eventhandler,
               );
-              return new HTMLBuilder(newElConfig).render(root);
+              new HTMLBuilder(newElConfig).render(root);
             })
             .catch((error) => {
-              console.error('renderContainer Error', error);
+              console.error('i18n Error', error);
             });
         } else {
           const newElConfig = configElementFunc(...params);
-          return new HTMLBuilder(newElConfig).render(root);
+          new HTMLBuilder(newElConfig).render(root);
         }
+        return;
       });
     })
     .catch((error) => {
-      console.error('renderType Error', error);
+      console.error('renderContainer Error', error);
     });
 };
 
-export const renderRss = (state) => {
+const renderRss = (state) => {
   const { feedList, postsList } = state;
 
   const feedPack = {
@@ -93,3 +94,6 @@ export const renderRss = (state) => {
   renderContentPack(feedPack);
   renderContentPack(postPack);
 };
+
+export default renderRss;
+

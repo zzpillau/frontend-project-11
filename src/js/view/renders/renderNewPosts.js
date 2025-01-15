@@ -1,12 +1,12 @@
 import { generatePostConfig } from '../htmlConfigs/generatePostConfig.js';
-import { getInstanceI18n } from '../i18n/i18nConfig.js';
-import { HTMLBuilder } from '../../builders/HTMLBuilder.js';
-import { handlePostClick } from '../../controller/eventHandlers.js';
+import getInstanceI18n from '../i18n/i18nConfig.js';
+import HTMLBuilder from '../../builders/HTMLBuilder.js';
+import handlePostClick from '../../controller/eventHandlers.js';
 
-export const renderNewPosts = (watchedState) => {
+const renderNewPosts = (state) => {
   const rootContainer = document.querySelector('.posts-list');
 
-  watchedState.rssProcess.newPosts.forEach((post) => {
+  state.rssProcess.newPosts.forEach((post) => {
     getInstanceI18n()
       .then((i18n) => {
         const postConfig = generatePostConfig(
@@ -28,3 +28,5 @@ export const renderNewPosts = (watchedState) => {
       });
   });
 };
+
+export default renderNewPosts;

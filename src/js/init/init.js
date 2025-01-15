@@ -1,7 +1,7 @@
-import { initialRender } from '../view/renders/initialRender.js';
-import { getInstanceI18n } from '../view/i18n/i18nConfig.js';
+import initialRender from '../view/renders/initialRender.js';
+import getInstanceI18n from '../view/i18n/i18nConfig.js';
 
-export const initApp = () => {
+const initApp = () => {
   getInstanceI18n()
     .then((i18n) => {
       const rootContainer = document.body;
@@ -13,3 +13,5 @@ export const initApp = () => {
       console.error('Error initializing i18n:', e);
     });
 };
+
+export default initApp;

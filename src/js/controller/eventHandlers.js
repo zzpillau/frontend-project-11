@@ -1,15 +1,13 @@
-import { watchedState } from '../init/initState.js';
+import watchedState from '../view/view.js';
 
-export const handlePostClick = (e) => {
-  const target = e.target;
+const handlePostClick = (e) => {
+  const { target } = e;
 
   const postLink = e.target.previousSibling;
 
   const id = target.getAttribute('data-id');
 
-  const [post] = watchedState.rssProcess.postsList.filter(
-    (post) => post.id === Number(id),
-  );
+  const [post] = watchedState.rssProcess.postsList.filter((post) => post.id === Number(id),);
 
   const { title, description, url } = post;
   post.isRead = true;
@@ -23,3 +21,5 @@ export const handlePostClick = (e) => {
   };
   watchedState.modal.currentPostLink = postLink;
 };
+
+export default handlePostClick;

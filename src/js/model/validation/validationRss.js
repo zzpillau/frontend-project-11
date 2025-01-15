@@ -5,18 +5,18 @@ const isValidRss = (doc) => {
 
   if (rssElement && channelElement && itemElement) {
     return true;
-  } else {
-    return false;
   }
+  return false;
 };
 
-export const handleRssValidation = (parsedData) => {
+const handleRssValidation = (parsedData) => {
   if (isValidRss(parsedData)) {
     return { status: 'valid', error: 'SUCCESS', data: parsedData };
-  } else {
-    return {
-      status: 'invalid',
-      error: 'INVALID_RSS',
-    };
   }
+  return {
+    status: 'invalid',
+    error: 'INVALID_RSS',
+  };
 };
+
+export default handleRssValidation;

@@ -1,5 +1,4 @@
-export const parseRss = (stringContainingXMLSource) => {
-  return new Promise((resolve, reject) => {
+const parseRss = (stringContainingXMLSource) => new Promise((resolve, reject) => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(
       stringContainingXMLSource,
@@ -7,9 +6,11 @@ export const parseRss = (stringContainingXMLSource) => {
     );
 
     if (doc.querySelector('parsererror')) {
-      reject({ error: 'INVALID_RSS' });
+      reject(new Error('INVALID_RSS'));
+      return;
     }
 
     resolve(doc);
   });
-};
+
+  export default parseRss;

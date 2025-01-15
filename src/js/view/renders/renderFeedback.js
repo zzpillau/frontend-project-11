@@ -1,6 +1,6 @@
-import { getInstanceI18n } from '../i18n/i18nConfig.js';
+import getInstanceI18n from '../i18n/i18nConfig.js';
 
-export const renderFeedback = (state) => {
+const renderFeedback = (state) => {
   const { status, error } = state;
 
   const form = document.querySelector('.rss-form');
@@ -35,3 +35,5 @@ export const renderFeedback = (state) => {
       console.error('renderFeedback error:', e);
     });
 };
+
+export default renderFeedback; 

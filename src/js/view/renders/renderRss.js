@@ -94,4 +94,3 @@ const renderRss = (state, eventHandler) => {
 };
 
 export default renderRss;
-

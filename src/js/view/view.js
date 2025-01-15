@@ -1,4 +1,3 @@
-
 import onChange from 'on-change';
 import handlePostClick from '../controller/eventHandlers.js';
 import renderFeedback from './renders/renderFeedback.js';

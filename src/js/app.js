@@ -12,13 +12,13 @@ const runApp = () => {
 
   const preValidationState = {
     error: '',
-    status: '',
+    status: ''
   };
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    watchedState.validationState = { ...preValidationState };
+    watchedState.validationState = {...preValidationState};
     watchedState.rssProcess.state = 'initial';
 
     watchedState.rssProcess.input = inputField.value;
@@ -42,15 +42,15 @@ const runApp = () => {
                 const feeds = watchedState.rssProcess.feedList;
                 const posts = watchedState.rssProcess.postsList;
                 const url = watchedState.rssProcess.input;
-                const processedData = proccessData(
+                const data = proccessData(
                   rssValidation.data,
                   feeds,
                   posts,
-                  url,
+                  url
                 );
 
-                watchedState.rssProcess.feedList.push(processedData.newFeed);
-                watchedState.rssProcess.postsList.push(...processedData.newPosts);
+                watchedState.rssProcess.feedList.push(data.newFeed);
+                watchedState.rssProcess.postsList.push(...data.newPosts);
                 watchedState.rssProcess.state = 'success';
 
                 checkForNewPosts(watchedState.rssProcess.updateTimeout);
@@ -60,7 +60,7 @@ const runApp = () => {
               }
             })
             .catch((errorCode) => {
-              const { error } = errorCode;
+              const {error} = errorCode;
               watchedState.rssProcess.error = error;
               watchedState.rssProcess.state = 'error';
             });

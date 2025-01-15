@@ -1,10 +1,10 @@
 import {
   generateFeedContainerConfig,
-  generateFeedConfig,
+  generateFeedConfig
 } from '../htmlConfigs/generateFeedConfig.js';
 import {
   generatePostsContainerConfig,
-  generatePostConfig,
+  generatePostConfig
 } from '../htmlConfigs/generatePostConfig.js';
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
@@ -33,7 +33,7 @@ const renderContentPack = (contentPack) => {
     configElementFunc,
     paramsToRender,
     needsI18n,
-    eventhandler,
+    eventhandler
   } = contentPack;
 
   renderContainer(rootContainer, configContainerFunc)
@@ -47,7 +47,7 @@ const renderContentPack = (contentPack) => {
               const newElConfig = configElementFunc(
                 ...params,
                 i18n,
-                eventhandler,
+                eventhandler
               );
               new HTMLBuilder(newElConfig).render(root);
             })
@@ -58,7 +58,6 @@ const renderContentPack = (contentPack) => {
           const newElConfig = configElementFunc(...params);
           new HTMLBuilder(newElConfig).render(root);
         }
-        return;
       });
     })
     .catch((error) => {
@@ -67,7 +66,7 @@ const renderContentPack = (contentPack) => {
 };
 
 const renderRss = (state, eventHandler) => {
-  const { feedList, postsList } = state.rssProcess;
+  const {feedList, postsList} = state.rssProcess;
 
   const feedPack = {
     contentType: feedList,
@@ -76,7 +75,7 @@ const renderRss = (state, eventHandler) => {
     configContainerFunc: generateFeedContainerConfig,
     configElementFunc: generateFeedConfig,
     paramsToRender: ['title', 'description'],
-    needsI18n: false,
+    needsI18n: false
   };
 
   const postPack = {
@@ -87,7 +86,7 @@ const renderRss = (state, eventHandler) => {
     configElementFunc: generatePostConfig,
     paramsToRender: ['id', 'title', 'url'],
     needsI18n: true,
-    eventhandler: { event: 'click', handler: eventHandler },
+    eventhandler: {event: 'click', handler: eventHandler}
   };
 
   renderContentPack(feedPack);

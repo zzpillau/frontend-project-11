@@ -1,21 +1,21 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
-// import prettier from 'eslint-config-prettier';
-// import prettierPlugin from 'eslint-plugin-prettier';
+import prettier from 'eslint-config-prettier';
+import prettierPlugin from 'eslint-plugin-prettier';
 import importPlugin from 'eslint-plugin-import';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    ignores: ['public/*'],
+    ignores: ['public/*']
   },
-  { languageOptions: { globals: globals.browser } },
+  {languageOptions: {globals: globals.browser}},
   pluginJs.configs.recommended,
-  // prettier,
+  prettier,
   {
     plugins: {
-      // prettier: prettierPlugin,
-      import: importPlugin,
+      prettier: prettierPlugin,
+      import: importPlugin
     },
     rules: {
       // 'prettier/prettier': 'error',
@@ -34,6 +34,18 @@ export default [
       'import/order': 'error',
       'no-param-reassign': 'error',
       'default-case': 'error',
-    },
-  },
+      'class-methods-use-this': 'error',
+      'no-trailing-spaces': 'error',
+      'comma-dangle': 'error',
+      'semi': 'error',
+      'max-len': 'error',
+      'padded-blocks': ['error', 'never'],
+      'object-curly-spacing': 'error',
+      'array-bracket-spacing': 'error',
+      'indent': ['error', 2],
+      'eol-last': 'error',
+      'no-useless-return': 'error',
+      'no-multiple-empty-lines': 'error'
+    }
+  }
 ];

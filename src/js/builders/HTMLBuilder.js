@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import {isEmpty} from 'lodash';
 
 class HTMLBuilder {
   constructor(elementsConfig) {
@@ -6,32 +6,34 @@ class HTMLBuilder {
     this.elementsConfig = elementsConfig;
   }
 
-  createNewElement(config) {
+  static createNewElement(config) {
     const {
-      tag, 
-      classes = [], 
-      attributes = {}, 
+      tag,
+      classes = [],
+      attributes = {},
       textContent = ''
-    } = config
+    } = config;
     const container = document.createElement(tag);
     container.classList.add(...classes);
-    Object.entries(attributes).forEach(([attrName, attrValue]) => container.setAttribute(attrName, attrValue),);
+    Object
+      .entries(attributes)
+      .forEach(([attrName, attrValue]) => container
+        .setAttribute(attrName, attrValue));
     container.textContent = textContent;
     return container;
   }
 
   #addElement(key, config) {
-   
-    this.elements[key] = this.createNewElement(config)
+    this.elements[key] = HTMLBuilder.createNewElement(config);
     const parentElement = this.elements[key];
 
-    const { eventhandler = {} } = config;
+    const {eventhandler = {}} = config;
 
     if (eventhandler && eventhandler.event && eventhandler.handler) {
       parentElement.addEventListener(eventhandler.event, eventhandler.handler);
     }
 
-    const { children = {}} = config;
+    const {children = {}} = config;
 
     if (!isEmpty(children)) {
       Object.entries(children).forEach(([childKey, childConfig]) => {
@@ -41,8 +43,8 @@ class HTMLBuilder {
     }
   }
 
-  render(container, { option = 'append' } = {}) {
-    const { root } = this.elementsConfig;
+  render(container, {option = 'append'} = {}) {
+    const {root} = this.elementsConfig;
 
     this.#addElement('root', root);
 
@@ -53,10 +55,8 @@ class HTMLBuilder {
       if (option === 'prepend') {
         container.prepend(this.elements.root);
       }
-
     }
     return this.elements[root];
-
   }
 }
 

@@ -11,12 +11,12 @@ const isValidRss = (doc) => {
 
 const handleRssValidation = (parsedData) => {
   if (isValidRss(parsedData)) {
-    return { status: 'valid', error: 'SUCCESS', data: parsedData };
+    return {status: 'valid', error: 'SUCCESS', data: parsedData};
   }
-  
+
   return {
     status: 'invalid',
-    error: 'INVALID_RSS',
+    error: 'INVALID_RSS'
   };
 };
 

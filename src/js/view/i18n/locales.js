@@ -5,11 +5,11 @@ const resources = {
         add: 'Добавить',
         view: 'Просмотр',
         close: 'Закрыть',
-        read: 'Читать полностью',
+        read: 'Читать полностью'
       },
       headers: {
         feeds: 'Фиды',
-        posts: 'Посты',
+        posts: 'Посты'
       },
       errors: {
         NETWORK_ERROR: 'Ошибка сети',
@@ -18,7 +18,7 @@ const resources = {
         DUPLICATE_ERROR: 'RSS уже существует',
         GENERAL_ERROR: 'Ошибка. Что-то пошло не так',
         UPDATE_FAILED: 'Ошибка обновления потока',
-        SUCCESS: 'RSS успешно загружен',
+        SUCCESS: 'RSS успешно загружен'
       },
       rssAggregatorTitle: 'RSS агрегатор',
       rssAggregatorDescription:
@@ -26,15 +26,15 @@ const resources = {
       rssLinkPlaceholder: 'Ссылка RSS',
       rssLinkLabel: 'Ссылка RSS',
       exampleLink: 'Пример: https://lorem-rss.hexlet.app/feed',
-      hexletLink: 'https://ru.hexlet.io/professions/frontend/projects/11',
-    },
+      hexletLink: 'https://ru.hexlet.io/professions/frontend/projects/11'
+    }
   },
   en: {
     translation: {
       createdBy: 'created by',
-      hexlet: 'Hexlet',
-    },
-  },
+      hexlet: 'Hexlet'
+    }
+  }
 };
 
 export default resources;

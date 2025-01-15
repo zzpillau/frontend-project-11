@@ -11,16 +11,16 @@ export const generateFeedContainerConfig = (i18n) => ({
             tag: 'h2',
             classes: ['card-title', 'h4'],
             textContent: i18n.t('headers.feeds'),
-            children: {},
-          },
-        },
+            children: {}
+          }
+        }
       },
       ul: {
         tag: 'ul',
-        classes: ['feed-list', 'list-group', 'border-0', 'rounded-0'],
-      },
-    },
-  },
+        classes: ['feed-list', 'list-group', 'border-0', 'rounded-0']
+      }
+    }
+  }
 });
 
 export const generateFeedConfig = (title, description) => ({
@@ -31,13 +31,13 @@ export const generateFeedConfig = (title, description) => ({
       h3: {
         tag: 'h3',
         classes: ['h6', 'm-0'],
-        textContent: title,
+        textContent: title
       },
       p: {
         tag: 'p',
         classes: ['m-0', 'small', 'text-black-50'],
-        textContent: description,
-      },
-    },
-  },
+        textContent: description
+      }
+    }
+  }
 });

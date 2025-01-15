@@ -1,4 +1,4 @@
-import { generatePostConfig } from '../htmlConfigs/generatePostConfig.js';
+import {generatePostConfig} from '../htmlConfigs/generatePostConfig.js';
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
@@ -15,11 +15,11 @@ const renderNewPosts = (state, eventHandler) => {
           i18n,
           {
             event: 'click',
-            handler: eventHandler,
-          },
+            handler: eventHandler
+          }
         );
         return new HTMLBuilder(postConfig).render(rootContainer, {
-          option: 'prepend',
+          option: 'prepend'
         });
       })
       .catch((e) => {

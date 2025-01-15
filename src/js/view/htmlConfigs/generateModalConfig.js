@@ -8,14 +8,14 @@ export const generateModalContainerConfig = (i18n) => ({
       'aria-labelledby': 'modal',
       style: 'display: block;',
       'aria-modal': 'true',
-      role: 'dialog',
+      role: 'dialog'
     },
     children: {
       'modal-dialog': {
         tag: 'div',
         classes: ['modal-dialog'],
         attributes: {
-          role: 'document',
+          role: 'document'
         },
         children: {
           'modal-content': {
@@ -28,22 +28,22 @@ export const generateModalContainerConfig = (i18n) => ({
                 children: {
                   'modal-title': {
                     tag: 'h5',
-                    classes: ['modal-title'],
+                    classes: ['modal-title']
                   },
                   'btn-close-modal': {
                     tag: 'button',
                     classes: ['btn-close', 'close'],
                     attributes: {
                       type: 'button',
-                      'aria-label': 'Close',
-                    },
-                  },
-                },
+                      'aria-label': 'Close'
+                    }
+                  }
+                }
               },
               'modal-body': {
                 tag: 'div',
                 classes: ['modal-body'],
-                attributes: {},
+                attributes: {}
               },
               'modal-footer': {
                 tag: 'div',
@@ -56,26 +56,26 @@ export const generateModalContainerConfig = (i18n) => ({
                       href: '',
                       role: 'button',
                       target: '_blank',
-                      rel: 'noopener noreferrer',
+                      rel: 'noopener noreferrer'
                     },
-                    textContent: i18n.t('buttons.read'),
+                    textContent: i18n.t('buttons.read')
                   },
                   'btn-secondary-close': {
                     tag: 'button',
                     classes: ['btn', 'btn-secondary'],
                     attributes: {
-                      type: 'button',
+                      type: 'button'
                     },
-                    textContent: i18n.t('buttons.close'),
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
+                    textContent: i18n.t('buttons.close')
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 });
 
 export const generateModalConfig = (title, description, url, i18n) => ({
@@ -90,7 +90,7 @@ export const generateModalConfig = (title, description, url, i18n) => ({
           'modal-title': {
             tag: 'h5',
             classes: ['modal-title'],
-            textContent: title,
+            textContent: title
           },
           'btn-close-modal': {
             tag: 'button',
@@ -98,16 +98,16 @@ export const generateModalConfig = (title, description, url, i18n) => ({
             attributes: {
               type: 'button',
               'data-bs-dismiss': 'modal',
-              'aria-label': 'Close',
-            },
-          },
-        },
+              'aria-label': 'Close'
+            }
+          }
+        }
       },
       'modal-body': {
         tag: 'div',
         classes: ['modal-body'],
         attributes: {},
-        textContent: description,
+        textContent: description
       },
       'modal-footer': {
         tag: 'div',
@@ -120,22 +120,22 @@ export const generateModalConfig = (title, description, url, i18n) => ({
               href: url,
               role: 'button',
               target: '_blank',
-              rel: 'noopener noreferrer',
+              rel: 'noopener noreferrer'
             },
             textContent: i18n.t('buttons.read'),
-            children: {},
+            children: {}
           },
           'btn-secondary-close': {
             tag: 'button',
             classes: ['btn', 'btn-secondary'],
             attributes: {
               type: 'button',
-              'data-bs-dismiss': 'modal',
+              'data-bs-dismiss': 'modal'
             },
-            textContent: i18n.t('buttons.close'),
-          },
-        },
-      },
-    },
-  },
+            textContent: i18n.t('buttons.close')
+          }
+        }
+      }
+    }
+  }
 });

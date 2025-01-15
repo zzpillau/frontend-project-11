@@ -9,7 +9,6 @@ import {
 import { getInstanceI18n } from '../i18n/i18nConfig.js';
 import { HTMLBuilder } from '../../builders/HTMLBuilder.js';
 import { handlePostClick } from '../../controller/eventHandlers.js';
-import { forEachRight } from 'lodash';
 
 const renderContainer = (rootContainer, generateConfig) => {
   rootContainer.innerHTML = '';
@@ -40,7 +39,7 @@ export const renderContentPack = (contentPack) => {
 
   renderContainer(rootContainer, configContainerFunc)
     .then(() => {
-      forEachRight(contentType, (element) => {
+      contentType.forEach((element) => {
         const root = document.querySelector(secondaryContainerSelector);
         const params = paramsToRender.map((param) => element[param]);
         if (needsI18n) {

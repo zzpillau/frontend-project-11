@@ -11,6 +11,7 @@ const renderFeedback = (state) => {
 
   getInstanceI18n()
     .then((i18n) => {
+      console.log('state', state)
       feedbackOutput.textContent = i18n.t(`errors.${error}`);
 
       switch (status) {

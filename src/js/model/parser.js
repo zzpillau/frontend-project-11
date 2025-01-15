@@ -6,8 +6,9 @@ const parseRss = (stringContainingXMLSource) => new Promise((resolve, reject) =>
     );
 
     if (doc.querySelector('parsererror')) {
-      reject(new Error('INVALID_RSS'));
-      return;
+      const error = new Error()
+      error.data = { error: 'INVALID_RSS' }
+      reject(error.data);
     }
 
     resolve(doc);

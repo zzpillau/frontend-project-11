@@ -37,7 +37,7 @@ const watchState = (initState) => {
         }
         break;
       default:
-        console.log('I want to ignore this');
+        console.log('I want to ignore this path', path);
     }
   });
 

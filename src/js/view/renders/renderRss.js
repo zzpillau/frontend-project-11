@@ -8,7 +8,6 @@ import {
 } from '../htmlConfigs/generatePostConfig.js';
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
-import handlePostClick from '../../controller/eventHandlers.js';
 
 const renderContainer = (rootContainer, generateConfig) => {
   rootContainer.innerHTML = '';
@@ -67,7 +66,7 @@ const renderContentPack = (contentPack) => {
     });
 };
 
-const renderRss = (state) => {
+const renderRss = (state, eventHandler) => {
   const { feedList, postsList } = state;
 
   const feedPack = {
@@ -88,7 +87,7 @@ const renderRss = (state) => {
     configElementFunc: generatePostConfig,
     paramsToRender: ['id', 'title', 'url'],
     needsI18n: true,
-    eventhandler: { event: 'click', handler: handlePostClick },
+    eventhandler: { event: 'click', handler: eventHandler },
   };
 
   renderContentPack(feedPack);

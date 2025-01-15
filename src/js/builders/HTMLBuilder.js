@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 class HTMLBuilder {
   constructor(elementsConfig) {
@@ -6,7 +6,13 @@ class HTMLBuilder {
     this.elementsConfig = elementsConfig;
   }
 
-  createNewElement(tag, classes = [], attributes = {}, textContent = '') {
+  createNewElement(config) {
+    const {
+      tag, 
+      classes = [], 
+      attributes = {}, 
+      textContent = ''
+    } = config
     const container = document.createElement(tag);
     container.classList.add(...classes);
     Object.entries(attributes).forEach(([attrName, attrValue]) => container.setAttribute(attrName, attrValue),);
@@ -14,50 +20,23 @@ class HTMLBuilder {
     return container;
   }
 
-  #addElement(
-    key,
-    tag,
-    classes = [],
-    attributes = {},
-    textContent = '',
-    children = {},
-    eventhandler = {},
-  ) {
-    this.elements[key] = this.createNewElement(
-      tag,
-      classes,
-      attributes,
-      textContent,
-      children,
-    );
+  #addElement(key, config) {
+   
+    this.elements[key] = this.createNewElement(config)
     const parentElement = this.elements[key];
+
+    const { eventhandler = {} } = config;
 
     if (eventhandler && eventhandler.event && eventhandler.handler) {
       parentElement.addEventListener(eventhandler.event, eventhandler.handler);
     }
 
-    if (!_.isEmpty(children)) {
-      Object.entries(children).forEach(([childName, childValue]) => {
-        const {
-          tag,
-          classes = [],
-          attributes = {},
-          textContent = '',
-          children = {},
-          eventhandler = {},
-        } = childValue;
+    const { children = {}} = config;
 
-        this.#addElement(
-          childName,
-          tag,
-          classes,
-          attributes,
-          textContent,
-          children,
-          eventhandler,
-        );
-
-        parentElement.append(this.elements[childName]);
+    if (!isEmpty(children)) {
+      Object.entries(children).forEach(([childKey, childConfig]) => {
+        this.#addElement(childKey, childConfig);
+        parentElement.append(this.elements[childKey]);
       });
     }
   }
@@ -65,24 +44,7 @@ class HTMLBuilder {
   render(container, { option = 'append' } = {}) {
     const { root } = this.elementsConfig;
 
-    const {
-      tag,
-      classes = [],
-      attributes = {},
-      textContent = '',
-      children = {},
-      eventhandler = {},
-    } = root;
-
-    this.#addElement(
-      'root',
-      tag,
-      classes,
-      attributes,
-      textContent,
-      children,
-      eventhandler,
-    );
+    this.#addElement('root', root);
 
     if (this.elements.root) {
       if (option === 'append') {

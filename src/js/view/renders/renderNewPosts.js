@@ -1,9 +1,8 @@
 import { generatePostConfig } from '../htmlConfigs/generatePostConfig.js';
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
-import handlePostClick from '../../controller/eventHandlers.js';
 
-const renderNewPosts = (state) => {
+const renderNewPosts = (state, eventHandler) => {
   const rootContainer = document.querySelector('.posts-list');
 
   state.rssProcess.newPosts.forEach((post) => {
@@ -16,7 +15,7 @@ const renderNewPosts = (state) => {
           i18n,
           {
             event: 'click',
-            handler: handlePostClick,
+            handler: eventHandler,
           },
         );
         return new HTMLBuilder(postConfig).render(rootContainer, {

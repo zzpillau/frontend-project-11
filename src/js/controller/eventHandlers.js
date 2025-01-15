@@ -7,7 +7,7 @@ const handlePostClick = (e) => {
 
   const id = target.getAttribute('data-id');
 
-  const [post] = watchedState.rssProcess.postsList.filter((post) => post.id === Number(id),);
+  const [ post ] = watchedState.rssProcess.postsList.filter((postEl) => postEl.id === Number(id),);
 
   const { title, description, url } = post;
   post.isRead = true;

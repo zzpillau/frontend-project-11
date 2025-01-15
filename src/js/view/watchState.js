@@ -1,4 +1,5 @@
 import onChange from 'on-change';
+import handlePostClick from '../../controller/eventHandlers.js';
 import renderFeedback from './renders/renderFeedback.js';
 import renderRss from './renders/renderRss.js';
 import renderNewPosts from './renders/renderNewPosts.js';
@@ -18,19 +19,21 @@ const watchState = (initState) => {
           });
         }
         if (value === 'success') {
-          renderRss(initState.rssProcess);
+          renderRss(initState.rssProcess, handlePostClick);
         }
         break;
       case 'rssProcess.updateState':
         if (value === 'updateSuccess') {
-          renderNewPosts(initState);
+          renderNewPosts(initState, handlePostClick);
         }
         break;
-
       case 'modal.state':
         if (value === 'open') {
           renderModal(initState);
         }
+        break;
+      default:
+        throw new Error(`Unknown state path: ${path}`)
     }
   });
 

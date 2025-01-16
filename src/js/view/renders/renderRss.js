@@ -9,14 +9,14 @@ import {
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
-const renderContainer = (initialContainer, generateConfig) => {
-  const rootContainer = { ...initialContainer };
-  rootContainer.innerHTML = '';
+const renderContainer = (rootContainer, generateConfig) => {
+  const root = document.querySelector(rootContainer);
+  root.innerHTML = '';
   return getInstanceI18n()
     .then((i18n) => {
       const feedContainerConfig = generateConfig(i18n);
       return new Promise((resolve) => {
-        new HTMLBuilder(feedContainerConfig).render(initialContainer);
+        new HTMLBuilder(feedContainerConfig).render(root);
         resolve();
       });
     })
@@ -71,7 +71,7 @@ const renderRss = (state, eventHandler) => {
 
   const feedPack = {
     contentType: feedList,
-    rootContainer: document.querySelector('.feeds') || null,
+    rootContainer: '.feeds',
     secondaryContainerSelector: '.feed-list',
     configContainerFunc: generateFeedContainerConfig,
     configElementFunc: generateFeedConfig,
@@ -81,7 +81,7 @@ const renderRss = (state, eventHandler) => {
 
   const postPack = {
     contentType: postsList,
-    rootContainer: document.querySelector('.posts') || null,
+    rootContainer: '.posts',
     secondaryContainerSelector: '.posts-list',
     configContainerFunc: generatePostsContainerConfig,
     configElementFunc: generatePostConfig,

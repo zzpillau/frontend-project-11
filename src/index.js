@@ -10,7 +10,4 @@ document.addEventListener('DOMContentLoaded', () => {
   runApp();
 
   hideModal();
-
-  const input = document.querySelector('#url-input');
-  input.value = 'https://primamedia.ru/export/news.xml';
 });

@@ -25,9 +25,6 @@ const renderModal = (state) => {
       const modal = document.querySelector('#modal');
       const modalInstande = new Modal(modal);
       modalInstande.show();
-
-      state.modal.content = null;
-      state.modal.state = 'idle';
     })
     .catch((err) => {
       console.error('Error getting i18n instance:', err);

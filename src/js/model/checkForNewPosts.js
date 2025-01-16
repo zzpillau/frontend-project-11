@@ -16,7 +16,7 @@ const checkForNewPosts = (timeout) => {
         if (result.status === 'success') {
           const doc = parseRss(result.data);
           return doc;
-        } else if (result.error === 'NETWORK_ERROR') {
+        } if (result.error === 'NETWORK_ERROR') {
           console.error('Network error while fetching feed:', feed.title);
           throw new Error('NETWORK_ERROR');
         } else {

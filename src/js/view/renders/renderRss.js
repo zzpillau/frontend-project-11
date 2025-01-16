@@ -9,13 +9,14 @@ import {
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
-const renderContainer = (rootContainer, generateConfig) => {
+const renderContainer = (initialContainer, generateConfig) => {
+  const rootContainer = { ...initialContainer };
   rootContainer.innerHTML = '';
   return getInstanceI18n()
     .then((i18n) => {
       const feedContainerConfig = generateConfig(i18n);
       return new Promise((resolve) => {
-        new HTMLBuilder(feedContainerConfig).render(rootContainer);
+        new HTMLBuilder(feedContainerConfig).render(initialContainer);
         resolve();
       });
     })

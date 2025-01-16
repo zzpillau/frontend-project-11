@@ -1,5 +1,8 @@
-const handlePostClick = (state) => (e) => {
+const handlePostClick = (initState) => (e) => {
   const { target } = e;
+  const state = { ...initState };
+
+  state.modal.state = 'idle';
 
   const postLink = e.target.previousSibling;
 

@@ -25,6 +25,7 @@ const watchState = (initState) => {
         }
         break;
       case 'rssProcess.updateState':
+        console.log('view: checkFornew FOUNDED');
         if (value === 'updateSuccess') {
           renderNewPosts(initState, handleClick);
         }
@@ -35,7 +36,7 @@ const watchState = (initState) => {
         }
         break;
       default:
-        console.log('I want to ignore this path', path);
+        break;
     }
   });
 

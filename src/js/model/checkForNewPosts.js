@@ -1,16 +1,16 @@
 import Post from '../components/Post.js';
-import watchedState from '../controller/stateController.js';
+import state from '../controller/stateController.js';
 import fetchRssFeed from './fetchRssFeed.js';
 import parseRss from './parser.js';
 
-const pickNewPosts = (fetchedPosts, state) => fetchedPosts
+const pickNewPosts = (fetchedPosts, currentState) => fetchedPosts
   .flat()
-  .filter((newP) => !state.rssProcess.postsList
+  .filter((newP) => !currentState.rssProcess.postsList
     .some((oldP) => oldP.title === newP.title
     && oldP.url === newP.url));
 
 const checkForNewPosts = (timeout) => {
-  const updatedFeedsPromises = watchedState.rssProcess.feedList
+  const updatedFeedsPromises = state.rssProcess.feedList
     .map((feed) => fetchRssFeed(feed.url)
       .then((result) => {
         if (result.status === 'success') {
@@ -33,7 +33,7 @@ const checkForNewPosts = (timeout) => {
           const postUrl = item.querySelector('link').textContent;
 
           return new Post(
-            watchedState.rssProcess.postsList.length + 1 + i,
+            state.rssProcess.postsList.length + 1 + i,
             FEED_ID,
             postTitle,
             postDesc,
@@ -61,26 +61,26 @@ const checkForNewPosts = (timeout) => {
           }
         });
       } else {
-        watchedState.rssProcess.updateState = 'idle';
+        state.rssProcess.updateState = 'idle';
 
-        const onlyNewPosts = pickNewPosts(result, watchedState);
+        const onlyNewPosts = pickNewPosts(result, state);
 
         if (onlyNewPosts.length > 0) {
-          watchedState.rssProcess.newPosts = [...onlyNewPosts];
-          watchedState.rssProcess.updateState = 'updateSuccess';
-          watchedState.rssProcess.postsList = [
-            ...watchedState.rssProcess.postsList,
+          state.rssProcess.newPosts = [...onlyNewPosts];
+          state.rssProcess.updateState = 'updateSuccess';
+          state.rssProcess.postsList = [
+            ...state.rssProcess.postsList,
             ...onlyNewPosts,
           ];
         } else {
-          watchedState.rssProcess.newPosts = [];
+          state.rssProcess.newPosts = [];
         }
       }
       setTimeout(() => checkForNewPosts(timeout), timeout);
     })
     .catch((updateErr) => {
-      watchedState.rssProcess.updateState = 'updateError';
-      watchedState.rssProcess.updateError = updateErr;
+      state.rssProcess.updateState = 'updateError';
+      state.rssProcess.updateError = updateErr;
       setTimeout(() => checkForNewPosts(timeout), timeout);
     });
 };

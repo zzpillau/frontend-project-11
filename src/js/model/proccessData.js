@@ -19,7 +19,6 @@ const proccessData = (data, feeds, posts, feedUrl) => {
 
     return new Post(postsCounter, newFeed.id, postTitle, postDesc, postUrl);
   });
-
   return {
     newFeed,
     newPosts,

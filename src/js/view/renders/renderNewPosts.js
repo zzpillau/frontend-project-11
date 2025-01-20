@@ -12,12 +12,14 @@ const renderNewPosts = (state, eventHandler) => {
           post.id,
           post.title,
           post.url,
+          post.isRead,
           i18n,
           {
             event: 'click',
             handler: eventHandler,
           },
         );
+
         return new HTMLBuilder(postConfig).render(rootContainer, {
           option: 'prepend',
         });

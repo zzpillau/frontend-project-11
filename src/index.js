@@ -10,4 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   runApp();
 
   hideModal();
+
+  document.querySelector('#url-input').value = 'https://lorem-rss.hexlet.app/feed';
 });

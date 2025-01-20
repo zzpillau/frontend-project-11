@@ -14,12 +14,14 @@ const handleValidationError = (validationError) => {
 
 const handleFetchError = (fetchError) => {
   console.error('handleFetchError', fetchError);
-  const { error } = fetchError;
-  state.rssProcess.error = error;
+  state.rssProcess.error = fetchError.error;
   state.rssProcess.state = 'error';
+
+  console.log('state.rssProcess.error', state.rssProcess.error);
+  console.log('state.rssProcess.state', state.rssProcess.state);
 };
 
-const fetchAndParse = () => fetchRssFeed(state.rssProcess.input)
+const fetchAndParse = (url) => fetchRssFeed(url)
   .then((result) => {
     if (result.status === 'success') {
       return parseRss(result.data);
@@ -43,11 +45,12 @@ const runApp = () => {
     state.validationState = { ...preValidationState };
     state.rssProcess.state = 'initial';
     state.rssProcess.input = inputField.value;
+    state.rssProcess.error = '';
 
     validateUrlAndDuplicates(state.rssProcess.input, state.rssProcess.feedList)
       .then((validationState) => {
         if (validationState.status === 'valid') {
-          return fetchAndParse();
+          return fetchAndParse(state.rssProcess.input);
         }
         state.validationState.error = validationState.error;
         state.validationState.status = validationState.status;
@@ -80,6 +83,7 @@ const runApp = () => {
         }
       })
       .catch((error) => {
+        console.log('app cathed error', error);
         if (error.status === 'invalid') {
           handleValidationError(error);
         }

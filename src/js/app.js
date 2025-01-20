@@ -7,18 +7,26 @@ import proccessData from './model/proccessData.js';
 import checkForNewPosts from './model/checkForNewPosts.js';
 
 const handleValidationError = (validationError) => {
-  console.error('validation error', validationError);
-  const { error } = validationError.error;
-  state.validationState.error = error || 'GENERAL_ERROR';
+  console.error('handleValidationError', validationError);
+  state.validationState.error = validationError.error || 'GENERAL_ERROR';
   state.validationState.status = 'invalid';
 };
 
 const handleFetchError = (fetchError) => {
-  console.error('fetch error', fetchError);
+  console.error('handleFetchError', fetchError);
   const { error } = fetchError;
   state.rssProcess.error = error;
   state.rssProcess.state = 'error';
 };
+
+const fetchAndParse = () => fetchRssFeed(state.rssProcess.input)
+  .then((result) => {
+    if (result.status === 'success') {
+      return parseRss(result.data);
+    }
+    console.error('Fetch result status:', result);
+    return Promise.reject(result);
+  });
 
 const runApp = () => {
   const form = document.querySelector('.rss-form');
@@ -39,51 +47,45 @@ const runApp = () => {
     validateUrlAndDuplicates(state.rssProcess.input, state.rssProcess.feedList)
       .then((validationState) => {
         if (validationState.status === 'valid') {
-          fetchRssFeed(state.rssProcess.input)
-            .then((result) => {
-              if (result.status === 'success') {
-                return parseRss(result.data);
-              }
-              return Promise.reject(result);
-            })
-            .then((doc) => {
-              const rssValidation = handleRssValidation(doc);
+          return fetchAndParse();
+        }
+        state.validationState.error = validationState.error;
+        state.validationState.status = validationState.status;
 
-              state.validationState.error = rssValidation.error;
-              state.validationState.status = rssValidation.status;
+        return Promise.reject(validationState);
+      })
+      .then((doc) => {
+        const rssValidation = handleRssValidation(doc);
 
-              if (rssValidation && rssValidation.status === 'valid') {
-                const feeds = state.rssProcess.feedList;
-                const posts = state.rssProcess.postsList;
-                const url = state.rssProcess.input;
+        if (rssValidation && rssValidation.status === 'valid') {
+          state.validationState.error = rssValidation.error;
+          state.validationState.status = rssValidation.status;
 
-                const data = proccessData(
-                  rssValidation.data,
-                  feeds,
-                  posts,
-                  url,
-                );
+          const feeds = state.rssProcess.feedList;
+          const posts = state.rssProcess.postsList;
+          const url = state.rssProcess.input;
 
-                state.rssProcess.feedList.unshift(data.newFeed);
-                state.rssProcess.postsList.unshift(...data.newPosts);
-                state.rssProcess.state = 'success';
+          const data = proccessData(
+            rssValidation.data,
+            feeds,
+            posts,
+            url,
+          );
 
-                checkForNewPosts(state.rssProcess.updateTimeout);
-              } else {
-                state.rssProcess.error = rssValidation.error;
-                state.rssProcess.state = 'error';
-              }
-            })
-            .catch((fetchError) => {
-              handleFetchError(fetchError);
-            });
-        } else {
-          state.validationState.error = validationState.error;
-          state.validationState.status = validationState.status;
+          state.rssProcess.feedList.unshift(data.newFeed);
+          state.rssProcess.postsList.unshift(...data.newPosts);
+          state.rssProcess.state = 'success';
+
+          checkForNewPosts(state.rssProcess.updateTimeout);
         }
       })
-      .catch((validationError) => {
-        handleValidationError(validationError);
+      .catch((error) => {
+        if (error.status === 'invalid') {
+          handleValidationError(error);
+        }
+        if (error.status === 'error') {
+          handleFetchError(error);
+        }
       });
   });
 };

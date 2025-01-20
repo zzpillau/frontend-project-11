@@ -8,7 +8,6 @@ const fetchRssFeed = (url) => axios
       const data = response.data.contents;
       return { status: 'success', data };
     }
-    console.error('Unexpected response status:', response.status);
     throw new Error('Unexpected response status');
   })
   .catch((error) => {

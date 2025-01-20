@@ -7,7 +7,7 @@ const parseRss = (source) => new Promise((resolve, reject) => {
 
   if (doc.querySelector('parsererror')) {
     const error = new Error();
-    error.data = { error: 'INVALID_RSS' };
+    error.data = { error: 'INVALID_RSS', status: 'invalid' };
     reject(error.data);
   }
 

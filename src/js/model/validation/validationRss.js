@@ -15,8 +15,8 @@ const handleRssValidation = (parsedData) => {
   }
 
   return {
-    status: 'invalid',
     error: 'INVALID_RSS',
+    status: 'invalid',
   };
 };
 

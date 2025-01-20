@@ -8,8 +8,6 @@ const getInstanceI18n = () => {
     i18nPromise = new Promise((resolve, reject) => {
       const i18nInstance = i18next.createInstance();
 
-      console.log('Initializing i18n instance...');
-
       i18nInstance.init(
         {
           lng: 'ru',
@@ -19,10 +17,8 @@ const getInstanceI18n = () => {
         },
         (err) => {
           if (err) {
-            console.error('Error during i18n initialization:', err);
             reject(err);
           } else {
-            console.log('i18n instance successfully initialized:', i18nInstance);
             resolve(i18nInstance);
           }
         },

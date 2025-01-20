@@ -24,22 +24,16 @@ const validateUrlAndDuplicates = (input, feedList) => {
   return schema
     .validate({ url: input })
     .then(() => {
-      if (!checkForDuplicateFeeds(feedList, { url: input })) {
-        validationState.status = 'valid';
-        validationState.error = 'SUCCESS';
-      } else {
-        validationState.status = 'invalid';
-        validationState.error = 'DUPLICATE_ERROR';
-      }
+      const hasNoDuplicates = !checkForDuplicateFeeds(feedList, { url: input });
+      validationState.status = hasNoDuplicates ? 'valid' : 'invalid';
+      validationState.error = hasNoDuplicates ? 'SUCCESS' : 'DUPLICATE_ERROR';
       return validationState;
     })
     .catch((e) => {
       validationState.status = 'invalid';
 
       if (e.errors) {
-        const {
-          errors: [error],
-        } = e;
+        const { errors: [error] } = e;
         validationState.error = error;
       } else {
         validationState.error = 'GENERAL_ERROR';

@@ -68,12 +68,7 @@ const runApp = () => {
           const posts = state.rssProcess.postsList;
           const url = state.rssProcess.input;
 
-          const data = proccessData(
-            rssValidation.data,
-            feeds,
-            posts,
-            url,
-          );
+          const data = proccessData(rssValidation.data, feeds, posts, url);
 
           state.rssProcess.feedList.unshift(data.newFeed);
           state.rssProcess.postsList.unshift(...data.newPosts);

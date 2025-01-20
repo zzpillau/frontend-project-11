@@ -2,17 +2,13 @@ import getInstanceI18n from '../i18n/i18nConfig.js';
 
 const renderFeedback = (state) => {
   const { status, error } = state;
-
   const form = document.querySelector('.rss-form');
   const urlInput = document.querySelector('#url-input');
-
   const feedbackOutput = document.querySelector('.feedback');
   feedbackOutput.textContent = '';
-
   getInstanceI18n()
     .then((i18n) => {
       feedbackOutput.textContent = i18n.t(`errors.${error}`);
-
       switch (status) {
         case 'valid':
           feedbackOutput.classList.remove('text-danger');

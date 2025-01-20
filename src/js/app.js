@@ -1,10 +1,24 @@
-import watchedState from './controller/stateController.js';
-import validateUrl from './model/validation/validation.js';
+import state from './controller/stateController.js';
+import validateUrlAndDuplicates from './model/validation/validateUrlAndDuplicates.js';
 import handleRssValidation from './model/validation/validationRss.js';
 import fetchRssFeed from './model/fetchRssFeed.js';
 import parseRss from './model/parser.js';
 import proccessData from './model/proccessData.js';
 import checkForNewPosts from './model/checkForNewPosts.js';
+
+const handleValidationError = (validationError) => {
+  console.error('validation error', validationError);
+  const { error } = validationError.error;
+  state.validationState.error = error || 'GENERAL_ERROR';
+  state.validationState.status = 'invalid';
+};
+
+const handleFetchError = (fetchError) => {
+  console.error('fetch error', fetchError);
+  const { error } = fetchError;
+  state.rssProcess.error = error;
+  state.rssProcess.state = 'error';
+};
 
 const runApp = () => {
   const form = document.querySelector('.rss-form');
@@ -18,15 +32,14 @@ const runApp = () => {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    watchedState.validationState = { ...preValidationState };
-    watchedState.rssProcess.state = 'initial';
+    state.validationState = { ...preValidationState };
+    state.rssProcess.state = 'initial';
+    state.rssProcess.input = inputField.value;
 
-    watchedState.rssProcess.input = inputField.value;
-
-    validateUrl(watchedState.rssProcess.input, watchedState.rssProcess.feedList)
+    validateUrlAndDuplicates(state.rssProcess.input, state.rssProcess.feedList)
       .then((validationState) => {
         if (validationState.status === 'valid') {
-          fetchRssFeed(watchedState.rssProcess.input)
+          fetchRssFeed(state.rssProcess.input)
             .then((result) => {
               if (result.status === 'success') {
                 return parseRss(result.data);
@@ -35,13 +48,15 @@ const runApp = () => {
             })
             .then((doc) => {
               const rssValidation = handleRssValidation(doc);
-              watchedState.validationState.error = rssValidation.error;
-              watchedState.validationState.status = rssValidation.status;
+
+              state.validationState.error = rssValidation.error;
+              state.validationState.status = rssValidation.status;
 
               if (rssValidation && rssValidation.status === 'valid') {
-                const feeds = watchedState.rssProcess.feedList;
-                const posts = watchedState.rssProcess.postsList;
-                const url = watchedState.rssProcess.input;
+                const feeds = state.rssProcess.feedList;
+                const posts = state.rssProcess.postsList;
+                const url = state.rssProcess.input;
+
                 const data = proccessData(
                   rssValidation.data,
                   feeds,
@@ -49,31 +64,26 @@ const runApp = () => {
                   url,
                 );
 
-                watchedState.rssProcess.feedList.push(data.newFeed);
-                watchedState.rssProcess.postsList.push(...data.newPosts);
-                watchedState.rssProcess.state = 'success';
+                state.rssProcess.feedList.unshift(data.newFeed);
+                state.rssProcess.postsList.unshift(...data.newPosts);
+                state.rssProcess.state = 'success';
 
-                checkForNewPosts(watchedState.rssProcess.updateTimeout);
+                checkForNewPosts(state.rssProcess.updateTimeout);
               } else {
-                watchedState.rssProcess.error = rssValidation.error;
-                watchedState.rssProcess.state = 'error';
+                state.rssProcess.error = rssValidation.error;
+                state.rssProcess.state = 'error';
               }
             })
-            .catch((errorCode) => {
-              const { error } = errorCode;
-              watchedState.rssProcess.error = error;
-              watchedState.rssProcess.state = 'error';
+            .catch((fetchError) => {
+              handleFetchError(fetchError);
             });
         } else {
-          watchedState.validationState.error = validationState.error;
-          watchedState.validationState.status = validationState.status;
+          state.validationState.error = validationState.error;
+          state.validationState.status = validationState.status;
         }
       })
-      .catch((error) => {
-        console.error(error, 'error.error || GENERAL_ERROR');
-
-        watchedState.validationState.error = error.error || 'GENERAL_ERROR';
-        watchedState.validationState.status = 'invalid';
+      .catch((validationError) => {
+        handleValidationError(validationError);
       });
   });
 };

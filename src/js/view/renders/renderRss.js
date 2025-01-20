@@ -9,8 +9,8 @@ import {
 import getInstanceI18n from '../i18n/i18nConfig.js';
 import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
-const renderContainer = (rootContainer, generateConfig) => {
-  const root = document.querySelector(rootContainer);
+const renderContainer = (rootSelector, generateConfig) => {
+  const root = document.querySelector(rootSelector);
   root.innerHTML = '';
   return getInstanceI18n()
     .then((i18n) => {
@@ -28,7 +28,7 @@ const renderContainer = (rootContainer, generateConfig) => {
 const renderContentPack = (contentPack) => {
   const {
     contentType,
-    rootContainer,
+    rootSelector,
     secondaryContainerSelector,
     configContainerFunc,
     configElementFunc,
@@ -37,7 +37,7 @@ const renderContentPack = (contentPack) => {
     eventhandler,
   } = contentPack;
 
-  renderContainer(rootContainer, configContainerFunc)
+  renderContainer(rootSelector, configContainerFunc)
     .then(() => {
       contentType.forEach((element) => {
         const root = document.querySelector(secondaryContainerSelector);
@@ -71,7 +71,7 @@ const renderRss = (state, eventHandler) => {
 
   const feedPack = {
     contentType: feedList,
-    rootContainer: '.feeds',
+    rootSelector: '.feeds',
     secondaryContainerSelector: '.feed-list',
     configContainerFunc: generateFeedContainerConfig,
     configElementFunc: generateFeedConfig,
@@ -81,11 +81,11 @@ const renderRss = (state, eventHandler) => {
 
   const postPack = {
     contentType: postsList,
-    rootContainer: '.posts',
+    rootSelector: '.posts',
     secondaryContainerSelector: '.posts-list',
     configContainerFunc: generatePostsContainerConfig,
     configElementFunc: generatePostConfig,
-    paramsToRender: ['id', 'title', 'url'],
+    paramsToRender: ['id', 'title', 'url', 'isRead'],
     needsI18n: true,
     eventhandler: { event: 'click', handler: eventHandler },
   };

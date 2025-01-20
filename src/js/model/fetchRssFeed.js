@@ -13,14 +13,10 @@ const fetchRssFeed = (url) => axios
   })
   .catch((error) => {
     console.error('ERROR occurred', error);
-
-    console.log('fetchRssFeed error', error);
-    console.log('returning errorCode');
-    const errorCode = {
+    return {
       status: 'error',
       error: 'NETWORK_ERROR',
     };
-    return errorCode;
   });
 
 export default fetchRssFeed;

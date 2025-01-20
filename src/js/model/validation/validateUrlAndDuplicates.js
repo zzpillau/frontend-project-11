@@ -13,7 +13,7 @@ const initializeValidationSchema = () => {
   });
 };
 
-const validateUrl = (input, feedList) => {
+const validateUrlAndDuplicates = (input, feedList) => {
   const validationState = {
     error: '',
     status: '',
@@ -49,4 +49,4 @@ const validateUrl = (input, feedList) => {
     });
 };
 
-export default validateUrl;
+export default validateUrlAndDuplicates;

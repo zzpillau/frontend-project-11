@@ -78,7 +78,7 @@ const runApp = () => {
         }
       })
       .catch((error) => {
-        console.log('app cathed error', error);
+        console.log('app catched error', error);
         if (error.status === 'invalid') {
           handleValidationError(error);
         }

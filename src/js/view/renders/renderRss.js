@@ -21,77 +21,62 @@ const renderContainer = (rootSelector, generateConfig) => {
       });
     })
     .catch((err) => {
-      console.error('Error in renderContainer:', err);
+      console.error('renderContainer error:', err);
     });
 };
 
-const renderContentPack = (contentPack) => {
-  const {
-    contentType,
-    rootSelector,
-    secondaryContainerSelector,
-    configContainerFunc,
-    configElementFunc,
-    paramsToRender,
-    needsI18n,
-    eventhandler,
-  } = contentPack;
-
-  renderContainer(rootSelector, configContainerFunc)
+const renderContent = (config) => {
+  renderContainer(config.rootSelector, config.containerFunc)
     .then(() => {
-      contentType.forEach((element) => {
-        const root = document.querySelector(secondaryContainerSelector);
-        const params = paramsToRender.map((param) => element[param]);
-        if (needsI18n) {
-          getInstanceI18n()
-            .then((i18n) => {
-              const newElConfig = configElementFunc(
-                ...params,
-                i18n,
-                eventhandler,
-              );
-              new HTMLBuilder(newElConfig).render(root);
-            })
-            .catch((error) => {
-              console.error('i18n Error', error);
-            });
-        } else {
-          const newElConfig = configElementFunc(...params);
+      config.list.forEach((element) => {
+        const root = document.querySelector(config.secondarySelector);
+        const paramsValues = config.params.map((param) => element[param]);
+
+        const renderElement = (i18n) => {
+          const newElConfig = config.needsI18n
+            ? config.elementFunc(...paramsValues, i18n, config.eHandler)
+            : config.elementFunc(...paramsValues);
           new HTMLBuilder(newElConfig).render(root);
+        };
+
+        if (config.needsI18n) {
+          getInstanceI18n().then(renderElement);
+        } else {
+          renderElement();
         }
       });
     })
     .catch((error) => {
-      console.error('renderContainer Error', error);
+      console.error('renderContent Error', error);
     });
 };
 
-const renderRss = (state, eventHandler) => {
+const renderRss = (state, eHandler) => {
   const { feedList, postsList } = state.rssProcess;
 
-  const feedPack = {
-    contentType: feedList,
+  const feedConfig = {
+    list: feedList,
     rootSelector: '.feeds',
-    secondaryContainerSelector: '.feed-list',
-    configContainerFunc: generateFeedContainerConfig,
-    configElementFunc: generateFeedConfig,
-    paramsToRender: ['title', 'description'],
+    secondarySelector: '.feed-list',
+    containerFunc: generateFeedContainerConfig,
+    elementFunc: generateFeedConfig,
+    params: ['title', 'description'],
     needsI18n: false,
   };
 
-  const postPack = {
-    contentType: postsList,
+  const postConfig = {
+    list: postsList,
     rootSelector: '.posts',
-    secondaryContainerSelector: '.posts-list',
-    configContainerFunc: generatePostsContainerConfig,
-    configElementFunc: generatePostConfig,
-    paramsToRender: ['id', 'title', 'url', 'isRead'],
+    secondarySelector: '.posts-list',
+    containerFunc: generatePostsContainerConfig,
+    elementFunc: generatePostConfig,
+    params: ['id', 'title', 'url', 'isRead'],
     needsI18n: true,
-    eventhandler: { event: 'click', handler: eventHandler },
+    eHandler: { event: 'click', handler: eHandler },
   };
 
-  renderContentPack(feedPack);
-  renderContentPack(postPack);
+  renderContent(feedConfig);
+  renderContent(postConfig);
 };
 
 export default renderRss;

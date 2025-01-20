@@ -74,11 +74,10 @@ const runApp = () => {
           state.rssProcess.postsList.unshift(...data.newPosts);
           state.rssProcess.state = 'success';
 
-          checkForNewPosts(state.rssProcess.updateTimeout);
+          checkForNewPosts(state);
         }
       })
       .catch((error) => {
-        console.log('app catched error', error);
         if (error.status === 'invalid') {
           handleValidationError(error);
         }

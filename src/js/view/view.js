@@ -5,36 +5,49 @@ import renderRss from './renders/renderRss.js';
 import renderNewPosts from './renders/renderNewPosts.js';
 import renderModal from './renders/renderModal.js';
 
+const handleValidationState = (initState) => {
+  renderFeedback(initState.validationState);
+};
+
+const handleRssProcessState = (initState, value, handleClick) => {
+  if (value === 'error') {
+    const feedbackState = initState.rssProcess.error === 'NETWORK_ERROR'
+      ? { status: 'invalid', error: initState.rssProcess.error }
+      : initState.validationState;
+    renderFeedback(feedbackState);
+  } else if (value === 'success') {
+    renderRss(initState, handleClick);
+  }
+};
+
+const handleUpdateState = (initState, value, handleClick) => {
+  if (value === 'updateSuccess') {
+    renderNewPosts(initState, handleClick);
+  }
+};
+
+const handleModalState = (initState, value) => {
+  if (value === 'open') {
+    renderModal(initState);
+  }
+};
+
 const watchState = (initState) => {
   const watchedState = onChange(initState, (path, value) => {
     const handleClick = handlePostClick(watchedState);
 
     switch (path) {
       case 'validationState.status':
-        renderFeedback(initState.validationState);
+        handleValidationState(initState);
         break;
       case 'rssProcess.state':
-        if (value === 'error') {
-          if (initState.rssProcess.error === 'NETWORK_ERROR') {
-            renderFeedback({ status: 'invalid', error: initState.rssProcess.error });
-          } else {
-            renderFeedback(initState.validationState);
-          }
-        }
-        if (value === 'success') {
-          renderRss(initState, handleClick);
-        }
+        handleRssProcessState(initState, value, handleClick);
         break;
       case 'rssProcess.updateState':
-        console.log('view: checkFornew FOUNDED');
-        if (value === 'updateSuccess') {
-          renderNewPosts(initState, handleClick);
-        }
+        handleUpdateState(initState, value, handleClick);
         break;
       case 'modal.state':
-        if (value === 'open') {
-          renderModal(initState);
-        }
+        handleModalState(initState, value);
         break;
       default:
         break;

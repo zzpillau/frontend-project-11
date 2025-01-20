@@ -1,22 +1,11 @@
 import Post from '../components/Post.js';
-// import state from '../controller/stateController.js';
-import fetchRssFeed from './fetchRssFeed.js';
-import parseRss from './parser.js';
+import fetchAndParse from './fetchAndParse.js';
 
 const pickNewPosts = (fetchedPosts, currentState) => fetchedPosts
   .flat()
   .filter((newP) => !currentState.rssProcess.postsList
     .some((oldP) => oldP.title === newP.title
     && oldP.url === newP.url));
-
-const fetchAndParse = (url) => fetchRssFeed(url)
-  .then((result) => {
-    if (result.status === 'success') {
-      return parseRss(result.data);
-    }
-    console.error('Fetch result status:', result);
-    return Promise.reject(result);
-  });
 
 const updateFeed = (feed, postsList) => new Promise((resolve, reject) => {
   fetchAndParse(feed.url)

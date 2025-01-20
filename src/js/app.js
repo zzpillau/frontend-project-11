@@ -40,41 +40,31 @@ const runApp = () => {
   const form = document.querySelector('.rss-form');
   const inputField = form.querySelector('#url-input');
 
-  const preValidationState = {
-    error: '',
-    status: '',
-  };
-
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    state.validationState = { ...preValidationState };
-    state.rssProcess.state = 'initial';
+    state.validationState = { error: '', status: '' };
+    state.rssProcess = { ...state.rssProcess, state: 'initial', error: '' };
     state.rssProcess.input = inputField.value;
-    state.rssProcess.error = '';
 
     validateUrlAndDuplicates(state.rssProcess.input, state.rssProcess.feedList)
-      .then((validationState) => {
-        if (validationState.status === 'valid') {
+      .then((validState) => {
+        if (validState.status === 'valid') {
           return fetchAndParse(state.rssProcess.input);
         }
-        state.validationState.error = validationState.error;
-        state.validationState.status = validationState.status;
 
-        return Promise.reject(validationState);
+        state.validationState.error = validState.error;
+        state.validationState.status = validState.status;
+
+        return Promise.reject(validState);
       })
       .then((doc) => {
         processRssData(doc);
         checkForNewPosts(state);
       })
-      .catch((error) => {
-        if (error.status === 'invalid') {
-          handleValidationError(error);
-        }
-        if (error.status === 'error') {
-          handleFetchError(error);
-        }
-      });
+      .catch((error) => (error.status === 'invalid'
+        ? handleValidationError(error)
+        : handleFetchError(error)));
   });
 };
 

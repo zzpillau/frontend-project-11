@@ -14,7 +14,4 @@ build:
 	npm run build
 
 babel:
-	npm build:babel
-
-log:
-	git log --oneline
+	npm run build:babel

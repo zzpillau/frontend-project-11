@@ -4,6 +4,7 @@ import renderFeedback from './renders/renderFeedback.js';
 import renderRss from './renders/renderRss.js';
 import renderNewPosts from './renders/renderNewPosts.js';
 import renderModal from './renders/renderModal.js';
+import { disableSubmitButton, enableSubmitButton } from './renders/toggleSubmitButton.js';
 
 const handleValidationState = (initState) => {
   renderFeedback(initState.validationState);
@@ -17,7 +18,11 @@ const handleRssProcessState = (initState, value, handleClick) => {
     renderFeedback(feedbackState);
   } else if (value === 'success') {
     renderRss(initState, handleClick);
+  } else if (value === 'sending') {
+    disableSubmitButton();
+    return;
   }
+  enableSubmitButton();
 };
 
 const handleUpdateState = (initState, value, handleClick) => {

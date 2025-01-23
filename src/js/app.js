@@ -32,8 +32,11 @@ const processRssData = (doc) => {
 
     state.rssProcess.feedList.unshift(data.newFeed);
     state.rssProcess.postsList.unshift(...data.newPosts);
+    state.rssProcess.newPosts.unshift(...data.newPosts);
     state.rssProcess.state = 'success';
   }
+  state.rssProcess.state = 'idle';
+  state.rssProcess.newPosts = [];
 };
 
 const runApp = () => {
@@ -44,8 +47,9 @@ const runApp = () => {
     event.preventDefault();
 
     state.validationState = { error: '', status: '' };
-    state.rssProcess = { ...state.rssProcess, state: 'initial', error: '' };
+    state.rssProcess = { ...state.rssProcess, state: 'sending', error: '' };
     state.rssProcess.input = inputField.value;
+    state.rssProcess.newPosts = [];
 
     validateUrlAndDuplicates(state.rssProcess.input, state.rssProcess.feedList)
       .then((validState) => {
@@ -55,7 +59,6 @@ const runApp = () => {
 
         state.validationState.error = validState.error;
         state.validationState.status = validState.status;
-
         return Promise.reject(validState);
       })
       .then((doc) => {

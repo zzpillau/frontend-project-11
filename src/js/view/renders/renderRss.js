@@ -11,12 +11,11 @@ import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
 const renderContainer = (rootSelector, generateConfig) => {
   const root = document.querySelector(rootSelector);
-  root.innerHTML = '';
   return getInstanceI18n()
     .then((i18n) => {
       const feedContainerConfig = generateConfig(i18n);
       return new Promise((resolve) => {
-        new HTMLBuilder(feedContainerConfig).render(root);
+        new HTMLBuilder(feedContainerConfig).render(root, { option: 'prepend' });
         resolve();
       });
     })
@@ -29,7 +28,7 @@ const renderElement = (config, root, params, i18n) => {
   const newElConfig = config.needsI18n
     ? config.elementFunc(...params, i18n, config.eHandler)
     : config.elementFunc(...params);
-  new HTMLBuilder(newElConfig).render(root);
+  new HTMLBuilder(newElConfig).render(root, { option: 'prepend' });
 };
 
 const handleElementRendering = (config, element, root) => {
@@ -42,20 +41,29 @@ const handleElementRendering = (config, element, root) => {
   return Promise.resolve();
 };
 
-const renderContent = (config) => renderContainer(config.rootSelector, config.containerFunc)
-  .then(() => {
-    const root = document.querySelector(config.secondarySelector);
-    const renderPromises = config.list
-      .map((element) => handleElementRendering(config, element, root));
+const feedIsNotEmpty = (state) => state.rssProcess.feedList.length > 1;
 
-    return Promise.all(renderPromises);
-  })
-  .catch((error) => {
-    console.error('renderContent Error', error);
-  });
+const renderContent = (state) => (config) => {
+  const promise = feedIsNotEmpty(state)
+    ? Promise.resolve()
+    : renderContainer(config.rootSelector, config.containerFunc);
+
+  return promise
+    .then(() => {
+      const secondaryRoot = document.querySelector(config.secondarySelector);
+      const renderPromises = config.list
+        .reverse()
+        .map((element) => handleElementRendering(config, element, secondaryRoot));
+
+      return Promise.all(renderPromises);
+    })
+    .catch((error) => {
+      console.error('renderContent Error', error);
+    });
+};
 
 const createFeedConfig = (feedList) => ({
-  list: feedList,
+  list: [feedList[0]],
   rootSelector: '.feeds',
   secondarySelector: '.feed-list',
   containerFunc: generateFeedContainerConfig,
@@ -76,10 +84,12 @@ const createPostConfig = (postsList, eHandler) => ({
 });
 
 const renderRss = (state, eHandler) => {
-  const { feedList, postsList } = state.rssProcess;
+  const { feedList, newPosts } = state.rssProcess;
 
-  return renderContent(createFeedConfig(feedList))
-    .then(() => renderContent(createPostConfig(postsList, eHandler)))
+  const renderMePlease = renderContent(state);
+
+  return renderMePlease(createFeedConfig(feedList))
+    .then(() => renderMePlease(createPostConfig(newPosts, eHandler)))
     .catch((err) => {
       console.error('renderRss error:', err);
     });

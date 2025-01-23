@@ -55,14 +55,14 @@ const checkForNewPosts = (initState) => {
           ...state.rssProcess.postsList,
           ...onlyNewPosts,
         ];
-      } else {
-        state.rssProcess.newPosts = [];
       }
+      state.rssProcess.newPosts = [];
       setTimeout(() => checkForNewPosts(state), state.rssProcess.updateTimeout);
     })
     .catch((updateErr) => {
       state.rssProcess.updateState = 'updateError';
       state.rssProcess.updateError = updateErr;
+      state.rssProcess.newPosts = [];
       setTimeout(() => checkForNewPosts(state), state.rssProcess.updateTimeout);
     });
 };

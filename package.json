@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/zzpillau/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/zzpillau/frontend-project-11/actions)",
+  "description": "RSS aggregator",
   "main": "./src/index.js",
   "type": "module",
   "scripts": {

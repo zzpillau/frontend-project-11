@@ -4,10 +4,11 @@ import initApp from './js/init/init.js';
 import runApp from './js/app.js';
 import hideModal from './js/view/renders/hideModal.js';
 
-initApp();
+// initApp();
+runApp();
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  runApp();
 
   hideModal();
 });

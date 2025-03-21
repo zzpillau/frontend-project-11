@@ -2,7 +2,7 @@ const initState = {
   rssProcess: {
     state: 'initial', // sending, success, error
     error: '', // код ошибки, обрабатывается i18n
-    input: '', // инпут формы
+    input: '', // инпут формы //REMOVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     feedList: [], // фиды
     postsList: [], // посты
     newPosts: [],

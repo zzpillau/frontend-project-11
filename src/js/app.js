@@ -1,7 +1,6 @@
 import state from './controller/stateController.js';
 import initialRender from './view/renders/initialRender.js';
 import getInstanceI18n from './view/i18n/i18nConfig.js';
-import initApp from './init/init.js';
 import validateUrlAndDuplicates from './model/validation/validateUrlAndDuplicates.js';
 import handleRssValidation from './model/validation/validationRss.js';
 import proccessData from './model/proccessData.js';
@@ -43,48 +42,45 @@ const processRssData = (doc) => {
 };
 
 const runApp = () => {
-
   getInstanceI18n()
-  .then((i18n) => {
-    const rootContainer = document.body;
-    rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');
+    .then((i18n) => {
+      const rootContainer = document.body;
+      rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');
 
-    initialRender(rootContainer, i18n);
-    const form = document.querySelector('.rss-form');
-  
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+      initialRender(rootContainer, i18n);
+      const form = document.querySelector('.rss-form');
 
-      const formData = new FormData(form)
-  
-      state.validationState = { error: '', status: '' };
-      state.rssProcess = { ...state.rssProcess, state: 'sending', error: '' };
-      state.rssProcess.input = formData.get('url');
-      state.rssProcess.newPosts = [];
-  
-      validateUrlAndDuplicates(state.rssProcess.input, state.rssProcess.feedList)
-        .then((validState) => {
-          if (validState.status === 'valid') {
-            return fetchAndParse(state.rssProcess.input);
-          }
-  
-          state.validationState.error = validState.error;
-          state.validationState.status = validState.status;
-          return Promise.reject(validState);
-        })
-        .then((doc) => {
-          processRssData(doc);
-          checkForNewPosts(state);
-        })
-  
-  
-    .catch((error) => (error.status === 'invalid'
-        ? handleValidationError(error)
-        : handleFetchError(error)));
-  });
-})
-  // initApp();
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
 
+        const formData = new FormData(form);
+        const input = formData.get('url');
+
+        state.validationState = { error: '', status: '' };
+        state.rssProcess = { ...state.rssProcess, state: 'sending', error: '' };
+        // state.rssProcess.input = formData.get('url');
+        state.rssProcess.newPosts = [];
+
+        validateUrlAndDuplicates(input, state.rssProcess.feedList)
+          .then((validState) => {
+            if (validState.status === 'valid') {
+              return fetchAndParse(input);
+            }
+
+            state.validationState.error = validState.error;
+            state.validationState.status = validState.status;
+            return Promise.reject(validState);
+          })
+          .then((doc) => {
+            processRssData(doc);
+            checkForNewPosts(state);
+          })
+
+          .catch((error) => (error.status === 'invalid'
+            ? handleValidationError(error)
+            : handleFetchError(error)));
+      });
+    });
 };
 
 export default runApp;

@@ -28,7 +28,6 @@ const processRssData = (currentState, doc, url) => {
   const rssValidation = handleRssValidation(doc);
 
   if (rssValidation && rssValidation.status === 'valid') {
-    console.log(rssValidation.error);
     state.form.validationState.error = rssValidation.error;
     state.form.validationState.status = rssValidation.status;
 
@@ -48,6 +47,13 @@ const processRssData = (currentState, doc, url) => {
 
 const runApp = () => {
   const initState = {
+    form: {
+      state: 'idle', // filling, validating, submitting, success, error
+      validationState: {
+        status: null, // valid, invalid
+        error: null, // код ошибки, обрабатывается i18n
+      },
+    },
     rssProcess: {
       state: 'initial', // sending, success, error
       error: null, // код ошибки, обрабатывается i18n
@@ -58,15 +64,7 @@ const runApp = () => {
     },
     modal: {
       state: 'idle', // idle, open
-      content: null,
-      currentPostElement: null,
-    },
-    form: {
-      state: 'idle', // filling, validating, submitting, success, error
-      validationState: {
-        status: null, // valid, invalid
-        error: null, // код ошибки, обрабатывается i18n
-      },
+      content: null, // динамический контент модального окна
     },
   };
 

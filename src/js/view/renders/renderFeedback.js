@@ -16,7 +16,6 @@ const handleInvalidState = (input, output) => {
 };
 
 const renderFeedback = (state) => {
-  console.log('RUNNING');
   const elements = {
     form: document.querySelector('.rss-form'),
     input: document.querySelector('#url-input'),
@@ -30,8 +29,6 @@ const renderFeedback = (state) => {
   getInstanceI18n()
     .then((i18n) => {
       output.textContent = i18n.t(`errors.${error}`);
-      console.log('my error', error);
-      console.log('my output', output.textContent);
       switch (status) {
         case 'valid':
           handleValidState(form, input, output);

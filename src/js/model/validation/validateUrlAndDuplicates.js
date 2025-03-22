@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import checkForDuplicateFeeds from './checkForDuplicateFeeds.js';
 
-// инициализация схемы yup
 const initializeValidationSchema = () => {
   yup.setLocale({
     string: {

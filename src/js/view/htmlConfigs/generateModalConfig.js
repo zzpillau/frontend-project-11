@@ -1,12 +1,12 @@
 export const generateModalContainerConfig = () => ({
   root: {
     tag: 'div',
-    classes: ['modal', 'fade', 'show'],
+    classes: ['modal', 'fade'],
     attributes: {
       id: 'modal',
       tabindex: '-1',
       'aria-labelledby': 'modal',
-      style: 'display: block;',
+      style: 'display: none;',
       'aria-modal': 'true',
       role: 'dialog',
     },

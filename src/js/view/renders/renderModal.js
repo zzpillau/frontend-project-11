@@ -8,13 +8,16 @@ const renderModal = (state) => {
     .then((i18n) => {
       const {
         modal: {
-          content: { title, description, url },
-          currentPostLink,
+          content: {
+            id, title, description, url,
+          },
         },
       } = state;
 
-      currentPostLink.classList.remove('fw-bold');
-      currentPostLink.classList.add('fw-normal', 'link-secondary');
+      const currentPostElement = document.querySelector(`[data-id="${id}"]`);
+
+      currentPostElement.classList.remove('fw-bold');
+      currentPostElement.classList.add('fw-normal', 'link-secondary');
 
       const rootContainer = document.querySelector('.modal-dialog');
       rootContainer.innerHTML = '';

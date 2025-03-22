@@ -24,7 +24,6 @@ const handleRssProcessState = (initState, value, handleClick) => {
       ? { status: 'invalid', error: initState.rssProcess.error }
       : initState.form.validationState;
 
-    console.log('feedbackState', feedbackState);
     renderFeedback(feedbackState);
   } else if (value === 'success') {
     renderRss(initState, handleClick);
@@ -33,7 +32,6 @@ const handleRssProcessState = (initState, value, handleClick) => {
 
 const handleUpdateState = (initState, value, handleClick) => {
   if (value === 'updateSuccess') {
-    console.log('renderNewPosts must start');
     renderNewPosts(initState, handleClick);
   }
 };
@@ -59,7 +57,6 @@ const watchState = (initState) => {
         handleRssProcessState(initState, value, handleClick);
         break;
       case 'rssProcess.updateState':
-        console.log('rssProcess.updateState value', value);
         handleUpdateState(initState, value, handleClick);
         break;
       case 'modal.state':

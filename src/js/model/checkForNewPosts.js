@@ -37,7 +37,6 @@ const updateFeed = (feed, postsList) => new Promise((resolve, reject) => {
 const checkForNewPosts = (currentState) => {
   const state = { ...currentState };
 
-  console.log('checkForNewPosts starts');
   const { postsList } = state.rssProcess;
 
   const updatedFeedsPromises = state.rssProcess.feedList
@@ -55,7 +54,6 @@ const checkForNewPosts = (currentState) => {
           ...onlyNewPosts,
         ];
         state.rssProcess.updateState = 'updateSuccess';
-        console.log('checkForNewPosts state.rssProcess.updateState', state.rssProcess.updateState);
       }
       setTimeout(() => checkForNewPosts(state), 5000);
     })

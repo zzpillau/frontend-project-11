@@ -10,8 +10,8 @@ import fetchAndParse from './model/fetchAndParse.js';
 const handleValidationError = (currentState, validationError) => {
   const state = { ...currentState };
   console.error('handleValidationError', validationError);
-  state.validationState.error = validationError.error || 'GENERAL_ERROR';
-  state.validationState.status = 'invalid';
+  state.form.validationState.error = validationError.error || 'GENERAL_ERROR';
+  state.form.validationState.status = 'invalid';
 };
 
 const handleFetchError = (currentState, fetchError) => {
@@ -28,8 +28,9 @@ const processRssData = (currentState, doc, url) => {
   const rssValidation = handleRssValidation(doc);
 
   if (rssValidation && rssValidation.status === 'valid') {
-    state.validationState.error = rssValidation.error;
-    state.validationState.status = rssValidation.status;
+    console.log(rssValidation.error);
+    state.form.validationState.error = rssValidation.error;
+    state.form.validationState.status = rssValidation.status;
 
     const feeds = state.rssProcess.feedList;
     const posts = state.rssProcess.postsList;
@@ -39,6 +40,8 @@ const processRssData = (currentState, doc, url) => {
     state.rssProcess.feedList.unshift(data.newFeed);
     state.rssProcess.postsList.unshift(...data.newPosts);
     state.rssProcess.state = 'success';
+
+    state.form.state = 'success';
   }
   state.rssProcess.state = 'idle';
 };
@@ -59,9 +62,12 @@ const runApp = () => {
       content: null,
       currentPostElement: null,
     },
-    validationState: {
-      status: '', // valid, invalid
-      error: '', // код ошибки, обрабатывается i18n
+    form: {
+      state: 'idle', // filling, validating, submitting, success, error
+      validationState: {
+        status: '', // valid, invalid
+        error: '', // код ошибки, обрабатывается i18n
+      },
     },
   };
 
@@ -78,30 +84,37 @@ const runApp = () => {
       form.addEventListener('submit', (event) => {
         event.preventDefault();
 
+        state.form.state = 'validating';
+
         const formData = new FormData(form);
 
-        state.validationState = { error: '', status: '' };
+        state.form.validationState = { error: '', status: '' };
         state.rssProcess = { ...state.rssProcess, state: 'sending', error: '' };
         const input = formData.get('url');
 
         validateUrlAndDuplicates(input, state.rssProcess.feedList)
           .then((validState) => {
             if (validState.status === 'valid') {
+              form.state = 'submitting';
               return fetchAndParse(input);
             }
 
-            state.validationState.error = validState.error;
-            state.validationState.status = validState.status;
+            state.form.validationState.error = validState.error;
+            state.form.validationState.status = validState.status;
             return Promise.reject(validState);
           })
           .then((doc) => {
             processRssData(state, doc, input);
             checkForNewPosts(state);
+            state.form.state = 'idle';
           })
 
-          .catch((error) => (error.status === 'invalid'
-            ? handleValidationError(state, error)
-            : handleFetchError(state, error)));
+          .catch((error) => {
+            state.form.state = 'error';
+            return error.status === 'invalid'
+              ? handleValidationError(state, error)
+              : handleFetchError(state, error);
+          });
       });
     });
 };

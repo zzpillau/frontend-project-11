@@ -6,23 +6,29 @@ import renderNewPosts from './renders/renderNewPosts.js';
 import renderModal from './renders/renderModal.js';
 import { disableSubmitButton, enableSubmitButton } from './renders/toggleSubmitButton.js';
 
+const handleButtonDisabling = (value) => {
+  if (value === 'idle' || value === 'error') {
+    enableSubmitButton();
+  } else {
+    disableSubmitButton();
+  }
+};
+
 const handleValidationState = (initState) => {
-  renderFeedback(initState.validationState);
+  renderFeedback(initState.form.validationState);
 };
 
 const handleRssProcessState = (initState, value, handleClick) => {
   if (value === 'error') {
     const feedbackState = initState.rssProcess.error === 'NETWORK_ERROR'
       ? { status: 'invalid', error: initState.rssProcess.error }
-      : initState.validationState;
+      : initState.form.validationState;
+
+    console.log('feedbackState', feedbackState);
     renderFeedback(feedbackState);
   } else if (value === 'success') {
     renderRss(initState, handleClick);
-  } else if (value === 'sending') {
-    disableSubmitButton();
-    return;
   }
-  enableSubmitButton();
 };
 
 const handleUpdateState = (initState, value, handleClick) => {
@@ -43,7 +49,10 @@ const watchState = (initState) => {
     const handleClick = handlePostClick(watchedState);
 
     switch (path) {
-      case 'validationState.status':
+      case 'form.state':
+        handleButtonDisabling(value);
+        break;
+      case 'form.validationState.status':
         handleValidationState(initState);
         break;
       case 'rssProcess.state':

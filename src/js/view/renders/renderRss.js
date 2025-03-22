@@ -84,12 +84,12 @@ const createPostConfig = (postsList, eHandler) => ({
 });
 
 const renderRss = (state, eHandler) => {
-  const { feedList, newPosts } = state.rssProcess;
+  const { feedList, postsList } = state.rssProcess;
 
   const renderMePlease = renderContent(state);
 
   return renderMePlease(createFeedConfig(feedList))
-    .then(() => renderMePlease(createPostConfig(newPosts, eHandler)))
+    .then(() => renderMePlease(createPostConfig(postsList, eHandler)))
     .catch((err) => {
       console.error('renderRss error:', err);
     });

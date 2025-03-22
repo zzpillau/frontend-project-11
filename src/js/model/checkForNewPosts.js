@@ -1,9 +1,9 @@
 import Post from '../components/Post.js';
 import fetchAndParse from './fetchAndParse.js';
 
-const pickNewPosts = (fetchedPosts, currentState) => fetchedPosts
+const pickNewPosts = (fetchedPosts, state) => fetchedPosts
   .flat()
-  .filter((newP) => !currentState.rssProcess.postsList
+  .filter((newP) => !state.rssProcess.postsList
     .some((oldP) => oldP.title === newP.title
     && oldP.url === newP.url));
 
@@ -34,9 +34,10 @@ const updateFeed = (feed, postsList) => new Promise((resolve, reject) => {
     });
 });
 
-const checkForNewPosts = (initState) => {
-  const state = { ...initState };
+const checkForNewPosts = (currentState) => {
+  const state = { ...currentState };
 
+  console.log('checkForNewPosts starts');
   const { postsList } = state.rssProcess;
 
   const updatedFeedsPromises = state.rssProcess.feedList
@@ -49,20 +50,18 @@ const checkForNewPosts = (initState) => {
       const onlyNewPosts = pickNewPosts(result, state);
 
       if (onlyNewPosts.length > 0) {
-        state.rssProcess.newPosts = [...onlyNewPosts];
-        state.rssProcess.updateState = 'updateSuccess';
         state.rssProcess.postsList = [
           ...state.rssProcess.postsList,
           ...onlyNewPosts,
         ];
+        state.rssProcess.updateState = 'updateSuccess';
+        console.log('checkForNewPosts state.rssProcess.updateState', state.rssProcess.updateState);
       }
-      state.rssProcess.newPosts = [];
       setTimeout(() => checkForNewPosts(state), state.rssProcess.updateTimeout);
     })
     .catch((updateErr) => {
       state.rssProcess.updateState = 'updateError';
       state.rssProcess.updateError = updateErr;
-      state.rssProcess.newPosts = [];
       setTimeout(() => checkForNewPosts(state), state.rssProcess.updateTimeout);
     });
 };

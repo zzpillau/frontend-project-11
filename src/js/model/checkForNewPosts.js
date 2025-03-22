@@ -57,7 +57,7 @@ const checkForNewPosts = (currentState) => {
         state.rssProcess.updateState = 'updateSuccess';
         console.log('checkForNewPosts state.rssProcess.updateState', state.rssProcess.updateState);
       }
-      setTimeout(() => checkForNewPosts(state), state.rssProcess.updateTimeout);
+      setTimeout(() => checkForNewPosts(state), 5000);
     })
     .catch((updateErr) => {
       state.rssProcess.updateState = 'updateError';

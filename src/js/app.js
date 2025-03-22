@@ -50,12 +50,11 @@ const runApp = () => {
   const initState = {
     rssProcess: {
       state: 'initial', // sending, success, error
-      error: '', // код ошибки, обрабатывается i18n
+      error: null, // код ошибки, обрабатывается i18n
       feedList: [], // фиды
       postsList: [], // посты
       updateState: 'idle', // idle, updateSuccess, updateError
-      updateError: '', // код ошибки обновления, обрабатывается i18n
-      updateTimeout: 5000,
+      updateError: null, // код ошибки обновления, обрабатывается i18n
     },
     modal: {
       state: 'idle', // idle, open
@@ -65,8 +64,8 @@ const runApp = () => {
     form: {
       state: 'idle', // filling, validating, submitting, success, error
       validationState: {
-        status: '', // valid, invalid
-        error: '', // код ошибки, обрабатывается i18n
+        status: null, // valid, invalid
+        error: null, // код ошибки, обрабатывается i18n
       },
     },
   };
@@ -88,8 +87,8 @@ const runApp = () => {
 
         const formData = new FormData(form);
 
-        state.form.validationState = { error: '', status: '' };
-        state.rssProcess = { ...state.rssProcess, state: 'sending', error: '' };
+        state.form.validationState = { error: null, status: null };
+        state.rssProcess = { ...state.rssProcess, state: 'sending', error: null };
         const input = formData.get('url');
 
         validateUrlAndDuplicates(input, state.rssProcess.feedList)

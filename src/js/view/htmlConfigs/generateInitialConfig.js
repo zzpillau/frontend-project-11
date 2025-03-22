@@ -99,7 +99,7 @@ const generateInitialConfig = (i18n) => ({
                     },
                     'p-2': {
                       tag: 'p',
-                      classes: ['mt-2', 'mb-0', 'text-muted'],
+                      classes: ['mt-2', 'mb-0', 'text-secondary'],
                       textContent: i18n.t('exampleLink'),
                     },
                     'p-3': {

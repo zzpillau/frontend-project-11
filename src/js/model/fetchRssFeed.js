@@ -12,10 +12,15 @@ const fetchRssFeed = (url) => axios
   })
   .catch((error) => {
     console.error('ERROR occurred', error);
-    return {
-      status: 'error',
-      error: 'NETWORK_ERROR',
-    };
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          status: 'error',
+          error: 'NETWORK_ERROR',
+        });
+      }, 5000);
+    });
   });
 
 export default fetchRssFeed;

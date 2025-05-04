@@ -29,12 +29,12 @@ const resources = {
       hexletLink: 'https://ru.hexlet.io/professions/frontend/projects/11',
     },
   },
-  en: {
-    translation: {
-      createdBy: 'created by',
-      hexlet: 'Hexlet',
-    },
-  },
+  // en: {
+  //   translation: {
+  //     createdBy: 'created by',
+  //     hexlet: 'Hexlet',
+  //   },
+  // },
 };
 
 export default resources;

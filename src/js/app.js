@@ -1,6 +1,6 @@
 import watchState from './view/view.js';
-import initialRender from './view/renders/initialRender.js';
-import getInstanceI18n from './view/i18n/i18nConfig.js';
+// import initialRender from './view/renders/initialRender.js';
+// import getInstanceI18n from './view/i18n/i18nConfig.js';
 import validateUrlAndDuplicates from './model/validation/validateUrlAndDuplicates.js';
 import handleRssValidation from './model/validation/validationRss.js';
 import proccessData from './model/proccessData.js';
@@ -70,50 +70,50 @@ const runApp = () => {
 
   const state = watchState(initState);
 
-  getInstanceI18n()
-    .then((i18n) => {
-      const rootContainer = document.body;
-      rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');
+  // getInstanceI18n()
+  // .then((i18n) => {
+  // const rootContainer = document.body;
+  // rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');
 
-      initialRender(rootContainer, i18n);
-      const form = document.querySelector('.rss-form');
+  // initialRender(rootContainer, i18n);
+  const form = document.querySelector('.rss-form');
 
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-        state.form.state = 'validating';
+    state.form.state = 'validating';
 
-        const formData = new FormData(form);
+    const formData = new FormData(form);
 
-        state.form.validationState = { error: null, status: null };
-        state.rssProcess = { ...state.rssProcess, state: 'sending', error: null };
-        const input = formData.get('url');
+    state.form.validationState = { error: null, status: null };
+    state.rssProcess = { ...state.rssProcess, state: 'sending', error: null };
+    const input = formData.get('url');
 
-        validateUrlAndDuplicates(input, state.rssProcess.feedList)
-          .then((validState) => {
-            if (validState.status === 'valid') {
-              form.state = 'submitting';
-              return fetchAndParse(input);
-            }
+    validateUrlAndDuplicates(input, state.rssProcess.feedList)
+      .then((validState) => {
+        if (validState.status === 'valid') {
+          form.state = 'submitting';
+          return fetchAndParse(input);
+        }
 
-            state.form.validationState.error = validState.error;
-            state.form.validationState.status = validState.status;
-            return Promise.reject(validState);
-          })
-          .then((doc) => {
-            processRssData(state, doc, input);
-            checkForNewPosts(state);
-            state.form.state = 'idle';
-          })
+        state.form.validationState.error = validState.error;
+        state.form.validationState.status = validState.status;
+        return Promise.reject(validState);
+      })
+      .then((doc) => {
+        processRssData(state, doc, input);
+        checkForNewPosts(state);
+        state.form.state = 'idle';
+      })
 
-          .catch((error) => {
-            state.form.state = 'error';
-            return error.status === 'invalid'
-              ? handleValidationError(state, error)
-              : handleFetchError(state, error);
-          });
+      .catch((error) => {
+        state.form.state = 'error';
+        return error.status === 'invalid'
+          ? handleValidationError(state, error)
+          : handleFetchError(state, error);
       });
-    });
+  });
+  // });
 };
 
 export default runApp;

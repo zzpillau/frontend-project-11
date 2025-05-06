@@ -1,12 +1,12 @@
-import i18next from 'i18next';
-import resources from './locales.js';
+import i18next from 'i18next'
+import resources from './locales.js'
 
-let i18nPromise = null;
+let i18nPromise = null
 
 const getInstanceI18n = () => {
   if (!i18nPromise) {
     i18nPromise = new Promise((resolve, reject) => {
-      const i18nInstance = i18next.createInstance();
+      const i18nInstance = i18next.createInstance()
 
       i18nInstance.init(
         {
@@ -17,15 +17,16 @@ const getInstanceI18n = () => {
         },
         (err) => {
           if (err) {
-            reject(err);
-          } else {
-            resolve(i18nInstance);
+            reject(err)
+          }
+          else {
+            resolve(i18nInstance)
           }
         },
-      );
-    });
+      )
+    })
   }
-  return i18nPromise;
-};
+  return i18nPromise
+}
 
-export default getInstanceI18n;
+export default getInstanceI18n

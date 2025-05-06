@@ -1,11 +1,11 @@
-import { generatePostConfig } from '../htmlConfigs/generatePostConfig.js';
-import getInstanceI18n from '../i18n/i18nConfig.js';
-import HTMLBuilder from '../../builders/HTMLBuilder.js';
+import { generatePostConfig } from '../htmlConfigs/generatePostConfig.js'
+import getInstanceI18n from '../i18n/i18nConfig.js'
+import HTMLBuilder from '../../builders/HTMLBuilder.js'
 
 const renderNewPosts = (state, eventHandler) => {
-  const rootContainer = document.querySelector('.posts-list');
+  const rootContainer = document.querySelector('.posts-list')
 
-  rootContainer.innerHTML = '';
+  rootContainer.innerHTML = ''
 
   state.rssProcess.postsList.forEach((post) => {
     getInstanceI18n()
@@ -20,16 +20,16 @@ const renderNewPosts = (state, eventHandler) => {
             event: 'click',
             handler: eventHandler,
           },
-        );
+        )
 
         return new HTMLBuilder(postConfig).render(rootContainer, {
           option: 'prepend',
-        });
+        })
       })
       .catch((e) => {
-        console.error('Error initializing i18n:', e);
-      });
-  });
-};
+        console.error('Error initializing i18n:', e)
+      })
+  })
+}
 
-export default renderNewPosts;
+export default renderNewPosts

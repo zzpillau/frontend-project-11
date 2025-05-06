@@ -1,5 +1,4 @@
-
-export const generatePostsContainerConfig = (i18n) => ({
+export const generatePostsContainerConfig = i18n => ({
 
   root: {
     tag: 'div',
@@ -16,13 +15,13 @@ export const generatePostsContainerConfig = (i18n) => ({
           },
         },
       },
-      ul: {
+      'ul': {
         tag: 'ul',
         classes: ['posts-list', 'list-group', 'border-0', 'rounded-0'],
       },
     },
   },
-});
+})
 
 export const generatePostConfig = (id, title, url, isRead, i18n, eventhandler) => ({
   root: {
@@ -40,18 +39,18 @@ export const generatePostConfig = (id, title, url, isRead, i18n, eventhandler) =
         tag: 'a',
         classes: !isRead ? ['fw-bold'] : ['fw-normal', 'link-secondary'],
         attributes: {
-          href: url,
+          'href': url,
           'data-id': id,
-          target: '_blank',
-          rel: 'noopener noreferrer',
+          'target': '_blank',
+          'rel': 'noopener noreferrer',
         },
         textContent: title,
       },
-      button: {
+      'button': {
         tag: 'button',
         classes: ['btn', 'btn-outline-primary', 'btn-sm'],
         attributes: {
-          type: 'button',
+          'type': 'button',
           'data-id': id,
         },
         textContent: i18n.t('buttons.view'),
@@ -59,4 +58,4 @@ export const generatePostConfig = (id, title, url, isRead, i18n, eventhandler) =
       },
     },
   },
-});
+})

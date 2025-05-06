@@ -3,12 +3,12 @@ export const generateModalContainerConfig = () => ({
     tag: 'div',
     classes: ['modal', 'fade'],
     attributes: {
-      id: 'modal',
-      tabindex: '-1',
+      'id': 'modal',
+      'tabindex': '-1',
       'aria-labelledby': 'modal',
-      style: 'display: none;',
+      'style': 'display: none;',
       'aria-modal': 'true',
-      role: 'dialog',
+      'role': 'dialog',
     },
     children: {
       'modal-dialog': {
@@ -20,7 +20,7 @@ export const generateModalContainerConfig = () => ({
       },
     },
   },
-});
+})
 
 export const generateModalConfig = (title, description, url, i18n) => ({
   root: {
@@ -40,7 +40,7 @@ export const generateModalConfig = (title, description, url, i18n) => ({
             tag: 'button',
             classes: ['btn-close', 'close'],
             attributes: {
-              type: 'button',
+              'type': 'button',
               'data-bs-dismiss': 'modal',
               'aria-label': 'Close',
             },
@@ -73,7 +73,7 @@ export const generateModalConfig = (title, description, url, i18n) => ({
             tag: 'button',
             classes: ['btn', 'btn-secondary'],
             attributes: {
-              type: 'button',
+              'type': 'button',
               'data-bs-dismiss': 'modal',
             },
             textContent: i18n.t('buttons.close'),
@@ -82,4 +82,4 @@ export const generateModalConfig = (title, description, url, i18n) => ({
       },
     },
   },
-});
+})

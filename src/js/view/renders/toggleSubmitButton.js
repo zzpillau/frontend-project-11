@@ -1,8 +1,8 @@
 const toogleButtonState = (isDisabled) => {
-  const button = document.querySelector('[type="submit"]');
-  button.disabled = isDisabled;
-};
+  const button = document.querySelector('[type="submit"]')
+  button.disabled = isDisabled
+}
 
-export const disableSubmitButton = () => toogleButtonState(true);
+export const disableSubmitButton = () => toogleButtonState(true)
 
-export const enableSubmitButton = () => toogleButtonState(false);
+export const enableSubmitButton = () => toogleButtonState(false)

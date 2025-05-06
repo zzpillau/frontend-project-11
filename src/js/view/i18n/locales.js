@@ -35,6 +35,6 @@ const resources = {
   //     hexlet: 'Hexlet',
   //   },
   // },
-};
+}
 
-export default resources;
+export default resources

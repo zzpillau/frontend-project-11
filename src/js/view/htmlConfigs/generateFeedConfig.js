@@ -1,4 +1,4 @@
-export const generateFeedContainerConfig = (i18n) => ({
+export const generateFeedContainerConfig = i18n => ({
   root: {
     tag: 'div',
     classes: ['card', 'border-0'],
@@ -15,13 +15,13 @@ export const generateFeedContainerConfig = (i18n) => ({
           },
         },
       },
-      ul: {
+      'ul': {
         tag: 'ul',
         classes: ['feed-list', 'list-group', 'border-0', 'rounded-0'],
       },
     },
   },
-});
+})
 
 export const generateFeedConfig = (title, description) => ({
   root: {
@@ -40,4 +40,4 @@ export const generateFeedConfig = (title, description) => ({
       },
     },
   },
-});
+})

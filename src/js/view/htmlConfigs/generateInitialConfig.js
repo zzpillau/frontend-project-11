@@ -1,4 +1,4 @@
-const generateInitialConfig = (i18n) => ({
+const generateInitialConfig = i18n => ({
   mainConfig: {
     root: {
       tag: 'main',
@@ -16,7 +16,7 @@ const generateInitialConfig = (i18n) => ({
                   tag: 'div',
                   classes: ['col-md-10', 'col-lg-8', 'mx-auto', 'text-white'],
                   children: {
-                    h1: {
+                    'h1': {
                       tag: 'h1',
                       classes: ['display-3', 'mb-0'],
                       attributes: {},
@@ -28,7 +28,7 @@ const generateInitialConfig = (i18n) => ({
                       attributes: {},
                       textContent: i18n.t('rssAggregatorDescription'),
                     },
-                    form: {
+                    'form': {
                       tag: 'form',
                       classes: ['rss-form', 'text-body'],
                       attributes: {
@@ -51,14 +51,14 @@ const generateInitialConfig = (i18n) => ({
                                       tag: 'input',
                                       classes: ['form-control', 'w-100'],
                                       attributes: {
-                                        id: 'url-input',
-                                        autofocus: 'autofocus',
-                                        required: 'required',
-                                        name: 'url',
+                                        'id': 'url-input',
+                                        'autofocus': 'autofocus',
+                                        'required': 'required',
+                                        'name': 'url',
                                         'aria-label': 'url',
-                                        placeholder:
+                                        'placeholder':
                                           i18n.t('rssLinkPlaceholder'),
-                                        autocomplete: 'off',
+                                        'autocomplete': 'off',
                                       },
                                     },
                                     label: {
@@ -86,7 +86,7 @@ const generateInitialConfig = (i18n) => ({
                                     'px-sm-5',
                                   ],
                                   attributes: {
-                                    type: 'submit',
+                                    'type': 'submit',
                                     'aria-label': 'add',
                                   },
                                   textContent: i18n.t('buttons.add'),
@@ -182,6 +182,6 @@ const generateInitialConfig = (i18n) => ({
       },
     },
   },
-});
+})
 
-export default generateInitialConfig;
+export default generateInitialConfig

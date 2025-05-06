@@ -19,7 +19,7 @@ const handleRssProcessState = (initState, value, handleClick) => {
   }
 }
 
-const watchState = (initState, i18n) => { // сюда i18n передавать
+const watchState = (initState, i18n) => {
   const watchedState = onChange(initState, (path, value) => {
     const handleClick = handlePostClick(watchedState)
 

@@ -9,6 +9,47 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+  <div class="modal fade"
+  id="modal"
+  tabindex="-1"
+  aria-labelledby="modal"
+  style="display: none"
+  aria-modal="true"
+  role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <!-- ${title} -->
+        </h5>
+        <button class="btn-close close"
+          type="button"
+          data-bs-dismiss="modal"
+          aria-label="close">
+        </button>
+      </div>
+      <div class="modal-body text-break">
+        <!-- ${description} -->
+      </div>
+      <div class="modal-footer">
+        <!-- setAttr href -->
+        <a href="" class="btn btn-primary full-article" 
+        role="button"
+        target="_blank"
+        rel="noopener noreferrer"
+        >
+          <!-- ${i18n.t('buttons.read')} -->
+        </a>
+        <button class="btn btn-secondary"
+        type="button"
+        data-bs-dismiss="modal"
+        >
+        <!-- ${i18n.t('buttons.close')} -->
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
   <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

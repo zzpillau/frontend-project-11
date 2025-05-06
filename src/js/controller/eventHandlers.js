@@ -1,27 +1,28 @@
 const handlePostClick = (initState) => (e) => {
+  console.log('handlePostClick!!!!!!!!!!!!!')
   const { target } = e;
   const state = { ...initState };
 
   state.modal.state = 'idle';
 
-  const postLink = e.target.previousSibling;
-
-  const id = target.getAttribute('data-id');
+  const postId = target.getAttribute('data-id');
 
   const [post] = state.rssProcess.postsList
-    .filter((postEl) => postEl.id === Number(id));
+    .filter((postEl) => postEl.id === Number(postId));
 
-  const { title, description, url } = post;
+  const { title, description, url, id } = post;
+
   post.isRead = true;
 
-  state.modal.state = 'open';
   state.modal.content = {
     id,
     title,
     description,
     url,
   };
-  state.modal.currentPostLink = postLink;
+
+  state.modal.state = 'open';
+
 };
 
 export default handlePostClick;

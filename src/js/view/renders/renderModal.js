@@ -1,37 +1,46 @@
 import { Modal } from 'bootstrap';
-import { generateModalConfig } from '../htmlConfigs/generateModalConfig.js';
-import getInstanceI18n from '../i18n/i18nConfig.js';
-import HTMLBuilder from '../../builders/HTMLBuilder.js';
+// import { generateModalConfig } from '../htmlConfigs/generateModalConfig.js';
+// import HTMLBuilder from '../../builders/HTMLBuilder.js';
 
-const renderModal = (state) => {
-  getInstanceI18n()
-    .then((i18n) => {
-      const {
-        modal: {
-          content: {
-            id, title, description, url,
-          },
-        },
-      } = state;
+const renderModal = (modalContent, i18n) => {
+  
+  const  {
+        id, title, description, url,
+      }  = modalContent;
 
-      const currentPostElement = document.querySelector(`[data-id="${id}"]`);
 
-      currentPostElement.classList.remove('fw-bold');
-      currentPostElement.classList.add('fw-normal', 'link-secondary');
+  // const rootContainer = document.querySelector('.modal-dialog');
+  // rootContainer.innerHTML = '';
 
-      const rootContainer = document.querySelector('.modal-dialog');
-      rootContainer.innerHTML = '';
+  // const modalConfig = generateModalConfig(title, description, url, i18n);
+  // new HTMLBuilder(modalConfig).render(rootContainer);
 
-      const modalConfig = generateModalConfig(title, description, url, i18n);
-      new HTMLBuilder(modalConfig).render(rootContainer);
+  
 
-      const modal = document.querySelector('#modal');
-      const modalInstande = new Modal(modal);
-      modalInstande.show();
-    })
-    .catch((err) => {
-      console.error('Error getting i18n instance:', err);
-    });
+  const modalTitle = document.querySelector('.modal-title');
+  modalTitle.textContent = title;
+
+  const modalBody = document.querySelector('.modal-body');
+  modalBody.textContent = description;
+
+  const btnPrimary = document.querySelector('.modal-footer .btn-primary');
+  btnPrimary.setAttribute('href', url)
+  btnPrimary.textContent = i18n.t('buttons.read');
+
+  const btnSecondary = document.querySelector('.modal-footer .btn-secondary');
+  btnSecondary.textContent = i18n.t('buttons.close');
+
+  const modal = document.querySelector('#modal');
+  const modalInstande = new Modal(modal);
+  modalInstande.show();
+
+
+
+  const currentPostElement = document.querySelector(`[data-id="${id}"]`);
+
+  currentPostElement.classList.remove('fw-bold');
+  currentPostElement.classList.add('fw-normal', 'link-secondary');
+
 };
 
 export default renderModal;

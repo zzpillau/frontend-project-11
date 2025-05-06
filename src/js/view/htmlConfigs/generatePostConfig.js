@@ -1,4 +1,6 @@
+
 export const generatePostsContainerConfig = (i18n) => ({
+
   root: {
     tag: 'div',
     classes: ['card', 'border-0'],

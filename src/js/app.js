@@ -1,6 +1,6 @@
 import watchState from './view/view.js';
 // import initialRender from './view/renders/initialRender.js';
-// import getInstanceI18n from './view/i18n/i18nConfig.js';
+import getInstanceI18n from './view/i18n/i18nConfig.js';
 import validateUrlAndDuplicates from './model/validation/validateUrlAndDuplicates.js';
 import handleRssValidation from './model/validation/validationRss.js';
 import proccessData from './model/proccessData.js';
@@ -68,7 +68,10 @@ const runApp = () => {
     },
   };
 
-  const state = watchState(initState);
+    getInstanceI18n()
+  .then((i18n) => {
+
+  const state = watchState(initState, i18n);
 
   // getInstanceI18n()
   // .then((i18n) => {
@@ -113,7 +116,7 @@ const runApp = () => {
           : handleFetchError(state, error);
       });
   });
-  // });
+  });
 };
 
 export default runApp;

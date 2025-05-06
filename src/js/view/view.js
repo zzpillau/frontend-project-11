@@ -6,17 +6,6 @@ import renderNewPosts from './renders/renderNewPosts.js';
 import renderModal from './renders/renderModal.js';
 import { disableSubmitButton, enableSubmitButton } from './renders/toggleSubmitButton.js';
 
-const handleButtonDisabling = (value) => {
-  if (value === 'idle' || value === 'error') {
-    enableSubmitButton();
-  } else {
-    disableSubmitButton();
-  }
-};
-
-const handleValidationState = (initState) => {
-  renderFeedback(initState.form.validationState);
-};
 
 const handleRssProcessState = (initState, value, handleClick) => {
   if (value === 'error') {
@@ -30,37 +19,34 @@ const handleRssProcessState = (initState, value, handleClick) => {
   }
 };
 
-const handleUpdateState = (initState, value, handleClick) => {
-  if (value === 'updateSuccess') {
-    renderNewPosts(initState, handleClick);
-  }
-};
-
-const handleModalState = (initState, value) => {
-  if (value === 'open') {
-    renderModal(initState);
-  }
-};
-
-const watchState = (initState) => {
+const watchState = (initState, i18n) => { // сюда i18n передавать 
   const watchedState = onChange(initState, (path, value) => {
     const handleClick = handlePostClick(watchedState);
 
     switch (path) {
       case 'form.state':
-        handleButtonDisabling(value);
+        if (value === 'idle' || value === 'error') {
+          enableSubmitButton();
+        } else {
+          disableSubmitButton();
+        }
         break;
       case 'form.validationState.status':
-        handleValidationState(initState);
-        break;
+        renderFeedback(initState.form.validationState);
+      break;
       case 'rssProcess.state':
         handleRssProcessState(initState, value, handleClick);
         break;
       case 'rssProcess.updateState':
-        handleUpdateState(initState, value, handleClick);
+        if (value === 'updateSuccess') {
+          renderNewPosts(initState, handleClick);
+        }
         break;
       case 'modal.state':
-        handleModalState(initState, value);
+        if (value === 'open') {
+          console.log('VIEW initState.modal.content', initState.modal)
+          renderModal(initState.modal.content, i18n); // + i18n 
+        }
         break;
       default:
         break;

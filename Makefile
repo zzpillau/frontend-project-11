@@ -10,8 +10,14 @@ fix:
 start:
 	npm start
 
-build:
-	npm run build
-
 babel:
 	npm run build:babel
+
+develop:
+	npx webpack serve
+
+build:
+	NODE_ENV=production npx webpack
+
+test:
+	npm test

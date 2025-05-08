@@ -1,18 +1,20 @@
 install:
 	npm ci
 
+dev:
+	npm run dev
+
 lint:
 	npx eslint .
+
+build:
+	NODE_ENV=production npm run build
+
+test:
+	echo no tests
 
 fix:
 	npx eslint --fix .
 
-start:
-	npm start
-
-build:
-	npm run build
-
-babel:
-	npm run build:babel
-
+prew:
+	npm run preview

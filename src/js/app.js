@@ -9,7 +9,6 @@ import fetchAndParse from './model/fetchAndParse.js'
 
 console.log('APP IS RUNNING')
 
-
 const handleValidationError = (currentState, validationError) => {
   const state = { ...currentState }
   console.error('handleValidationError', validationError)

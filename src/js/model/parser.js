@@ -1,3 +1,5 @@
+// не промис!!! просто вернуть фид и посты, объект
+
 const parseRss = source => new Promise((resolve, reject) => {
   const parser = new DOMParser()
   const doc = parser.parseFromString(

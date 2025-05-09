@@ -50,23 +50,23 @@ const processRssData = (currentState, doc, url) => {
 const runApp = () => {
   const initState = {
     form: {
-      state: 'idle', // filling, validating, submitting, success, error
+      state: 'idle', // filling, validating, validationError, submitting, success, error
       validationState: {
         status: null, // valid, invalid
-        error: null, // код ошибки, обрабатывается i18n
+        error: null,
       },
     },
     rssProcess: {
       state: 'initial', // sending, success, error
-      error: null, // код ошибки, обрабатывается i18n
-      feedList: [], // фиды
-      postsList: [], // посты
-      updateState: 'idle', // idle, updateSuccess, updateError
-      updateError: null, // код ошибки обновления, обрабатывается i18n
+      error: null,
+      feedList: [],
+      postsList: [],
+      updateState: 'idle', // idle, success, error
+      updateError: null,
     },
     modal: {
       state: 'idle', // idle, open
-      content: null, // динамический контент модального окна
+      content: null,
     },
   }
 
@@ -74,13 +74,10 @@ const runApp = () => {
     .then((i18n) => {
       const state = watchState(initState, i18n)
 
-      // getInstanceI18n()
-      // .then((i18n) => {
-      // const rootContainer = document.body;
-      // rootContainer.classList.add('d-flex', 'flex-column', 'min-vh-100');
-
-      // initialRender(rootContainer, i18n);
       const form = document.querySelector('.rss-form')
+      // вешаем на form addEventListener для сабббмита
+
+      // вынести отдельно как eventHandler, внутри валидацию, fetch << parser
 
       form.addEventListener('submit', (event) => {
         event.preventDefault()
@@ -89,7 +86,7 @@ const runApp = () => {
 
         const formData = new FormData(form)
 
-        state.form.validationState = { error: null, status: null }
+        state.form.validationState = { error: null, status: null } // DELETE
         state.rssProcess = { ...state.rssProcess, state: 'sending', error: null }
         const input = formData.get('url')
 
@@ -104,6 +101,8 @@ const runApp = () => {
             state.form.validationState.status = validState.status
             return Promise.reject(validState)
           })
+        // конец eventHandler
+
           .then((doc) => {
             processRssData(state, doc, input)
             checkForNewPosts(state)

@@ -39,7 +39,7 @@ const watchState = (initState, i18n) => {
         handleRssProcessState(initState, value, handleClick)
         break
       case 'rssProcess.updateState':
-        if (value === 'updateSuccess') {
+        if (value === 'success') {
           renderNewPosts(initState, handleClick)
         }
         break

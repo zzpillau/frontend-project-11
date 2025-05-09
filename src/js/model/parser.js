@@ -9,11 +9,50 @@ const parseRss = source => new Promise((resolve, reject) => {
 
   if (doc.querySelector('parsererror')) {
     const error = new Error()
-    error.data = { error: 'INVALID_RSS', status: 'invalid' }
+    error.data = { error: 'INVALID_RSS', status: 'invalid' } // избавляемся от статуса валидации, будет просто стейт форме
     reject(error.data)
   }
 
   resolve(doc)
 })
+
+export const parser = (source) => {
+  const parsed = new DOMParser() // именование
+  const doc = parsed.parseFromString( // именование
+    source,
+    'application/xml',
+  )
+
+  if (doc.querySelector('parsererror')) {
+    throw new Error('parsererror') // ТУТ выкидывается  а ловится в submit ивенте 'INVALID_RSS'!
+  }
+
+  const channel = doc.querySelector('channel')
+
+  const feed = {}
+
+  feed.title = channel.querySelector('title').textContent
+  feed.description = channel.querySelector('description').textContent
+
+  const items = channel.querySelectorAll('item')
+
+  const posts = Array.from(items).map((item, i) => {
+    const id = posts.length + 1 + i
+
+    const title = item.querySelector('title').textContent
+    const description = item.querySelector('description').textContent
+    const url = item.querySelector('link').textContent
+
+    return {
+      id,
+      title,
+      description,
+      url,
+      isRead: false,
+    }
+  })
+
+  return { feed, posts }
+}
 
 export default parseRss

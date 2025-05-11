@@ -8,6 +8,7 @@ import getInstanceI18n from './i18n/i18nConfig.js'
 // import fetchAndParse from './model/fetchAndParse.js'
 import { handleSubmit } from './eventHandlers.js'
 import handlePostClick from './eventHandlers.js'
+import checkForNewPosts from './checkForNewPosts.js'
 
 // const handleValidationError = (currentState, validationError) => {
 //   const state = { ...currentState }
@@ -83,6 +84,8 @@ const runApp = () => {
 
       form.addEventListener('submit', e => handleSubmit(e, state))
       posts.addEventListener('click', e => handlePostClick(e, state))
+
+      checkForNewPosts(state)
 
       // вешаем на form addEventListener для сабббмита
 

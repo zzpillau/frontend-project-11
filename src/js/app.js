@@ -1,61 +1,13 @@
 import watchState from './view.js'
-// import initialRender from './view/renders/initialRender.js';
 import getInstanceI18n from './i18n/i18nConfig.js'
-// import validateUrlAndDuplicates from './model/validation/validateUrlAndDuplicates.js'
-// import handleRssValidation from './model/validation/validationRss.js'
-// import proccessData from './model/proccessData.js'
-// import checkForNewPosts from './checkForNewPosts.js'
-// import fetchAndParse from './model/fetchAndParse.js'
 import { handleSubmit } from './eventHandlers.js'
 import handlePostClick from './eventHandlers.js'
-import checkForNewPosts from './checkForNewPosts.js'
-
-// const handleValidationError = (currentState, validationError) => {
-//   const state = { ...currentState }
-//   console.error('handleValidationError', validationError)
-//   state.form.validationState.error = validationError.error || 'GENERAL_ERROR'
-//   state.form.validationState.status = 'invalid'
-// }
-
-// const handleFetchError = (currentState, fetchError) => {
-//   const state = { ...currentState }
-
-//   console.error('handleFetchError', fetchError)
-//   state.rssProcess.error = fetchError.error
-//   state.rssProcess.state = 'error'
-// }
-
-// ***fetch parse отсюда убрать
-
-// const processRssData = (currentState, doc, url) => {
-//   const state = { ...currentState }
-
-//   const rssValidation = handleRssValidation(doc)
-
-//   if (rssValidation && rssValidation.status === 'valid') {
-//     state.form.validationState.error = rssValidation.error
-//     state.form.validationState.status = rssValidation.status
-
-//     const feeds = state.rssProcess.feedList
-//     const posts = state.rssProcess.postsList
-
-//     const data = proccessData(rssValidation.data, feeds, posts, url)
-
-//     state.rssProcess.feedList.unshift(data.newFeed)
-//     state.rssProcess.postsList.unshift(...data.newPosts)
-//     state.rssProcess.state = 'success'
-
-//     state.form.state = 'success'
-//   }
-//   state.rssProcess.state = 'idle'
-// }
-
-// ***
+import updatePostList from './updatePostList.js'
 
 const runApp = () => {
   const initState = {
     form: {
-      state: 'idle', // filling, validating, validationError, submitting, success, error
+      state: 'idle', // filling, validating, submitting, success, error
       validationState: {
         status: null, // valid, invalid
         error: null,
@@ -67,7 +19,7 @@ const runApp = () => {
       feedList: [],
       postsList: [],
       updateState: 'idle', // idle, success, error
-      updateError: null,
+      isChecking: false,
     },
     modal: {
       state: 'idle', // idle, open
@@ -85,50 +37,8 @@ const runApp = () => {
       form.addEventListener('submit', e => handleSubmit(e, state))
       posts.addEventListener('click', e => handlePostClick(e, state))
 
-      checkForNewPosts(state)
-
-      // вешаем на form addEventListener для сабббмита
-
-      // вынести отдельно как eventHandler, внутри валидацию, fetch << parser
-
-      // form.addEventListener('submit', (event) => {
-      //   event.preventDefault()
-
-      //   state.form.state = 'validating'
-
-      //   const formData = new FormData(form)
-
-      //   state.form.validationState = { error: null, status: null } // DELETE
-      //   state.rssProcess = { ...state.rssProcess, state: 'sending', error: null }
-      //   const input = formData.get('url')
-
-      // validateUrlAndDuplicates(input, state.rssProcess.feedList)
-      //   .then((validState) => {
-      //     if (validState.status === 'valid') {
-      //       form.state = 'submitting' // ???
-      //       return fetchAndParse(input)
-      //     }
-
-      //     state.form.validationState.error = validState.error
-      //     state.form.validationState.status = validState.status
-      //     return Promise.reject(validState)
-      //   })
-      // конец eventHandler
-
-      // .then(() => {
-      // processRssData(state, doc, input)
-      // checkForNewPosts(state)
-      // state.form.state = 'idle'
-      // })
+      updatePostList(state)
     })
-    // .catch((error) => {
-    //   state.form.state = 'error'
-    //   return error.status === 'invalid'
-    //     ? handleValidationError(state, error)
-    //     : handleFetchError(state, error)
-    // })
-
-  // })
 }
 
 export default runApp

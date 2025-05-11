@@ -3,10 +3,8 @@ import API_URL from './config.js'
 import { parser } from '../parser.js' // парсер просто возвращает данные
 import { uniqueId } from 'lodash'
 
-
-export const fetcher = (url, state, option) => {
-  state.rssProcess.state = option;
-  // state тут надо будет поменять на sending
+export const fetcher = (url, state, option = 'sending') => {
+  state.rssProcess.state = option
   return axios
     .get(`${API_URL}${encodeURIComponent(url)}`, { timeout: 5000 })
     .then((response) => {
@@ -19,26 +17,24 @@ export const fetcher = (url, state, option) => {
         const currentFeed = parsed.feed
         currentFeed.id = uniqueId()
 
-        state.rssProcess.feedList = [currentFeed, ...state.rssProcess.feedList]
-
         const currentPosts = parsed.posts
-        currentPosts.forEach(post => {
+        currentPosts.forEach((post) => {
           post.id = uniqueId()
           post.FEED_ID = currentFeed.id
-          }
+        },
         )
 
-        state.rssProcess.postsList = [...currentPosts, ...state.rssProcess.postsList]
-
         if (state.rssProcess.state === 'sending') {
+          state.rssProcess.feedList = [currentFeed, ...state.rssProcess.feedList]
+          state.rssProcess.postsList = [...currentPosts, ...state.rssProcess.postsList]
+
           state.form.validationState.error = 'SUCCESS' // render feedback
           state.form.validationState.status = 'valid'
-          console.log('AND NOW I WILL RENDER')
           state.rssProcess.state = 'success'
         }
 
+        state.rssProcess.state = 'initial'
         return parsed
-                
       }
       else {
         throw new Error('Unexpected response status')
@@ -57,8 +53,5 @@ export const fetcher = (url, state, option) => {
     .finally(() => {
       state.form.validationState = { error: null, status: null }
       state.form.state = 'idle'
-      state.rssProcess.state = 'initial'
     })
 }
-
-

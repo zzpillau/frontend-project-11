@@ -11,12 +11,14 @@ const renderRSS = (state, i18n, option = 'all') => {
   const feedsContainer = document.querySelector('.feeds')
   const postsContainer = document.querySelector('.posts')
 
-  feedsContainer.innerHTML = ''
-  postsContainer.innerHTML = ''
+  if (option === 'all') {
+    feedsContainer.innerHTML = ''
+    feedsContainer.append(createFeeds(feedsList, i18n))
+  }
 
-  feedsContainer.append(createFeeds(feedsList, i18n))
-  postsContainer.append(createPosts(postsList, i18n))
+  if (option === 'all' || option === 'posts') {
+    postsContainer.innerHTML = ''
+    postsContainer.append(createPosts(postsList, i18n))
+  }
 }
-
 export default renderRSS
-

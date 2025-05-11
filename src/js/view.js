@@ -4,7 +4,6 @@ import renderRss from './renders/renderRss.js'
 import renderModal from './renders/renderModal.js'
 import { disableSubmitButton, enableSubmitButton } from './renders/toggleSubmitButton.js'
 
-
 const watchState = (initState, i18n) => {
   const watchedState = onChange(initState, (path, value) => {
     switch (path) {
@@ -21,19 +20,17 @@ const watchState = (initState, i18n) => {
         break
       case 'rssProcess.state':
         if (value === 'success') {
-          console.log('RENDER RSS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
           renderRss(initState, i18n)
         }
         break
       case 'rssProcess.updateState':
         if (value === 'success') {
-          console.log('WOW!!!!!!!!!!!!!!!!')
-          renderRss(initState, i18n)
+          renderRss(initState, i18n, 'posts')
         }
         break
       case 'modal.state':
         if (value === 'open') {
-          renderModal(initState.modal.content, i18n) // + i18n
+          renderModal(initState.modal.content, i18n)
         }
         break
       default:

@@ -14,48 +14,48 @@ export const createPosts = (posts, i18n) => {
 
   posts
   // .flat()
-  .forEach((post) => { // разобраться с массивом постов
-    const {
-      id,
-      title,
-      url,
-      isRead,
-    } = post
+    .forEach((post) => { // разобраться с массивом постов
+      const {
+        id,
+        title,
+        url,
+        isRead,
+      } = post
 
-    const currentPost = document.createElement('li')
-    currentPost.classList.add(
-      'list-group-item',
-      'd-flex',
-      'justify-content-between',
-      'align-items-start',
-      'border-0',
-      'border-end-0',
-    )
+      const currentPost = document.createElement('li')
+      currentPost.classList.add(
+        'list-group-item',
+        'd-flex',
+        'justify-content-between',
+        'align-items-start',
+        'border-0',
+        'border-end-0',
+      )
 
-    const a = document.createElement('a')
-    if (isRead) {
-      a.classList.add('fw-normal', 'link-secondary')
-    }
-    else {
-      a.classList.add('fw-bold')
-    }
-    a.setAttribute('href', url)
-    a.setAttribute('data-id', id)
-    a.setAttribute('target', '_blank')
-    a.setAttribute('rel', 'noopener noreferrer')
-    a.textContent = title
+      const a = document.createElement('a')
+      if (isRead) {
+        a.classList.add('fw-normal', 'link-secondary')
+      }
+      else {
+        a.classList.add('fw-bold')
+      }
+      a.setAttribute('href', url)
+      a.setAttribute('data-id', id)
+      a.setAttribute('target', '_blank')
+      a.setAttribute('rel', 'noopener noreferrer')
+      a.textContent = title
 
-    const button = document.createElement('button')
-    button.classList.add('btn', 'btn-outline-primary', 'btn-sm')
-    button.setAttribute('type', 'button')
-    button.setAttribute('data-id', id)
-    button.textContent = i18n.t('buttons.view')
+      const button = document.createElement('button')
+      button.classList.add('btn', 'btn-outline-primary', 'btn-sm')
+      button.setAttribute('type', 'button')
+      button.setAttribute('data-id', id)
+      button.textContent = i18n.t('buttons.view')
 
-    currentPost.append(a)
-    currentPost.append(button)
+      currentPost.append(a)
+      currentPost.append(button)
 
-    ul.append(currentPost)
-  })
+      ul.append(currentPost)
+    })
 
   cardBody.append(h2)
 

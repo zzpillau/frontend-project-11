@@ -3,7 +3,7 @@ import API_URL from './config.js'
 import parser from './parser.js'
 import { uniqueId } from 'lodash'
 
-const fetcher = (url, state, option = 'sending') => {
+const loadRss = (url, state, option = 'sending') => {
   state.rssProcess.state = option
   return axios
     .get(`${API_URL}${encodeURIComponent(url)}`, { timeout: 5000 })
@@ -28,9 +28,9 @@ const fetcher = (url, state, option = 'sending') => {
           state.rssProcess.feedList = [currentFeed, ...state.rssProcess.feedList]
           state.rssProcess.postsList = [...currentPosts, ...state.rssProcess.postsList]
 
-          state.form.validationState.error = 'SUCCESS' // render feedback
-          state.form.validationState.status = 'valid'
-          state.rssProcess.state = 'success'
+          state.form.validationState.error = 'SUCCESS' // feedback text
+          state.form.validationState.status = 'valid' // render feedback
+          state.rssProcess.state = 'success' // render posts & feeds
         }
 
         state.rssProcess.state = 'initial'
@@ -56,4 +56,4 @@ const fetcher = (url, state, option = 'sending') => {
     })
 }
 
-export default fetcher
+export default loadRss

@@ -1,4 +1,4 @@
-import fetcher from './fetcher.js'
+import loadRss from './loadRss.js'
 import { differenceBy } from 'lodash'
 import { isEmpty } from 'lodash'
 
@@ -12,7 +12,7 @@ const updatePostList = (state, delay = 5000) => {
   const postsList = state.rssProcess.postsList
 
   const promises = feedList.map(f =>
-    fetcher(f.url, state, 'updating')
+    loadRss(f.url, state, 'updating')
       .then((parsed) => {
         const { feed, posts } = parsed
 

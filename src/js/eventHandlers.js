@@ -1,5 +1,5 @@
 import validate from './validate.js'
-import fetcher from './fetcher.js'
+import loadRss from './loadRss.js'
 
 export const handleSubmit = (e, state) => {
   e.preventDefault()
@@ -15,9 +15,9 @@ export const handleSubmit = (e, state) => {
 
   const addedFeeds = state.rssProcess.feedList.map(feed => feed.url)
 
-  validate({ url: input }, addedFeeds)
+  validate(input, addedFeeds)
     .then(() => {
-      fetcher(input, state, 'sending')
+      loadRss(input, state, 'sending')
     })
 
     .catch((error) => {

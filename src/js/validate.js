@@ -5,6 +5,7 @@ const validate = (url, feeds) => {
     yup.setLocale({
       string: {
         url: 'INVALID_URL',
+        required: 'REQIURED',
       },
       mixed: {
         notOneOf: 'DUPLICATE_ERROR',
@@ -17,7 +18,7 @@ const validate = (url, feeds) => {
 
   const schema = initValidationSchema()
 
-  return schema.validate(url)
+  return schema.validate({ url })
 }
 
 export default validate

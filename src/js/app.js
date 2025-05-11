@@ -1,7 +1,6 @@
 import watchState from './view.js'
 import getInstanceI18n from './i18n/i18nConfig.js'
-import { handleSubmit } from './eventHandlers.js'
-import handlePostClick from './eventHandlers.js'
+import { handleSubmit, handlePostClick } from './eventHandlers.js'
 import updatePostList from './updatePostList.js'
 
 const runApp = () => {
@@ -27,18 +26,34 @@ const runApp = () => {
     },
   }
 
+  const elements = {
+    form: document.querySelector('.rss-form'),
+    input: document.querySelector('#url-input'),
+    output: document.querySelector('.feedback'),
+    submitButton: document.querySelector('[type="submit"]'),
+
+    posts: document.querySelector('.posts'),
+    feeds: document.querySelector('.feeds'),
+
+    modal: document.querySelector('#modal'),
+    modalTitle: document.querySelector('.modal-title'),
+    modalBody: document.querySelector('.modal-body'),
+    btnPrimary: document.querySelector('.modal-footer .btn-primary'),
+    btnSecondary: document.querySelector('.modal-footer .btn-secondary'),
+
+    currentPostElement: id => document.querySelector(`[data-id="${id}"]`),
+  }
+
   getInstanceI18n()
     .then((i18n) => {
-      const state = watchState(initState, i18n)
+      const state = watchState(initState, elements, i18n)
 
-      const form = document.querySelector('.rss-form')
-      const posts = document.querySelector('.posts')
-
-      form.addEventListener('submit', e => handleSubmit(e, state))
-      posts.addEventListener('click', e => handlePostClick(e, state))
+      elements.form.addEventListener('submit', e => handleSubmit(e, state))
+      elements.posts.addEventListener('click', e => handlePostClick(e, state))
 
       updatePostList(state)
     })
+    .catch(err => console.error(err))
 }
 
 export default runApp

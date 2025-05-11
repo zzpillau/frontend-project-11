@@ -1,4 +1,9 @@
-export const createPosts = (posts, i18n) => {
+export const renderPosts = (state, elements, i18n) => {
+  const postsList = state.rssProcess.postsList
+  const { posts: postsCont } = elements
+
+  postsCont.innerHTML = ''
+
   const postsContainer = document.createElement('div')
   postsContainer.classList.add('card', 'border-0')
 
@@ -12,9 +17,8 @@ export const createPosts = (posts, i18n) => {
   const ul = document.createElement('ul')
   ul.classList.add('posts-list', 'list-group', 'border-0', 'rounded-0')
 
-  posts
-  // .flat()
-    .forEach((post) => { // разобраться с массивом постов
+  postsList
+    .forEach((post) => {
       const {
         id,
         title,
@@ -61,13 +65,17 @@ export const createPosts = (posts, i18n) => {
 
   postsContainer.append(cardBody)
   postsContainer.append(ul)
+  postsCont.append(postsContainer)
 
-  return postsContainer
+  return postsCont
 }
 
-// FEEDS
+export const renderFeeds = (state, elements, i18n) => {
+  const feedsList = state.rssProcess.feedList
+  const { feeds: feedsCont } = elements
 
-export const createFeeds = (feeds, i18n) => {
+  feedsCont.innerHTML = ''
+
   const feedsContainer = document.createElement('div')
   feedsContainer.classList.add('card', 'border-0')
 
@@ -81,7 +89,7 @@ export const createFeeds = (feeds, i18n) => {
   const ul = document.createElement('ul')
   ul.classList.add('feed-list', 'list-group', 'border-0', 'rounded-0')
 
-  feeds.forEach((feed) => {
+  feedsList.forEach((feed) => {
     const { title, description } = feed
 
     const currentFeed = document.createElement('li')
@@ -105,6 +113,7 @@ export const createFeeds = (feeds, i18n) => {
 
   feedsContainer.append(cardBody)
   feedsContainer.append(ul)
+  feedsCont.append(feedsContainer)
 
-  return feedsContainer
+  return feedsCont
 }

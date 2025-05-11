@@ -21,5 +21,3 @@ const validate = (url, feeds) => {
 }
 
 export default validate
-
-// validate({url: 'https://lorem-rss.hexlet.app/feed'}, ['https://lorem-rss.hexlet.app/feed', 'https://primamedia.ru/export/news.xml', 'https://www.apartmenttherapy.com/main.rss'])

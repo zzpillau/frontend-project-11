@@ -1,4 +1,4 @@
-import { fetcher } from './fetcher.js'
+import fetcher from './fetcher.js'
 import { differenceBy } from 'lodash'
 import { isEmpty } from 'lodash'
 

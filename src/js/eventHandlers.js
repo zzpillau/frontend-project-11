@@ -1,11 +1,11 @@
 import validate from './validate.js'
-import { fetcher } from './fetcher.js'
+import fetcher from './fetcher.js'
 
 export const handleSubmit = (e, state) => {
   e.preventDefault()
   state.form.validationState = { error: null, status: null }
 
-  state.rssProcess = { ...state.rssProcess, error: null }
+  state.rssProcess = { ...state.rssProcess, state: 'sending', error: null }
 
   state.form.state = 'validating'
 
@@ -27,7 +27,7 @@ export const handleSubmit = (e, state) => {
     })
 }
 
-const handlePostClick = (e, state) => {
+export const handlePostClick = (e, state) => {
   const { target } = e
 
   if (target.nodeName === 'BUTTON') {
@@ -52,5 +52,3 @@ const handlePostClick = (e, state) => {
     state.modal.state = 'open'
   }
 }
-
-export default handlePostClick

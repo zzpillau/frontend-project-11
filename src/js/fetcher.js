@@ -1,9 +1,9 @@
 import axios from 'axios'
 import API_URL from './config.js'
-import { parser } from '../parser.js' // парсер просто возвращает данные
+import parser from './parser.js'
 import { uniqueId } from 'lodash'
 
-export const fetcher = (url, state, option = 'sending') => {
+const fetcher = (url, state, option = 'sending') => {
   state.rssProcess.state = option
   return axios
     .get(`${API_URL}${encodeURIComponent(url)}`, { timeout: 5000 })
@@ -55,3 +55,5 @@ export const fetcher = (url, state, option = 'sending') => {
       state.form.state = 'idle'
     })
 }
+
+export default fetcher

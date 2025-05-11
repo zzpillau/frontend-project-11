@@ -1,49 +1,27 @@
-import getInstanceI18n from '../i18n/i18nConfig.js'
-
-const handleValidState = (form, input, output) => {
-  output.classList.remove('text-danger')
-  input.classList.remove('is-invalid')
-  output.classList.add('text-success')
-  form.reset()
-  input.focus()
-}
-
-const handleInvalidState = (input, output) => {
-  input.classList.add('is-invalid')
-  output.classList.remove('text-success')
-  output.classList.add('text-danger')
-  input.select()
-}
-
-const renderFeedback = (state) => {
-  const elements = {
-    form: document.querySelector('.rss-form'),
-    input: document.querySelector('#url-input'),
-    output: document.querySelector('.feedback'),
-  }
-
+const renderFeedback = (state, elements, i18n) => {
   const { form, input, output } = elements
-  const { status, error } = state
+  const { status, error } = state.form.validationState
 
   output.textContent = ''
-  getInstanceI18n()
-    .then((i18n) => {
-      output.textContent = i18n.t(`errors.${error}`)
+  output.textContent = i18n.t(`errors.${error}`)
 
-      switch (status) {
-        case 'valid':
-          handleValidState(form, input, output)
-          break
-        case 'invalid':
-          handleInvalidState(input, output)
-          break
-        default:
-          throw new Error('renderFeedback: Status Error')
-      }
-    })
-    .catch((e) => {
-      console.error('renderFeedback error:', e)
-    })
+  switch (status) {
+    case 'valid':
+      form.reset()
+      output.classList.remove('text-danger')
+      input.classList.remove('is-invalid')
+      output.classList.add('text-success')
+      input.focus()
+      break
+    case 'invalid':
+      input.classList.add('is-invalid')
+      output.classList.remove('text-success')
+      output.classList.add('text-danger')
+      input.select()
+      break
+    default:
+      throw new Error('renderFeedback: Status Error')
+  }
 }
 
 export default renderFeedback

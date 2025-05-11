@@ -45,7 +45,7 @@ export const fetcher = (url, state, option = 'sending') => {
         state.form.validationState.error = error.message
       }
       else {
-        state.form.validationState.error = error.message
+        state.form.validationState.error = 'NETWORK_ERROR'
       }
       console.error('ERROR occurred', error)
       state.form.validationState.status = 'invalid'

@@ -2,14 +2,12 @@ import loadRss from './loadRss.js'
 import { differenceBy } from 'lodash'
 import { isEmpty } from 'lodash'
 
-const updatePostList = (state, delay = 5000) => {
-  if (state.rssProcess.isChecking) return
-  state.rssProcess.isChecking = true
+const updatePosts = (state, delay = 5000) => {
+  if (state.rss.isChecking) return
+  state.rss.isChecking = true
 
-  state.rssProcess.updateState = 'updating'
-
-  const feedList = state.rssProcess.feedList
-  const postsList = state.rssProcess.postsList
+  const feedList = state.rss.feedList
+  const postsList = state.rss.postsList
 
   const promises = feedList.map(f =>
     loadRss(f.url, state, 'updating')
@@ -23,18 +21,18 @@ const updatePostList = (state, delay = 5000) => {
             ...p,
             FEED_ID: feed.id,
           }))
-          state.rssProcess.postsList = [
+          state.rss.postsList = [
             ...updatedPostsList,
-            ...state.rssProcess.postsList,
+            ...state.rss.postsList,
           ]
-          state.rssProcess.updateState = 'success'
+          state.rss.state = 'updated'
+          console.log('state.rss.state = updated', state.rss.state === 'updated')
           return updatedPostsList
         }
         return
       })
       .catch((err) => {
         console.error(`Error updating feed: ${f.url}`, err)
-        state.rssProcess.updateState = 'error'
         return
       }),
   )
@@ -47,11 +45,11 @@ const updatePostList = (state, delay = 5000) => {
       console.error('Unexpected update error ', err)
     })
     .finally(() => {
-      state.rssProcess.isChecking = false
-      state.rssProcess.updateState = 'idle'
+      state.rss.isChecking = false
+      state.rss.state = 'idle'
 
-      setTimeout(() => updatePostList(state, delay), delay)
+      setTimeout(() => updatePosts(state, delay), delay)
     })
 }
 
-export default updatePostList
+export default updatePosts

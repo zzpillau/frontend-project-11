@@ -1,5 +1,5 @@
 export const renderPosts = (state, elements, i18n) => {
-  const postsList = state.rssProcess.postsList
+  const postsList = state.rss.postsList
   const { posts: postsCont } = elements
 
   postsCont.innerHTML = ''
@@ -71,7 +71,7 @@ export const renderPosts = (state, elements, i18n) => {
 }
 
 export const renderFeeds = (state, elements, i18n) => {
-  const feedsList = state.rssProcess.feedList
+  const feedsList = state.rss.feedList
   const { feeds: feedsCont } = elements
 
   feedsCont.innerHTML = ''

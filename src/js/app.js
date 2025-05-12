@@ -1,23 +1,22 @@
 import watchState from './view.js'
 import getInstanceI18n from './i18n/i18nConfig.js'
 import { handleSubmit, handlePostClick } from './eventHandlers.js'
-import updatePostList from './updatePostList.js'
+import updatePosts from './updatePosts.js'
 
 const runApp = () => {
   const initState = {
     form: {
-      state: 'idle', // filling, validating, submitting, success, error
+      state: 'idle', // validating, success, error
       validationState: {
         status: null, // valid, invalid
         error: null,
       },
     },
-    rssProcess: {
-      state: 'initial', // sending, success, error
+    rss: {
+      state: 'idle', // submitting, success, error
       error: null,
       feedList: [],
       postsList: [],
-      updateState: 'idle', // idle, success, error
       isChecking: false,
     },
     modal: {
@@ -51,7 +50,7 @@ const runApp = () => {
       elements.form.addEventListener('submit', e => handleSubmit(e, state))
       elements.posts.addEventListener('click', e => handlePostClick(e, state))
 
-      updatePostList(state)
+      updatePosts(state)
     })
     .catch(err => console.error(err))
 }

@@ -1,9 +1,10 @@
-const renderFeedback = (state, elements, i18n) => {
-  const { form, input, output } = elements
+const renderForm = (state, elements, i18n) => {
+  const { form, input, output, submitButton } = elements
   const { status, error } = state.form.validationState
 
   output.textContent = ''
   output.textContent = i18n.t(`errors.${error}`)
+  submitButton.disabled = false
 
   switch (status) {
     case 'valid':
@@ -24,4 +25,4 @@ const renderFeedback = (state, elements, i18n) => {
   }
 }
 
-export default renderFeedback
+export default renderForm

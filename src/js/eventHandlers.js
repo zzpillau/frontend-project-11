@@ -5,7 +5,7 @@ export const handleSubmit = (e, state) => {
   e.preventDefault()
   state.form.validationState = { error: null, status: null }
 
-  state.rssProcess = { ...state.rssProcess, state: 'sending', error: null }
+  state.rss = { ...state.rss, state: 'submitting', error: null }
 
   state.form.state = 'validating'
 
@@ -13,11 +13,11 @@ export const handleSubmit = (e, state) => {
 
   const input = formData.get('url')
 
-  const addedFeeds = state.rssProcess.feedList.map(feed => feed.url)
+  const addedFeeds = state.rss.feedList.map(feed => feed.url)
 
   validate(input, addedFeeds)
     .then(() => {
-      loadRss(input, state, 'sending')
+      loadRss(input, state, 'submitting')
     })
 
     .catch((error) => {
@@ -35,7 +35,7 @@ export const handlePostClick = (e, state) => {
 
     const postId = target.getAttribute('data-id')
 
-    const post = state.rssProcess.postsList
+    const post = state.rss.postsList
       .find(postEl => postEl.id == postId)
 
     const { title, description, url, id } = post

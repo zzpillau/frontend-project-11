@@ -3,8 +3,12 @@ import API_URL from './config.js'
 import parser from './parser.js'
 import { uniqueId } from 'lodash'
 
-const loadRss = (url, state, option = 'sending') => {
-  state.rssProcess.state = option
+// option:
+// 'submitting'
+// 'updating'
+
+const loadRss = (url, state, option) => {
+  state.rss.state = 'idle'
   return axios
     .get(`${API_URL}${encodeURIComponent(url)}`, { timeout: 5000 })
     .then((response) => {
@@ -24,16 +28,18 @@ const loadRss = (url, state, option = 'sending') => {
         },
         )
 
-        if (state.rssProcess.state === 'sending') {
-          state.rssProcess.feedList = [currentFeed, ...state.rssProcess.feedList]
-          state.rssProcess.postsList = [...currentPosts, ...state.rssProcess.postsList]
+        state.rss.state = option
+
+        if (state.rss.state === 'submitting') {
+          state.rss.feedList = [currentFeed, ...state.rss.feedList]
+          state.rss.postsList = [...currentPosts, ...state.rss.postsList]
 
           state.form.validationState.error = 'SUCCESS' // feedback text
           state.form.validationState.status = 'valid' // render feedback
-          state.rssProcess.state = 'success' // render posts & feeds
+          state.rss.state = 'success' // render posts & feeds
         }
 
-        state.rssProcess.state = 'initial'
+        state.rss.state = 'idle'
         return parsed
       }
       else {
@@ -42,17 +48,20 @@ const loadRss = (url, state, option = 'sending') => {
     })
     .catch((error) => {
       if (error.message === 'INVALID_RSS') {
-        state.form.validationState.error = error.message
+        state.form.validationState.error = error.message // ПЕРЕРАБОТАТЬ текст ошибки на state.rss.error = error.message
       }
       else {
-        state.form.validationState.error = 'NETWORK_ERROR'
+        state.form.validationState.error = error.message //  ПЕРЕРАБОТАТЬ текст ошибки на state.form.error = 'NETWORK_ERROR'
       }
+      state.rss.state = 'error' // renderFeedback запускается этим
       console.error('ERROR occurred', error)
-      state.form.validationState.status = 'invalid'
+
+      state.form.validationState.status = 'invalid' // ЭТО УДАЛИТЬ и ПЕРЕРАБОТАТЬ реакцию на state.rss.state = 'error'
     })
     .finally(() => {
-      state.form.validationState = { error: null, status: null }
+      state.form.validationState = { error: null, status: null } // к черту удалить и не использовать
       state.form.state = 'idle'
+      state.rss.state = 'idle'
     })
 }
 

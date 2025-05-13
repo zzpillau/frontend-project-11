@@ -11,7 +11,6 @@ const getInstanceI18n = () => {
       i18nInstance.init(
         {
           lng: 'ru',
-          fallbackLng: 'en',
           debug: true,
           resources,
         },

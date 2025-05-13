@@ -19,21 +19,8 @@ const resources = {
         DUPLICATE_ERROR: 'RSS уже существует',
         SUCCESS: 'RSS успешно загружен',
       },
-      rssAggregatorTitle: 'RSS агрегатор',
-      rssAggregatorDescription:
-        'Начните читать RSS сегодня! Это легко, это красиво.',
-      rssLinkPlaceholder: 'Ссылка RSS',
-      rssLinkLabel: 'Ссылка RSS',
-      exampleLink: 'Пример: https://lorem-rss.hexlet.app/feed',
-      hexletLink: 'https://ru.hexlet.io/professions/frontend/projects/11',
     },
   },
-  // en: {
-  //   translation: {
-  //     createdBy: 'created by',
-  //     hexlet: 'Hexlet',
-  //   },
-  // },
 }
 
 export default resources

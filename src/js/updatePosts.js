@@ -1,6 +1,5 @@
 import loadRss from './loadRss.js'
-import { differenceBy } from 'lodash'
-import { isEmpty } from 'lodash'
+import { differenceBy, isEmpty } from 'lodash'
 
 const updatePosts = (state, timeout = 5000) => {
   if (state.rss.state === 'updating') return
@@ -30,7 +29,6 @@ const updatePosts = (state, timeout = 5000) => {
 
           return updatedPostsList
         }
-        return
       })
       .catch((err) => {
         console.error(`Error updating feed: ${f.url}`, err)

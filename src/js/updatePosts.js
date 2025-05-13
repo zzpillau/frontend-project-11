@@ -2,12 +2,12 @@ import loadRss from './loadRss.js'
 import { differenceBy } from 'lodash'
 import { isEmpty } from 'lodash'
 
-const updatePosts = (state, delay = 5000) => {
+const updatePosts = (state, timeout = 5000) => {
   if (state.rss.isChecking) return
   state.rss.isChecking = true
 
-  const feedList = state.rss.feedList
-  const postsList = state.rss.postsList
+  const feedList = state.rss.feeds
+  const postsList = state.rss.posts
 
   const promises = feedList.map(f =>
     loadRss(f.url, state, 'updating')
@@ -21,26 +21,24 @@ const updatePosts = (state, delay = 5000) => {
             ...p,
             FEED_ID: feed.id,
           }))
-          state.rss.postsList = [
+
+          state.rss.posts = [
             ...updatedPostsList,
-            ...state.rss.postsList,
+            ...state.rss.posts,
           ]
+
           state.rss.state = 'updated'
-          console.log('state.rss.state = updated', state.rss.state === 'updated')
+
           return updatedPostsList
         }
         return
       })
       .catch((err) => {
         console.error(`Error updating feed: ${f.url}`, err)
-        return
       }),
   )
 
   Promise.all(promises)
-    .then(() => {
-      console.log('All feeds updated')
-    })
     .catch((err) => {
       console.error('Unexpected update error ', err)
     })
@@ -48,7 +46,7 @@ const updatePosts = (state, delay = 5000) => {
       state.rss.isChecking = false
       state.rss.state = 'idle'
 
-      setTimeout(() => updatePosts(state, delay), delay)
+      setTimeout(() => updatePosts(state), timeout)
     })
 }
 

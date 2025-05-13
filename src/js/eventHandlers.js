@@ -3,9 +3,6 @@ import loadRss from './loadRss.js'
 
 export const handleSubmit = (e, state) => {
   e.preventDefault()
-  state.form.validationState = { error: null, status: null }
-
-  state.rss = { ...state.rss, state: 'submitting', error: null }
 
   state.form.state = 'validating'
 
@@ -13,17 +10,20 @@ export const handleSubmit = (e, state) => {
 
   const input = formData.get('url')
 
-  const addedFeeds = state.rss.feedList.map(feed => feed.url)
+  const addedFeeds = state.rss.feeds.map(feed => feed.url)
 
   validate(input, addedFeeds)
     .then(() => {
       loadRss(input, state, 'submitting')
     })
-
     .catch((error) => {
-      state.form.validationState.error = error.errors[0]
-      state.form.validationState.status = 'invalid'
+      console.error('VALIDATION ERROR occurred', error.errors[0])
+      state.form.error = error.errors[0]
+      state.form.state = 'error'
+    })
+    .finally(() => {
       state.form.state = 'idle'
+      state.form.error = null
     })
 }
 
@@ -35,7 +35,7 @@ export const handlePostClick = (e, state) => {
 
     const postId = target.getAttribute('data-id')
 
-    const post = state.rss.postsList
+    const post = state.rss.posts
       .find(postEl => postEl.id == postId)
 
     const { title, description, url, id } = post

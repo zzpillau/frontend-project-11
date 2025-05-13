@@ -7,16 +7,13 @@ const runApp = () => {
   const initState = {
     form: {
       state: 'idle', // validating, success, error
-      validationState: {
-        status: null, // valid, invalid
-        error: null,
-      },
+      error: null,
     },
     rss: {
       state: 'idle', // submitting, success, error
       error: null,
-      feedList: [],
-      postsList: [],
+      feeds: [],
+      posts: [],
       isChecking: false,
     },
     modal: {
@@ -31,8 +28,8 @@ const runApp = () => {
     output: document.querySelector('.feedback'),
     submitButton: document.querySelector('[type="submit"]'),
 
-    posts: document.querySelector('.posts'),
-    feeds: document.querySelector('.feeds'),
+    postsContainer: document.querySelector('.posts'),
+    feedsContainer: document.querySelector('.feeds'),
 
     modal: document.querySelector('#modal'),
     modalTitle: document.querySelector('.modal-title'),
@@ -48,7 +45,7 @@ const runApp = () => {
       const state = watchState(initState, elements, i18n)
 
       elements.form.addEventListener('submit', e => handleSubmit(e, state))
-      elements.posts.addEventListener('click', e => handlePostClick(e, state))
+      elements.postsContainer.addEventListener('click', e => handlePostClick(e, state))
 
       updatePosts(state)
     })

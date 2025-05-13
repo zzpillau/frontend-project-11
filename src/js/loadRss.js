@@ -53,8 +53,8 @@ const loadRss = (url, state, option) => {
       state.rss.state = 'error'
     })
     .finally(() => {
-      state.rss.state = 'idle'
       state.rss.error = null
+      state.rss.state = 'idle'
     })
 }
 

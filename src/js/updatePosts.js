@@ -3,8 +3,7 @@ import { differenceBy } from 'lodash'
 import { isEmpty } from 'lodash'
 
 const updatePosts = (state, timeout = 5000) => {
-  if (state.rss.isChecking) return
-  state.rss.isChecking = true
+  if (state.rss.state === 'updating') return
 
   const feedList = state.rss.feeds
   const postsList = state.rss.posts
@@ -43,7 +42,6 @@ const updatePosts = (state, timeout = 5000) => {
       console.error('Unexpected update error ', err)
     })
     .finally(() => {
-      state.rss.isChecking = false
       state.rss.state = 'idle'
 
       setTimeout(() => updatePosts(state), timeout)

@@ -28,8 +28,8 @@ const watchState = (state, elements, i18n) => {
           renderPosts(state, elements, i18n)
         }
         break
-      case 'modal.state':
-        if (value === 'open') {
+      case 'modal.isOpen':
+        if (value === true) {
           renderModal(state, elements, i18n)
         }
         break

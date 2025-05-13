@@ -10,14 +10,13 @@ const runApp = () => {
       error: null,
     },
     rss: {
-      state: 'idle', // submitting, success, error
+      state: 'idle', // submitting, success, error, updating, updated,
       error: null,
       feeds: [],
       posts: [],
-      isChecking: false,
     },
     modal: {
-      state: 'idle', // idle, open
+      isOpen: false,
       content: null,
     },
   }

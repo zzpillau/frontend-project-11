@@ -22,8 +22,8 @@ export const handleSubmit = (e, state) => {
       state.form.state = 'error'
     })
     .finally(() => {
-      state.form.state = 'idle'
       state.form.error = null
+      state.form.state = 'idle'
     })
 }
 
@@ -31,7 +31,7 @@ export const handlePostClick = (e, state) => {
   const { target } = e
 
   if (target.nodeName === 'BUTTON') {
-    state.modal.state = 'idle'
+    state.modal.isOpen = false
 
     const postId = target.getAttribute('data-id')
 
@@ -49,6 +49,6 @@ export const handlePostClick = (e, state) => {
       url,
     }
 
-    state.modal.state = 'open'
+    state.modal.isOpen = true
   }
 }
